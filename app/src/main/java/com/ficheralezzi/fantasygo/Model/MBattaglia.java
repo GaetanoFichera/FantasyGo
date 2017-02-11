@@ -56,5 +56,11 @@ public class MBattaglia {
 
     public void elaboraBattaglia(){
 
+        while (combattenteA.getCaratteristiche().getPuntiFerita() > 0 && combattenteB.getCaratteristiche().getPuntiFerita() > 0){
+            if (combattenteA.getCaratteristiche().getVelocitaAttacco() > 0 ){
+                
+            }
+        }
+
     }
 }
