@@ -10,6 +10,5 @@ public class ICalcoloDannoStrategy {
     }
 
     public void esegui(MCaratteristiche caratAttaccante){
-
     }
 }

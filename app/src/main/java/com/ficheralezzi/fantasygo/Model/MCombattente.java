@@ -28,20 +28,6 @@ public class MCombattente {
     }
 
     public void eseguiAzione(){
-        try{
-            ICalcoloDannoStrategy calcoloDannoStrategy = (ICalcoloDannoStrategy) Class.forName("CalcoloDannoStrategy" +
-                    this.caratteristiche.getAbilità()).newInstance();
-            calcoloDannoStrategy.esegui(this.caratteristiche);
-
-        }catch (Exception e){
-            new Exception("Error occurred");
-            
-        }
-
-
-
-
 
     }
-
 }

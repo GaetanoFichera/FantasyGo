@@ -6,15 +6,6 @@ public class MBattaglia {
     private MCombattente combattenteA = null;
     private MCombattente combattenteB = null;
     private static MBattaglia singletoneinstance = null;
-    private int turno;
-
-    public int getTurno() {
-        return turno;
-    }
-
-    public void setTurno(int turno) {
-        this.turno = turno;
-    }
 
     public MBattaglia() {
     }
@@ -66,11 +57,8 @@ public class MBattaglia {
     public void elaboraBattaglia(){
 
         while (combattenteA.getCaratteristiche().getPuntiFerita() > 0 && combattenteB.getCaratteristiche().getPuntiFerita() > 0){
-            if ((combattenteA.getCaratteristiche().getVelocitadAttacco() > 0  & turno%2 == 0 )||
-                    (combattenteA.getCaratteristiche().getVelocitadAttacco()< combattenteB.getCaratteristiche().getVelocitadAttacco()
-                    & turno%2 != 0)){
-                combattenteA.eseguiAzione();
-                
+            if (combattenteA.getCaratteristiche().getVelocitaAttacco() > 0 ){
+
             }
         }
 
