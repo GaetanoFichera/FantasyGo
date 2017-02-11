@@ -9,16 +9,7 @@ public class MCaratteristiche {
     private int difesaFisico = 0;
     private int attaccoMagico = 0;
     private int difesaMagico = 0;
-
-    public int getVelocitaAttacco() {
-        return velocitaAttacco;
-    }
-
-    public void setVelocitaAttacco(int velocitaAttacco) {
-        this.velocitaAttacco = velocitaAttacco;
-    }
-
-    private int velocitaAttacco = 0;
+    private int velocitadAttacco = 0;
     private String abilità = null;
     private String tipoAttBase = null;
     private static MCaratteristiche singletoneinstance = null;
@@ -114,5 +105,13 @@ public class MCaratteristiche {
 
     public void setPuntiFerita(int puntiFerita) {
         this.puntiFerita = puntiFerita;
+    }
+
+    public int getVelocitadAttacco() {
+        return velocitadAttacco;
+    }
+
+    public void setVelocitadAttacco(int velocitadAttacco) {
+        this.velocitadAttacco = velocitadAttacco;
     }
 }
