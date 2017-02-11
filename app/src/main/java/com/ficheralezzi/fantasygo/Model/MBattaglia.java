@@ -70,6 +70,7 @@ public class MBattaglia {
                     (combattenteA.getCaratteristiche().getVelocitadAttacco()< combattenteB.getCaratteristiche().getVelocitadAttacco()
                     & turno%2 != 0)){
                 combattenteA.eseguiAzione();
+                pippobaudo;
                 
             }
         }

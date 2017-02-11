@@ -35,12 +35,8 @@ public class MCombattente {
 
         }catch (Exception e){
             new Exception("Error occurred");
-            
+
         }
-
-
-
-
 
     }
 
