@@ -28,18 +28,25 @@ public class MCombattente {
     }
 
     public void eseguiAzione(){
+
+        String azione;
+
+        if (caratteristiche.getCaricaAbilità() == caratteristiche.getCaricaMaxAbilità()){
+            azione = caratteristiche.getAbilità();
+            caratteristiche.azzeraCaricaAbilità();
+        } else {
+            azione = "Att" + caratteristiche.getTipoAttBase();
+            caratteristiche.incrementaCaricaAbilità();
+        }
+
         try{
             ICalcoloDannoStrategy calcoloDannoStrategy = (ICalcoloDannoStrategy) Class.forName("CalcoloDannoStrategy" +
-                    this.caratteristiche.getAbilità()).newInstance();
+                    azione).newInstance();
             calcoloDannoStrategy.esegui(this.caratteristiche);
 
         }catch (Exception e){
-            new Exception("Error occurred");
+            new Exception("Classe " + "CalcoloDannoStrategy" + azione + " non trovata");
 
         }
-
     }
-
-
-
 }

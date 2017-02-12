@@ -90,8 +90,8 @@ public class MBattaglia {
 
 class Risultato {
     private  boolean risultato = false;
-    private  int puntiferitaA = 0;
-    private  int PuntiferitaB = 0;
+    private  int puntiFeritaA = 0;
+    private  int puntiFeritaB = 0;
     private  int numeroturni = 0;
 
     public Risultato (){}
@@ -108,20 +108,20 @@ class Risultato {
         return numeroturni;
     }
 
-    public int getPuntiferitaB() {
-        return PuntiferitaB;
+    public int getPuntiFeritaB() {
+        return puntiFeritaB;
     }
 
     public int getPuntiferitaA() {
-        return puntiferitaA;
+        return puntiFeritaA;
     }
 
     public void setPuntiferitaA(int puntiferitaA) {
-        this.puntiferitaA = puntiferitaA;
+        this.puntiFeritaA = puntiferitaA;
     }
 
     public void setPuntiferitaB(int puntiferitaB) {
-        PuntiferitaB = puntiferitaB;
+        puntiFeritaB = puntiferitaB;
     }
 
     public void setNumeroturni(int numeroturni) {

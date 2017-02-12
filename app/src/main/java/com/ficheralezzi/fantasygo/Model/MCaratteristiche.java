@@ -11,6 +11,8 @@ public class MCaratteristiche {
     private int difesaMagico = 0;
     private int velocitadAttacco = 0;
     private String abilità = null;
+    private int caricaAbilità = 0;
+    private int caricaMaxAbilità = 0;
     private String tipoAttBase = null;
     private static MCaratteristiche singletoneinstance = null;
 
@@ -18,10 +20,11 @@ public class MCaratteristiche {
     }
 
     public void init(int livello, int puntiFerita, int attaccoFisico, int difesaFisico, int attaccoMagico,
-                     int difesaMagico, String abilità, String tipoAttBase ){
+                     int difesaMagico, String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase ){
 
         if(livello == 0 & puntiFerita == 0 & attaccoFisico == 0 & difesaFisico == 0 &
-           attaccoMagico == 0 & difesaMagico == 0 & abilità == null & tipoAttBase == null ){
+           attaccoMagico == 0 & difesaMagico == 0 & abilità == null & caricaAbilità == 0 &
+            caricaMaxAbilità == 0 & tipoAttBase == null ){
 
             this.livello = livello;
             this.puntiFerita = puntiFerita;
@@ -30,6 +33,8 @@ public class MCaratteristiche {
             this.attaccoMagico = attaccoMagico;
             this.difesaMagico = difesaMagico;
             this.abilità = abilità;
+            this.caricaAbilità = caricaAbilità;
+            this.caricaMaxAbilità = caricaMaxAbilità;
             this.tipoAttBase = tipoAttBase;
         }
     }
@@ -113,5 +118,29 @@ public class MCaratteristiche {
 
     public void setVelocitadAttacco(int velocitadAttacco) {
         this.velocitadAttacco = velocitadAttacco;
+    }
+
+    public int getCaricaAbilità() {
+        return caricaAbilità;
+    }
+
+    public void setCaricaAbilità(int caricaAbilità) {
+        this.caricaAbilità = caricaAbilità;
+    }
+
+    public int getCaricaMaxAbilità() {
+        return caricaMaxAbilità;
+    }
+
+    public void setCaricaMaxAbilità(int caricaMaxAbilità) {
+        this.caricaMaxAbilità = caricaMaxAbilità;
+    }
+
+    public void azzeraCaricaAbilità(){
+        this.caricaAbilità = 0;
+    }
+
+    public void incrementaCaricaAbilità(){
+        this.caricaAbilità++;
     }
 }
