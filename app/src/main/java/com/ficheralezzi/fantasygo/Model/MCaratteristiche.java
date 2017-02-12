@@ -9,11 +9,11 @@ public class MCaratteristiche {
     private int difesaFisico = 0;
     private int attaccoMagico = 0;
     private int difesaMagico = 0;
-    private int velocitadAttacco = 0;
     private String abilità = null;
+    private String tipoAttBase = null;
+    private int velocitadAttacco = 0;
     private int caricaAbilità = 0;
     private int caricaMaxAbilità = 0;
-    private String tipoAttBase = null;
 
     public MCaratteristiche(int livello, int puntiFerita, int attaccoFisico, int difesaFisico, int attaccoMagico,
                      int difesaMagico, String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase ){

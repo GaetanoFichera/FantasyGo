@@ -12,14 +12,6 @@ public class MBattaglia {
     private static MBattaglia singletoneinstance = null;
     private int turno = 0;
 
-    public int getTurno() {
-        return turno;
-    }
-
-    public void setTurno(int turno) {
-        this.turno = turno;
-    }
-
     public MBattaglia() {
     }
 
@@ -41,9 +33,17 @@ public class MBattaglia {
         return singletoneinstance;
     }
 
-    public MCombattente getCombattenteA() {
+     public MCombattente getCombattenteA() {
 
         return combattenteA;
+    }
+
+    public int getTurno() {
+        return turno;
+    }
+
+    public void setTurno(int turno) {
+        this.turno = turno;
     }
 
     public void setCombattenteA(MCombattente combattenteA) {
