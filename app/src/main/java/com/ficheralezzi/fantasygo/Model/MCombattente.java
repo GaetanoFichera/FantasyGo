@@ -42,7 +42,7 @@ public class MCombattente {
         try{
             ICalcoloDannoStrategy calcoloDannoStrategy = (ICalcoloDannoStrategy) Class.forName("CalcoloDannoStrategy" +
                     azione).newInstance();
-            calcoloDannoStrategy.esegui(this.caratteristiche);
+            calcoloDannoStrategy.esegui(this.id);
 
         }catch (Exception e){
             new Exception("Classe " + "CalcoloDannoStrategy" + azione + " non trovata");

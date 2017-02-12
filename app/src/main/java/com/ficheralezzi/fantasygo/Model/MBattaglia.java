@@ -32,7 +32,7 @@ public class MBattaglia {
         }
     }
 
-    public MBattaglia getSingletoneinstance() {
+    public static MBattaglia getSingletoneInstance() {
 
         if(singletoneinstance == null){
             singletoneinstance = new MBattaglia();
@@ -56,6 +56,11 @@ public class MBattaglia {
 
     public void setCombattenteB(MCombattente combattenteB) {
         this.combattenteB = combattenteB;
+    }
+
+    public MCombattente getCombattenteById(int id){
+        if (combattenteA.getId() == id) return combattenteA;
+        else return combattenteB;
     }
 
     public Risultato getRisultato() {
@@ -86,6 +91,7 @@ public class MBattaglia {
         risultato.setPuntiferitaB(combattenteB.getCaratteristiche().getPuntiFerita());
         risultato.setNumeroturni(this.turno);
     }
+
 }
 
 class Risultato {

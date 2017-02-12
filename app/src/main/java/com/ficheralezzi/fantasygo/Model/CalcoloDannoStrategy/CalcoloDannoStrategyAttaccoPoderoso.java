@@ -10,7 +10,9 @@ import com.ficheralezzi.fantasygo.Model.MCaratteristiche;
 public class CalcoloDannoStrategyAttaccoPoderoso extends ICalcoloDannoStrategy {
 
     @Override
-    public void esegui(MCaratteristiche caratAttaccante) {
-        super.esegui(caratAttaccante);
+    public void esegui(int id) {
+
+        super.esegui(id);
+
     }
 }

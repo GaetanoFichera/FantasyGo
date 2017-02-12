@@ -14,12 +14,8 @@ public class MCaratteristiche {
     private int caricaAbilità = 0;
     private int caricaMaxAbilità = 0;
     private String tipoAttBase = null;
-    private static MCaratteristiche singletoneinstance = null;
 
-    public MCaratteristiche() {
-    }
-
-    public void init(int livello, int puntiFerita, int attaccoFisico, int difesaFisico, int attaccoMagico,
+    public MCaratteristiche(int livello, int puntiFerita, int attaccoFisico, int difesaFisico, int attaccoMagico,
                      int difesaMagico, String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase ){
 
         if(livello == 0 & puntiFerita == 0 & attaccoFisico == 0 & difesaFisico == 0 &
@@ -37,15 +33,6 @@ public class MCaratteristiche {
             this.caricaMaxAbilità = caricaMaxAbilità;
             this.tipoAttBase = tipoAttBase;
         }
-    }
-
-    public static MCaratteristiche getSingletonistance() {
-
-        if(singletoneinstance == null){
-            singletoneinstance = new MCaratteristiche();
-        }
-
-        return singletoneinstance;
     }
 
     public int getLivello() {
