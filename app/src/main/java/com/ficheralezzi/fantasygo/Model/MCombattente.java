@@ -1,8 +1,11 @@
 package com.ficheralezzi.fantasygo.Model;
 
 
+import android.util.Log;
+
 public class MCombattente {
 
+    private static final String TAG = "MCombattente";
     int id;
     MCaratteristiche caratteristiche;
 
@@ -38,15 +41,27 @@ public class MCombattente {
             azione = "Att" + caratteristiche.getTipoAttBase();
             caratteristiche.incrementaCaricaAbilità();
         }
+        Log.d(TAG, "Azione: " + azione);
 
         try{
-            ICalcoloDannoStrategy calcoloDannoStrategy = (ICalcoloDannoStrategy) Class.forName("CalcoloDannoStrategy" +
+            Log.d(TAG, "sono nel try");
+            ICalcoloDannoStrategy calcoloDannoStrategy = (ICalcoloDannoStrategy)
+                    Class.forName("com.ficheralezzi.fantasygo.Model.CalcoloDannoStrategy.CalcoloDannoStrategy" +
                     azione).newInstance();
+            Log.d(TAG, "Io Combattente eseguo: " + calcoloDannoStrategy.getClass().getName());
             calcoloDannoStrategy.esegui(this.id);
 
         }catch (Exception e){
             new Exception("Classe " + "CalcoloDannoStrategy" + azione + " non trovata");
 
         }
+    }
+
+    @Override
+    public String toString() {
+        return "MCombattente{" +
+                "id=" + id +
+                ", caratteristiche=" + caratteristiche.toString() +
+                '}';
     }
 }

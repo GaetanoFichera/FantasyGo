@@ -1,31 +1,37 @@
 package com.ficheralezzi.fantasygo.Model;
 
 
+import android.util.Log;
+
 public class ICalcoloDannoStrategy {
 
+    private static final String TAG = "ICalcoloDannoStrategy";
     protected MCombattente attaccante = null;
     protected MCombattente difensore = null;
-    protected MBattaglia battaglia = null;
 
-    public ICalcoloDannoStrategy() {
-        battaglia = MBattaglia.getSingletoneInstance();
-    }
+    public ICalcoloDannoStrategy() { }
 
     public void esegui(int id){
-        if(battaglia.getCombattenteA().getId() == id){
-            attaccante = battaglia.getCombattenteA();
-            difensore = battaglia.getCombattenteB();
+        if(MBattaglia.getSingletoneInstance().getCombattenteA().getId() == id){
+            attaccante = MBattaglia.getSingletoneInstance().getCombattenteA();
+            difensore = MBattaglia.getSingletoneInstance().getCombattenteB();
         } else{
-            attaccante = battaglia.getCombattenteB();
-            difensore = battaglia.getCombattenteA();
+            attaccante = MBattaglia.getSingletoneInstance().getCombattenteB();
+            difensore = MBattaglia.getSingletoneInstance().getCombattenteA();
         }
+        Log.d(TAG, "Attaccante: " + attaccante.toString());
+        Log.d(TAG, "Difensore: " + difensore.toString());
     }
 
     public void applicaDanno(int valore){
-        difensore.getCaratteristiche().diminuisciPuntiFerita(valore);
+        MBattaglia.getSingletoneInstance().getCombattenteById(difensore.getId()).getCaratteristiche().diminuisciPuntiFerita(valore);
     }
 
     public void applicaCura (int valore){
-        difensore.getCaratteristiche().aumentaPuntiFerita(valore);
+        MBattaglia.getSingletoneInstance().getCombattenteById(attaccante.getId()).getCaratteristiche().aumentaPuntiFerita(valore);
+    }
+
+    public void log (String classe, String msg){
+        Log.d(classe, msg);
     }
 }

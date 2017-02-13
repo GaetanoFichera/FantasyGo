@@ -11,19 +11,25 @@ import java.util.Random;
 
 public class CalcoloDannoStrategyAttMag extends ICalcoloDannoStrategy {
 
+    private static final String TAG = "AttMag";
+
     @Override
     public void esegui(int id) {
 
         super.esegui( id);
 
-        int dannoparziale = 0;
-        if(attaccante.getCaratteristiche().getAttaccoMagico() > difensore.getCaratteristiche().getDifesaMagico()){
-            int dannobase = attaccante.getCaratteristiche().getAttaccoMagico() - difensore.getCaratteristiche().getDifesaMagico();
+        int dannoParziale = 0;
+
+        log(TAG, "Azione: AttMag");
+
+        if(attaccante.getCaratteristiche().getAttaccoMagico() > difensore.getCaratteristiche().getDifesaMagica()){
+            int dannobase = attaccante.getCaratteristiche().getAttaccoMagico() - difensore.getCaratteristiche().getDifesaMagica();
             Random random= new Random();
             int bonus = random.nextInt(attaccante.getCaratteristiche().getAttaccoMagico() +
                     ((attaccante.getCaratteristiche().getLivello() + attaccante.getCaratteristiche().getAttaccoMagico())/8)+1);
-            dannoparziale = dannobase*bonus;
-            applicaDanno(dannoparziale);
-        }
+            dannoParziale = dannobase*bonus;
+            applicaDanno(dannoParziale);
+            log(TAG, "Danno: " + dannoParziale);
+        } else log(TAG, "Else Danno: " + dannoParziale);
     }
 }

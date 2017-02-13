@@ -17,14 +17,18 @@ public class CalcoloDannoStrategyDardoInfuocato extends ICalcoloDannoStrategy {
         super.esegui(id);
 
         int dannoParziale = 0;
-        if(attaccante.getCaratteristiche().getAttaccoMagico() > difensore.getCaratteristiche().getDifesaMagico()){
-            int dannobase = attaccante.getCaratteristiche().getAttaccoMagico() - difensore.getCaratteristiche().getDifesaMagico();
+
+        log(this.getClass().toString(), "Azione: DardoInfuocato");
+
+        if(attaccante.getCaratteristiche().getAttaccoMagico() > difensore.getCaratteristiche().getDifesaMagica()){
+            int dannobase = attaccante.getCaratteristiche().getAttaccoMagico() - difensore.getCaratteristiche().getDifesaMagica();
             Random random= new Random();
             int bonus = random.nextInt(attaccante.getCaratteristiche().getAttaccoMagico() +
                     ((attaccante.getCaratteristiche().getLivello() + attaccante.getCaratteristiche().getAttaccoMagico())/8)+1);
             dannoParziale = dannobase*bonus;
             int dannoParzialeDardo = dannoParziale * 3;
             applicaDanno(dannoParzialeDardo);
+            log(this.getClass().toString(), ((Integer) dannoParzialeDardo).toString());
         }
     }
 }

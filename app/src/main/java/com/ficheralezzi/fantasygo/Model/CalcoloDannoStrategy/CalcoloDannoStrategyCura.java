@@ -13,7 +13,11 @@ public class CalcoloDannoStrategyCura extends ICalcoloDannoStrategy {
     public void esegui(int id) {
 
         super.esegui(id);
+
+        log(this.getClass().toString(), "Azione: Cura");
+
         int curaDanno = attaccante.getCaratteristiche().getPuntiFeritaMax() / 5;
         applicaCura(curaDanno);
+        log(this.getClass().toString(), ((Integer) curaDanno).toString());
     }
 }

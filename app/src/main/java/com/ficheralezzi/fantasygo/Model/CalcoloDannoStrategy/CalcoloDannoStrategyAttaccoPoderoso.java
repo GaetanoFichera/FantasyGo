@@ -18,14 +18,17 @@ public class CalcoloDannoStrategyAttaccoPoderoso extends ICalcoloDannoStrategy {
 
         int dannoParziale = 0;
 
-        if(attaccante.getCaratteristiche().getAttaccoFisico() > difensore.getCaratteristiche().getDifesaFisico()){
-            int dannoBase = attaccante.getCaratteristiche().getAttaccoFisico() - difensore.getCaratteristiche().getDifesaFisico();
+        log(this.getClass().toString(), "Azione: AttaccoPoderoso");
+
+        if(attaccante.getCaratteristiche().getAttaccoFisico() > difensore.getCaratteristiche().getDifesaFisica()){
+            int dannoBase = attaccante.getCaratteristiche().getAttaccoFisico() - difensore.getCaratteristiche().getDifesaFisica();
             Random random = new Random();
             int dannoBonus = random.nextInt(attaccante.getCaratteristiche().getAttaccoFisico() +
                     ((attaccante.getCaratteristiche().getLivello() + attaccante.getCaratteristiche().getAttaccoFisico()) / 8) + 1);
             dannoParziale = dannoBase * dannoBonus;
             int dannoParzialePoderoso = dannoParziale * 3;
             applicaDanno(dannoParzialePoderoso);
+            log(this.getClass().toString(), ((Integer) dannoParzialePoderoso).toString());
         }
     }
 }

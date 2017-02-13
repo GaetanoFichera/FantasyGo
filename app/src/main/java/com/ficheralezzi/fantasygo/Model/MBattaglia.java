@@ -1,11 +1,9 @@
 package com.ficheralezzi.fantasygo.Model;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import android.util.Log;
 
 public class MBattaglia {
+    private static final String TAG = "MBattaglia";
     private Risultato risultato = null;
     private MCombattente combattenteA = null;
     private MCombattente combattenteB = null;
@@ -17,7 +15,7 @@ public class MBattaglia {
 
     public void init(MCombattente combattenteA,MCombattente combattenteB){
 
-        if(combattenteA == null & combattenteB == null & risultato == null) {
+        if(this.combattenteA == null & this.combattenteB == null & this.risultato == null) {
             this.combattenteA = combattenteA;
             this.combattenteB = combattenteB;
             this.risultato = new Risultato();
@@ -27,8 +25,10 @@ public class MBattaglia {
     public static MBattaglia getSingletoneInstance() {
 
         if(singletoneinstance == null){
+            Log.d("battaglia", "no");
             singletoneinstance = new MBattaglia();
-        }
+        } else Log.d("battaglia", "si");
+
 
         return singletoneinstance;
     }
@@ -70,15 +70,19 @@ public class MBattaglia {
     public void elaboraBattaglia(){
 
         while (combattenteA.getCaratteristiche().getPuntiFerita() > 0 && combattenteB.getCaratteristiche().getPuntiFerita() > 0){
-            if ((combattenteA.getCaratteristiche().getVelocitadAttacco() > 0  & turno%2 == 0 )||
+            if ((combattenteA.getCaratteristiche().getVelocitadAttacco() >= 0  & turno%2 == 0 )||
                     (combattenteA.getCaratteristiche().getVelocitadAttacco()< combattenteB.getCaratteristiche().getVelocitadAttacco()
                     & turno%2 != 0)) {
+                Log.d(TAG, "Turno di A");
                 combattenteA.eseguiAzione();
 
             }else {
+                Log.d(TAG, "Turno di B");
                 combattenteB.eseguiAzione();
 
             }
+            Log.d(TAG, "Turno " + turno + " finito");
+            Log.d(TAG, this.toString());
             turno++;
         }
 
@@ -92,6 +96,14 @@ public class MBattaglia {
         risultato.setNumeroturni(this.turno);
     }
 
+    @Override
+    public String toString() {
+        return "MBattaglia{" +
+                "combattenteA=" + combattenteA.toString() +
+                ", combattenteB=" + combattenteB.toString() +
+                ", turno=" + turno +
+                '}';
+    }
 }
 
 class Risultato {
@@ -132,5 +144,15 @@ class Risultato {
 
     public void setNumeroturni(int numeroturni) {
         this.numeroturni = numeroturni;
+    }
+
+    @Override
+    public String toString() {
+        return "Risultato{" +
+                "risultato=" + risultato +
+                ", puntiFeritaA=" + puntiFeritaA +
+                ", puntiFeritaB=" + puntiFeritaB +
+                ", numeroturni=" + numeroturni +
+                '}';
     }
 }
