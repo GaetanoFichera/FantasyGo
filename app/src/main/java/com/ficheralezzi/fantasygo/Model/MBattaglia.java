@@ -70,8 +70,8 @@ public class MBattaglia {
     public void elaboraBattaglia(){
 
         while (combattenteA.getCaratteristiche().getPuntiFerita() > 0 && combattenteB.getCaratteristiche().getPuntiFerita() > 0){
-            if ((combattenteA.getCaratteristiche().getVelocitadAttacco() >= 0  & turno%2 == 0 )||
-                    (combattenteA.getCaratteristiche().getVelocitadAttacco()< combattenteB.getCaratteristiche().getVelocitadAttacco()
+            if ((combattenteA.getCaratteristiche().getVelocitàdAttacco() >= 0  & turno%2 == 0 )||
+                    (combattenteA.getCaratteristiche().getVelocitàdAttacco()< combattenteB.getCaratteristiche().getVelocitàdAttacco()
                     & turno%2 != 0)) {
                 Log.d(TAG, "Turno di A");
                 combattenteA.eseguiAzione();

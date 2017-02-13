@@ -9,14 +9,14 @@ public class MCaratteristiche {
     private int difesaFisica = 0;
     private int attaccoMagico = 0;
     private int difesaMagica = 0;
+    private int velocitàdAttacco = 0;
     private String abilità = null;
     private String tipoAttBase = null;
-    private int velocitadAttacco = 0;
     private int caricaAbilità = 0;
     private int caricaMaxAbilità = 0;
 
     public MCaratteristiche(int livello, int puntiFerita, int puntiFeritaMax, int attaccoFisico, int difesaFisica, int attaccoMagico,
-                     int difesaMagica, String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase, int velocitadAttacco ){
+                     int difesaMagica, int velocitàdAttacco,  String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase){
 
         this.livello = livello;
         this.puntiFerita = puntiFerita;
@@ -29,7 +29,7 @@ public class MCaratteristiche {
         this.caricaAbilità = caricaAbilità;
         this.caricaMaxAbilità = caricaMaxAbilità;
         this.tipoAttBase = tipoAttBase;
-        this.velocitadAttacco = velocitadAttacco;
+        this.velocitàdAttacco = velocitàdAttacco;
     }
 
     public int getLivello() {
@@ -104,12 +104,12 @@ public class MCaratteristiche {
         this.puntiFeritaMax = puntiFeritaMax;
     }
 
-    public int getVelocitadAttacco() {
-        return velocitadAttacco;
+    public int getVelocitàdAttacco() {
+        return velocitàdAttacco;
     }
 
-    public void setVelocitadAttacco(int velocitadAttacco) {
-        this.velocitadAttacco = velocitadAttacco;
+    public void setVelocitàdAttacco(int velocitadAttacco) {
+        this.velocitàdAttacco = velocitadAttacco;
     }
 
     public int getCaricaAbilità() {
@@ -162,7 +162,7 @@ public class MCaratteristiche {
                 ", difesaMagico=" + difesaMagica +
                 ", abilità='" + abilità + '\'' +
                 ", tipoAttBase='" + tipoAttBase + '\'' +
-                ", velocitadAttacco=" + velocitadAttacco +
+                ", velocitadAttacco=" + velocitàdAttacco +
                 ", caricaAbilità=" + caricaAbilità +
                 ", caricaMaxAbilità=" + caricaMaxAbilità +
                 '}';

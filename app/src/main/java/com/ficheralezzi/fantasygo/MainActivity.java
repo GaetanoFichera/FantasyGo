@@ -32,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
         MCaratteristiche(int livello, int puntiFerita, int puntiFeritaMax, int attaccoFisico, int difesaFisico, int attaccoMagico,
                      int difesaMagico, String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase, int velocitadAttacco )
          */
-        MCaratteristiche caratteristicheA = new MCaratteristiche(2,1000,1000,50,21,10,20,"AttaccoPoderoso",0,13,"Fis", 17);
+        MCaratteristiche caratteristicheA = new MCaratteristiche(2, 1000, 1000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
         MCombattente Gaetano = new MCombattente(1, caratteristicheA);
-        MCaratteristiche caratteristicheB = new MCaratteristiche(3, 1500,1500,10,22,46,31,"DardoInfuocato",0,10,"Mag", 12);
+
+        MCaratteristiche caratteristicheB = new MCaratteristiche(3, 1500, 1500, 10, 22, 46, 31, 12, "DardoInfuocato", 0, 10, "Mag");
         MCombattente Giovanni = new MCombattente(2, caratteristicheB);
 
         Log.d(TAG, ((Integer) caratteristicheA.getPuntiFerita()).toString());
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
             while ((line = bufferedReader.readLine()) != null) {
                 log.append(line);
+                log.append("\n");
             }
 
             TextView textViewLog = (TextView)findViewById(R.id.textViewLog);
