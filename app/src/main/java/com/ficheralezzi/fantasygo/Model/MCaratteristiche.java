@@ -1,6 +1,5 @@
 package com.ficheralezzi.fantasygo.Model;
 
-
 public class MCaratteristiche {
 
     private int livello = 0;

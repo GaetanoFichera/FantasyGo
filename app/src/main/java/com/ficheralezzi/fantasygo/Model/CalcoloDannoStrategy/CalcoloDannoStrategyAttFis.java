@@ -9,7 +9,6 @@ import com.ficheralezzi.fantasygo.Model.MCaratteristiche;
 
 import java.util.Random;
 
-
 public class CalcoloDannoStrategyAttFis extends ICalcoloDannoStrategy {
 
     private static final String TAG = "AttFis";

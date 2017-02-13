@@ -5,10 +5,6 @@ import com.ficheralezzi.fantasygo.Model.MCaratteristiche;
 
 import java.util.Random;
 
-/**
- * Created by ASUS on 10/02/2017.
- */
-
 public class CalcoloDannoStrategyAttMag extends ICalcoloDannoStrategy {
 
     private static final String TAG = "AttMag";

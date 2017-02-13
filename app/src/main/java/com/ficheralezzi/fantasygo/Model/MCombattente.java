@@ -1,6 +1,5 @@
 package com.ficheralezzi.fantasygo.Model;
 
-
 import android.util.Log;
 
 public class MCombattente {
