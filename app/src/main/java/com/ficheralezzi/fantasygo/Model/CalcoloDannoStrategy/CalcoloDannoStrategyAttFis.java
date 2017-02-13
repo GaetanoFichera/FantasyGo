@@ -22,7 +22,7 @@ public class CalcoloDannoStrategyAttFis extends ICalcoloDannoStrategy {
             int dannoBonus = random.nextInt(attaccante.getCaratteristiche().getAttaccoFisico() +
                     ((attaccante.getCaratteristiche().getLivello() + attaccante.getCaratteristiche().getAttaccoFisico()) / 8) + 1);
             dannoParziale = dannoBase * dannoBonus;
-            super.applicaDanno(dannoParziale);
+            applicaDanno(dannoParziale);
         }
     }
 }

@@ -5,6 +5,7 @@ public class MCaratteristiche {
 
     private int livello = 0;
     private int puntiFerita = 0;
+    private int puntiFeritaMax = 0;
     private int attaccoFisico = 0;
     private int difesaFisico = 0;
     private int attaccoMagico = 0;
@@ -15,15 +16,16 @@ public class MCaratteristiche {
     private int caricaAbilità = 0;
     private int caricaMaxAbilità = 0;
 
-    public MCaratteristiche(int livello, int puntiFerita, int attaccoFisico, int difesaFisico, int attaccoMagico,
+    public MCaratteristiche(int livello, int puntiFerita, int puntiFeritaMax, int attaccoFisico, int difesaFisico, int attaccoMagico,
                      int difesaMagico, String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase ){
 
-        if(livello == 0 & puntiFerita == 0 & attaccoFisico == 0 & difesaFisico == 0 &
+        if(livello == 0 & puntiFerita == 0 & puntiFeritaMax == 0 & attaccoFisico == 0 & difesaFisico == 0 &
            attaccoMagico == 0 & difesaMagico == 0 & abilità == null & caricaAbilità == 0 &
             caricaMaxAbilità == 0 & tipoAttBase == null ){
 
             this.livello = livello;
             this.puntiFerita = puntiFerita;
+            this.puntiFeritaMax = puntiFeritaMax;
             this.attaccoFisico = attaccoFisico;
             this.difesaFisico = difesaFisico;
             this.attaccoMagico = attaccoMagico;
@@ -43,7 +45,7 @@ public class MCaratteristiche {
         this.livello = livello;
     }
 
-        public String getTipoAttBase() {
+    public String getTipoAttBase() {
         return tipoAttBase;
     }
 
@@ -99,6 +101,14 @@ public class MCaratteristiche {
         this.puntiFerita = puntiFerita;
     }
 
+    public int getPuntiFeritaMax() {
+        return puntiFeritaMax;
+    }
+
+    public void setPuntiFeritaMax(int puntiFeritaMax) {
+        this.puntiFeritaMax = puntiFeritaMax;
+    }
+
     public int getVelocitadAttacco() {
         return velocitadAttacco;
     }
@@ -129,5 +139,19 @@ public class MCaratteristiche {
 
     public void incrementaCaricaAbilità(){
         this.caricaAbilità++;
+    }
+
+    public void diminuisciPuntiFerita(int valore) {
+        if(valore <= this.puntiFerita){
+            this.puntiFerita = this.puntiFerita - valore;
+        } else{
+            this.puntiFerita = 0;
+        }
+    }
+
+    public void aumentaPuntiFerita(int valore){
+        if(this.puntiFerita + valore <= puntiFeritaMax){
+            this.puntiFerita = this.puntiFerita + valore;
+        } else this.puntiFerita = this.puntiFeritaMax;
     }
 }

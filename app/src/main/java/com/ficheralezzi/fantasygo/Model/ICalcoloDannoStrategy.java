@@ -21,7 +21,11 @@ public class ICalcoloDannoStrategy {
         }
     }
 
-    public void applicaDanno(int danno){
-        difensore.getCaratteristiche().setPuntiFerita(danno);
+    public void applicaDanno(int valore){
+        difensore.getCaratteristiche().diminuisciPuntiFerita(valore);
+    }
+
+    public void applicaCura (int valore){
+        difensore.getCaratteristiche().aumentaPuntiFerita(valore);
     }
 }

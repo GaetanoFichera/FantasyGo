@@ -18,12 +18,12 @@ public class CalcoloDannoStrategyAttMag extends ICalcoloDannoStrategy {
 
         int dannoparziale = 0;
         if(attaccante.getCaratteristiche().getAttaccoMagico() > difensore.getCaratteristiche().getDifesaMagico()){
-            int dannobase = attaccante.getCaratteristiche().getAttaccoFisico() - difensore.getCaratteristiche().getDifesaMagico();
+            int dannobase = attaccante.getCaratteristiche().getAttaccoMagico() - difensore.getCaratteristiche().getDifesaMagico();
             Random random= new Random();
             int bonus = random.nextInt(attaccante.getCaratteristiche().getAttaccoMagico() +
                     ((attaccante.getCaratteristiche().getLivello() + attaccante.getCaratteristiche().getAttaccoMagico())/8)+1);
             dannoparziale = dannobase*bonus;
-            super.applicaDanno(dannoparziale);
+            applicaDanno(dannoparziale);
         }
     }
 }

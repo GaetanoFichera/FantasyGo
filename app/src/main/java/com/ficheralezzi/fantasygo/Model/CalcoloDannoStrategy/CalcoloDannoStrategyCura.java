@@ -11,6 +11,9 @@ public class CalcoloDannoStrategyCura extends ICalcoloDannoStrategy {
 
     @Override
     public void esegui(int id) {
+
         super.esegui(id);
+        int curaDanno = attaccante.getCaratteristiche().getPuntiFeritaMax() / 5;
+        applicaCura(curaDanno);
     }
 }
