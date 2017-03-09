@@ -1,12 +1,15 @@
-package com.ficheralezzi.fantasygo.Model;
+package com.ficheralezzi.fantasygo.ElaboraBattaglia.Model;
 
 import android.util.Log;
+
+import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MEquipaggiamento;
 
 public class MCombattente {
 
     private static final String TAG = "MCombattente";
     int id;
     MCaratteristiche caratteristiche;
+    MEquipaggiamento equipaggiamento;
 
     public MCombattente(int id, MCaratteristiche caratteristiche) {
         this.id = id;
@@ -29,6 +32,14 @@ public class MCombattente {
         this.caratteristiche = caratteristiche;
     }
 
+    public MEquipaggiamento getEquipaggiamento() {
+        return equipaggiamento;
+    }
+
+    public void setEquipaggiamento(MEquipaggiamento equipaggiamento) {
+        this.equipaggiamento = equipaggiamento;
+    }
+
     public void eseguiAzione(){
 
         String azione;
@@ -45,10 +56,10 @@ public class MCombattente {
         try{
             Log.d(TAG, "sono nel try");
             ICalcoloDannoStrategy calcoloDannoStrategy = (ICalcoloDannoStrategy)
-                    Class.forName("com.ficheralezzi.fantasygo.Model.CalcoloDannoStrategy.CalcoloDannoStrategy" +
+                    Class.forName("com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.CalcoloDannoStrategy.CalcoloDannoStrategy" +
                     azione).newInstance();
             Log.d(TAG, "Io Combattente eseguo: " + calcoloDannoStrategy.getClass().getName());
-            calcoloDannoStrategy.esegui(this.id);
+            calcoloDannoStrategy.eseguiMossa(this.id);
 
         }catch (Exception e){
             new Exception("Classe " + "CalcoloDannoStrategy" + azione + " non trovata");

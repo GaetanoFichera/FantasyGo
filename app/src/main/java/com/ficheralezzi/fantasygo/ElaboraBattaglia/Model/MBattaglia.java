@@ -1,8 +1,9 @@
-package com.ficheralezzi.fantasygo.Model;
+package com.ficheralezzi.fantasygo.ElaboraBattaglia.Model;
 
 import android.util.Log;
 
 public class MBattaglia {
+
     private static final String TAG = "MBattaglia";
     private Risultato risultato = null;
     private MCombattente combattenteA = null;

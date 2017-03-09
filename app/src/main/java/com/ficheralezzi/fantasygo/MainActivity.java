@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.ficheralezzi.fantasygo.Model.MBattaglia;
-import com.ficheralezzi.fantasygo.Model.MCaratteristiche;
-import com.ficheralezzi.fantasygo.Model.MCombattente;
+import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
+import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
+import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCombattente;
 
 import java.io.BufferedReader;
 import java.io.IOException;

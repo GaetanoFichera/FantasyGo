@@ -1,4 +1,4 @@
-package com.ficheralezzi.fantasygo.Model;
+package com.ficheralezzi.fantasygo.ElaboraBattaglia.Model;
 
 public class MCaratteristiche {
 
