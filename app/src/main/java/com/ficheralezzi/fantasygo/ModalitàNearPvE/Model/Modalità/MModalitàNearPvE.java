@@ -1,10 +1,9 @@
 package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.Modalità;
 
-import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.IModalità;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MGiocatore;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MZonaDiCaccia;
+
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -27,6 +26,15 @@ public class MModalitàNearPvE implements IModalità, Observer {
     }
 
     public void avviaModalità(){
+
+        if(MZonaDiCaccia.getSingletoneInstance().checkPosizioneInterna(MGiocatore.getSingletoneInstance().getLatitude(),
+                MGiocatore.getSingletoneInstance().getLongitude())){
+
+
+        }
+
+
+
 
     }
 

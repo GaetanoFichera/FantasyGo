@@ -17,7 +17,12 @@ public class MZonaDiCaccia {
 
     public MZonaDiCaccia(){}
 
-    public void init(float latitude, float longitude){}
+    public void init(double latitudine, double longitudine){
+
+        if(this.area == null || !this.area.checkPuntiInterni(latitudine, longitudine)){
+            this.area = getAreaFromDb(latitudine, longitudine);
+        }
+    }
 
     public static MZonaDiCaccia getSingletoneInstance() {
 
@@ -49,5 +54,15 @@ public class MZonaDiCaccia {
         Random random = new Random();
         int index = random.nextInt(this.mostri.size());
         this.mostri.get(index-1);
+    }
+
+    private MArea getAreaFromDb(double latitudine, double longitudine){
+
+        //da implementare con interazione col db
+        Posizione posizione = new Posizione(latitudine, longitudine);
+        ArrayList<Posizione> confini = new ArrayList<Posizione>();
+        confini.add(posizione);
+        MArea area = new MArea(confini);
+        return area;
     }
 }
