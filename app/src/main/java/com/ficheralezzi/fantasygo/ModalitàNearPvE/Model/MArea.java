@@ -7,10 +7,20 @@ import java.util.ArrayList;
  */
 public class MArea {
 
-    public ArrayList<Posizione> confini;
+    private ArrayList<Posizione> confini;
+    private String id;
 
-    public MArea(ArrayList<Posizione> confini) {
+    public MArea(ArrayList<Posizione> confini, String id) {
         this.confini = confini;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public ArrayList<Posizione> getConfini() {

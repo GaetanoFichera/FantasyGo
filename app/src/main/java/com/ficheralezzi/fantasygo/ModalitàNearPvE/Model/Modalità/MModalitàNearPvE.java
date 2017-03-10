@@ -2,6 +2,7 @@ package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.Modalità;
 
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.IModalità;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MZonaDiCaccia;
 
 
@@ -27,14 +28,8 @@ public class MModalitàNearPvE implements IModalità, Observer {
 
     public void avviaModalità(){
 
-        if(MZonaDiCaccia.getSingletoneInstance().checkPosizioneInterna(MGiocatore.getSingletoneInstance().getLatitude(),
-                MGiocatore.getSingletoneInstance().getLongitude())){
-
-
-        }
-
-
-
+        // il while controlla sul risultatoFinale gli avanzamenti dell'oro gudagnato fino a quel momento
+        // e al giocatore le caratteristiche del combattente
 
     }
 

@@ -11,16 +11,20 @@ import java.util.Random;
 
 public class MZonaDiCaccia {
 
-    private ArrayList<MMostro> mostri;
-    private MArea area;
+    private ArrayList<MMostro> mostri = null;
+    private MArea area = null;
     private static MZonaDiCaccia singletoneinstance = null;
 
     public MZonaDiCaccia(){}
 
     public void init(double latitudine, double longitudine){
 
-        if(this.area == null || !this.area.checkPuntiInterni(latitudine, longitudine)){
+        // controlla se gli attributi sono stati gia istanziati e in caso positivo controlla se
+        // latitudine e longitudine che gli vengono passate appartengo all'area gia istanziata
+        // nel caso la if si verifichi viene fatta una richeista al db per l'area relativa alle coordinate passate
+        if((this.area == null && this.mostri == null) || !this.area.checkPuntiInterni(latitudine, longitudine)){
             this.area = getAreaFromDb(latitudine, longitudine);
+            this.mostri = getMostriFromDb(this.area.getId());
         }
     }
 
@@ -62,7 +66,16 @@ public class MZonaDiCaccia {
         Posizione posizione = new Posizione(latitudine, longitudine);
         ArrayList<Posizione> confini = new ArrayList<Posizione>();
         confini.add(posizione);
-        MArea area = new MArea(confini);
+        String id = "Area51";
+        MArea area = new MArea(confini, id);
         return area;
+    }
+
+    private ArrayList<MMostro> getMostriFromDb(String idArea){
+
+        //da implementare con interazione col db
+        ArrayList<MMostro> mostri= new ArrayList<>();
+        //aggiungere mostri manualmente nell'array
+        return mostri;
     }
 }

@@ -12,7 +12,7 @@ import java.util.Observable;
 public class MGiocatore extends MGps {
 
     private String id;
-    private ArrayList<MPersonaggio> personaggio;
+    private ArrayList<MPersonaggio> personaggi;
     private String nome;
     private static MGiocatore singletoneinstance = null;
 
@@ -21,11 +21,11 @@ public class MGiocatore extends MGps {
 
     }
 
-    public void init(String id, MPersonaggio personaggio, String nome){
+    public void init(String id, ArrayList<MPersonaggio> personaggi, String nome){
 
-        if(this.id == null & this.personaggio == null & this.nome == null){
+        if(this.id == null & this.personaggi == null & this.nome == null){
             this.id = id;
-            this.personaggio.add(personaggio);
+            this.personaggi = personaggi;
             this.nome = nome;
         }
     }
@@ -33,9 +33,9 @@ public class MGiocatore extends MGps {
     public static MGiocatore getSingletoneInstance() {
 
         if(singletoneinstance == null){
-            Log.d("giocatore", "no");
+            Log.d("MGiocatore", "no");
             singletoneinstance = new MGiocatore();
-        } else Log.d("giocatore", "si");
+        } else Log.d("MGiocatore", "si");
 
         return singletoneinstance;
     }
@@ -48,11 +48,11 @@ public class MGiocatore extends MGps {
         this.id = id;
     }
 
-    public ArrayList<MPersonaggio> getPersonaggio() {
-        return personaggio;
+    public ArrayList<MPersonaggio> getPersonaggi() {
+        return personaggi;
     }
 
-    public void setPersonaggio(ArrayList<MPersonaggio> personaggio) { this.personaggio = personaggio; }
+    public void setPersonaggi(ArrayList<MPersonaggio> personaggio) { this.personaggi = personaggio; }
 
     public String getNome() {
         return nome;
@@ -60,6 +60,20 @@ public class MGiocatore extends MGps {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public MPersonaggio getOnePersonaggio(int id){
+
+        MPersonaggio personaggio = null;
+        for(int i=0; i < personaggi.size()-1 && personaggio == null; i++){
+            if(this.personaggi.get(i).getId() == id){
+                personaggio = this.personaggi.get(i);
+            }
+        }
+        if(personaggio == null){
+            Log.d("MGiocatore", "Personaggio non Trovato");
+        }
+        return personaggio;
     }
 
 }
