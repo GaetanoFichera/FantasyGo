@@ -17,12 +17,18 @@ public class MZonaDiCaccia {
 
     public MZonaDiCaccia(){}
 
-    public void init(double latitudine, double longitudine){
+    public void init(){
+        if(this.area == null && this.mostri == null){
+            //per ora nulla
+        }
+    }
+
+    public void update(double latitudine, double longitudine){
 
         // controlla se gli attributi sono stati gia istanziati e in caso positivo controlla se
         // latitudine e longitudine che gli vengono passate appartengo all'area gia istanziata
         // nel caso la if si verifichi viene fatta una richeista al db per l'area relativa alle coordinate passate
-        if((this.area == null && this.mostri == null) || !this.area.checkPuntiInterni(latitudine, longitudine)){
+        if(!this.area.checkPuntiInterni(latitudine, longitudine)){
             this.area = getAreaFromDb(latitudine, longitudine);
             this.mostri = getMostriFromDb(this.area.getId());
         }

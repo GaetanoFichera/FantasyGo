@@ -7,9 +7,9 @@ import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MEquipaggiamento;
 public class MCombattente {
 
     private static final String TAG = "MCombattente";
-    int id;
-    MCaratteristiche caratteristiche;
-    MEquipaggiamento equipaggiamento;
+    private int id = 0;
+    private MCaratteristiche caratteristiche;
+    private MEquipaggiamento equipaggiamento;
 
     public MCombattente(int id, MCaratteristiche caratteristiche) {
         this.id = id;
