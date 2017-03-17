@@ -6,17 +6,14 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- * Created by ASUS on 09/03/2017.
- */
-
 public class MGps extends Observable {
 
     private double latitude;
     private double longitude;
+    private ArrayList<Observer> observers = null;
 
     public MGps() {
-
+        this.observers = new ArrayList<>();
         this.randomPosition();
     }
 
@@ -42,29 +39,35 @@ public class MGps extends Observable {
         this.setLongitude(13.352198);
     }
 
+    //da implementare
     public void updateLocation(){
-
         this.randomPosition();
-    } //da implementare
+    }
 
     @Override
     public synchronized void deleteObserver(Observer o) {
         super.deleteObserver(o);
+        this.observers.remove(o);
 
     }
 
     @Override
     public synchronized void addObserver(Observer o) {
         super.addObserver(o);
+        this.observers.add(o);
     }
 
     @Override
-    public void notifyObservers(Object arg) {
-        super.notifyObservers(arg);
+    public void notifyObservers() {
+        super.notifyObservers();
+        for(int i = this.observers.size(); i > 0; i--){
+            this.observers.get(i).update(this, this);
+        }
     }
 
     @Override
     public synchronized void deleteObservers() {
         super.deleteObservers();
+        this.observers.clear();
     }
 }

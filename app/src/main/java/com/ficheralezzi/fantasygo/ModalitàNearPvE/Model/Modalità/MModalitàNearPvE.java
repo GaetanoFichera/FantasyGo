@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- * Created by ASUS on 09/03/2017.
- */
-
 public class MModalitàNearPvE implements IModalità, Observer {
 
     private RisultatoFinale risultatoFinale = null;
@@ -37,6 +33,7 @@ public class MModalitàNearPvE implements IModalità, Observer {
         while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte(this.risultatoFinale.getOro(),
             this.risultatoFinale.getPuntiEsperienza(), this.risultatoFinale.getNumeroDiBattaglie(),
                 this.risultatoFinale.getPuntiFerita())){
+
 
             //cose
 
