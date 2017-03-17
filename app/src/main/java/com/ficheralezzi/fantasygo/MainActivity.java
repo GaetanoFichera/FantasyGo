@@ -8,10 +8,18 @@ import android.widget.TextView;
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCombattente;
+import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MMostro;
+import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MPersonaggio;
+import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MRegoleDiSoddisfazione;
+import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MZonaDiCaccia;
+import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.Modalità.MModalitàNearPvE;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.GenericArrayType;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,22 +41,17 @@ public class MainActivity extends AppCompatActivity {
                      int difesaMagico, String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase, int velocitadAttacco )
          */
         MCaratteristiche caratteristicheA = new MCaratteristiche(2, 1000, 1000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
-        MCombattente Gaetano = new MCombattente(1, caratteristicheA);
+        ArrayList<String> inv = new ArrayList<>();
+        MPersonaggio Gaetano = new MPersonaggio(1, caratteristicheA, 0, "F", "Umano", "Tizio", 0, inv, 0);
 
-        MCaratteristiche caratteristicheB = new MCaratteristiche(3, 1500, 1500, 10, 22, 46, 31, 12, "DardoInfuocato", 0, 10, "Mag");
-        MCombattente Giovanni = new MCombattente(2, caratteristicheB);
+        ArrayList<MPersonaggio> personaggios = new ArrayList<>();
+        personaggios.add(Gaetano);
+        MGiocatore.getSingletoneInstance().init("P0", personaggios, "Gaetano");
 
-        Log.d(TAG, ((Integer) caratteristicheA.getPuntiFerita()).toString());
-        Log.d(TAG, ((Integer) Gaetano.getCaratteristiche().getPuntiFerita()).toString());
-
-        MBattaglia battaglia = new MBattaglia().getSingletoneInstance();
-        battaglia.init(Gaetano, Giovanni);
-
-        Log.d(TAG, ((Integer) battaglia.getCombattenteA().getCaratteristiche().getPuntiFerita()).toString());
-
-        battaglia.elaboraBattaglia();
-
-        Log.d(TAG, "battaglia terminata");
+        MRegoleDiSoddisfazione.getSingletoneInstance().init(100, 200, 30, 10);
+        MModalitàNearPvE modalitàNearPvE = new MModalitàNearPvE(1);
+        modalitàNearPvE.avviaModalità();
+        Log.i("Risultato", modalitàNearPvE.terminaModalità().toString());
     }
 
     private void displayLog(){

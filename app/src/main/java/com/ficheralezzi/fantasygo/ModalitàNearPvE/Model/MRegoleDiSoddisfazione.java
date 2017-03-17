@@ -35,13 +35,65 @@ public class MRegoleDiSoddisfazione {
         return singletoneinstance;
     }
 
+    public int getOroMinimo() {
+        return oroMinimo;
+    }
+
+    public void setOroMinimo(int oroMinimo) {
+        this.oroMinimo = oroMinimo;
+    }
+
+    public int getPuntiEsperienzaMinimi() {
+        return puntiEsperienzaMinimi;
+    }
+
+    public void setPuntiEsperienzaMinimi(int puntiEsperienzaMinimi) {
+        this.puntiEsperienzaMinimi = puntiEsperienzaMinimi;
+    }
+
+    public int getNumeroDiBattaglie() {
+        return numeroDiBattaglie;
+    }
+
+    public void setNumeroDiBattaglie(int numeroDiBattaglie) {
+        this.numeroDiBattaglie = numeroDiBattaglie;
+    }
+
+    public int getPuntiFeritaMinimi() {
+        return puntiFeritaMinimi;
+    }
+
+    public void setPuntiFeritaMinimi(int puntiFeritaMinimi) {
+        this.puntiFeritaMinimi = puntiFeritaMinimi;
+    }
+
+    @Override
+    public String toString() {
+        return "MRegoleDiSoddisfazione{" +
+                "oroMinimo=" + oroMinimo +
+                ", puntiEsperienzaMinimi=" + puntiEsperienzaMinimi +
+                ", numeroDiBattaglie=" + numeroDiBattaglie +
+                ", puntiFeritaMinimi=" + puntiFeritaMinimi +
+                '}';
+    }
+
+    public static MRegoleDiSoddisfazione getSingletoneinstance() {
+        return singletoneinstance;
+    }
+
+    public static void setSingletoneinstance(MRegoleDiSoddisfazione singletoneinstance) {
+        MRegoleDiSoddisfazione.singletoneinstance = singletoneinstance;
+    }
+
     //controllo se almeno una delle regole di soddisfazione sono soddisfatte
     public boolean regoleSoddisfatte(int oro, int puntiEsperienza, int numeroDiBattaglie, int puntiFerita) {
 
         boolean controllo = false;
-        if(this.oroMinimo >= oro || this.puntiEsperienzaMinimi >= puntiEsperienza || this.puntiFeritaMinimi >= puntiFerita ||
-                this.numeroDiBattaglie >= numeroDiBattaglie || this.puntiFeritaMinimi >= puntiFerita){
+        if(this.oroMinimo <= oro || this.puntiEsperienzaMinimi <= puntiEsperienza || this.puntiFeritaMinimi >= puntiFerita ||
+                this.numeroDiBattaglie <= numeroDiBattaglie){
             controllo = true;
+            Log.i("sonoinregolesoddisfatte", "true");
+
         }
 
         return controllo;

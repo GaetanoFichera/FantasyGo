@@ -65,13 +65,15 @@ public class MGiocatore extends MGps {
     public MPersonaggio getOnePersonaggio(int id){
 
         MPersonaggio personaggio = null;
-        for(int i=0; i < personaggi.size()-1 && personaggio == null; i++){
+        Log.i("MGiocatore", "Fuori dal ciclo");
+        for(int i=0; i <= this.personaggi.size()-1 && personaggio == null; i++){
             if(this.personaggi.get(i).getId() == id){
                 personaggio = this.personaggi.get(i);
+                Log.i("MGiocatore", "Personaggio Trovato");
             }
         }
         if(personaggio == null){
-            Log.d("MGiocatore", "Personaggio non Trovato");
+            Log.i("MGiocatore", "Personaggio non Trovato");
         }
         return personaggio;
     }

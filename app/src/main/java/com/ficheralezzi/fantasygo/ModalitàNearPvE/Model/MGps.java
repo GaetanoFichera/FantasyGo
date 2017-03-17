@@ -60,6 +60,7 @@ public class MGps extends Observable {
     @Override
     public void notifyObservers() {
         super.notifyObservers();
+        this.updateLocation(); //non va fatto così
         for(int i = this.observers.size(); i > 0; i--){
             this.observers.get(i).update(this, this);
         }

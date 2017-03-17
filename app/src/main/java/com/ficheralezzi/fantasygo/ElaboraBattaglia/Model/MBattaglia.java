@@ -97,6 +97,15 @@ public class MBattaglia {
         risultato.setNumeroturni(this.turno);
     }
 
+
+    public void resetBattaglia(){
+
+        this.risultato = null;
+        this.combattenteA = null;
+        this.combattenteB = null;
+    }
+
+
     @Override
     public String toString() {
         return "MBattaglia{" +
@@ -107,53 +116,3 @@ public class MBattaglia {
     }
 }
 
-class Risultato {
-    private  boolean risultato = false;
-    private  int puntiFeritaA = 0;
-    private  int puntiFeritaB = 0;
-    private  int numeroturni = 0;
-
-    public Risultato (){}
-
-    public void setRisultato(boolean risultato) {
-        this.risultato = risultato;
-    }
-
-    public boolean isRisultato() {
-        return risultato;
-    }
-
-    public int getNumeroturni() {
-        return numeroturni;
-    }
-
-    public int getPuntiFeritaB() {
-        return puntiFeritaB;
-    }
-
-    public int getPuntiferitaA() {
-        return puntiFeritaA;
-    }
-
-    public void setPuntiferitaA(int puntiferitaA) {
-        this.puntiFeritaA = puntiferitaA;
-    }
-
-    public void setPuntiferitaB(int puntiferitaB) {
-        puntiFeritaB = puntiferitaB;
-    }
-
-    public void setNumeroturni(int numeroturni) {
-        this.numeroturni = numeroturni;
-    }
-
-    @Override
-    public String toString() {
-        return "Risultato{" +
-                "risultato=" + risultato +
-                ", puntiFeritaA=" + puntiFeritaA +
-                ", puntiFeritaB=" + puntiFeritaB +
-                ", numeroturni=" + numeroturni +
-                '}';
-    }
-}

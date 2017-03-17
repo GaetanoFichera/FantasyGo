@@ -7,5 +7,5 @@ package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model;
 public interface IModalità {
 
     public void avviaModalità();
-    public boolean terminaModalità();
+    public RisultatoFinale terminaModalità();
 }

@@ -19,8 +19,16 @@ public class MPersonaggio extends MCombattente {
     private ArrayList<String> inventario;
     private int oro;
 
-    public MPersonaggio(int id, MCaratteristiche caratteristiche) {
+    public MPersonaggio(int id, MCaratteristiche caratteristiche, int bottino, String sesso,
+                        String razza, String classe, int puntiEsperienza, ArrayList<String> inventario, int oro) {
         super(id, caratteristiche);
+        this.bottino = bottino;
+        this.sesso = sesso;
+        this.razza = razza;
+        this.classe = classe;
+        this.puntiEsperienza = puntiEsperienza;
+        this.inventario = inventario;
+        this.oro = oro;
     }
 
     public int getBottino() {
@@ -84,4 +92,12 @@ public class MPersonaggio extends MCombattente {
     }
 
     public void deleteOneFromInventory(String id){ this.inventario.remove(id); }
+
+    @Override
+    public String toString() {
+        return "MPersonaggio{" +
+                "id=" + getId() +
+                ", caratteristiche=" + getCaratteristiche().toString() +
+                '}';
+    }
 }

@@ -1,6 +1,11 @@
 package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model;
 
+import android.app.IntentService;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,22 +20,12 @@ public class MZonaDiCaccia {
     private MArea area = null;
     private static MZonaDiCaccia singletoneinstance = null;
 
-    public MZonaDiCaccia(){}
+    public MZonaDiCaccia(){
+    }
 
     public void init(){
         if(this.area == null && this.mostri == null){
-            //per ora nulla
-        }
-    }
 
-    public void update(double latitudine, double longitudine){
-
-        // controlla se gli attributi sono stati gia istanziati e in caso positivo controlla se
-        // latitudine e longitudine che gli vengono passate appartengo all'area gia istanziata
-        // nel caso la if si verifichi viene fatta una richeista al db per l'area relativa alle coordinate passate
-        if(!this.area.checkPuntiInterni(latitudine, longitudine)){
-            this.area = getAreaFromDb(latitudine, longitudine);
-            this.mostri = getMostriFromDb(this.area.getId());
         }
     }
 
@@ -60,10 +55,10 @@ public class MZonaDiCaccia {
         this.mostri = mostri;
     }
 
-    public void getOneMostro(){
+    public MMostro getOneMostro(){
         Random random = new Random();
         int index = random.nextInt(this.mostri.size());
-        this.mostri.get(index-1);
+        return this.mostri.get(index-1);
     }
 
     private MArea getAreaFromDb(double latitudine, double longitudine){
@@ -80,8 +75,27 @@ public class MZonaDiCaccia {
     private ArrayList<MMostro> getMostriFromDb(String idArea){
 
         //da implementare con interazione col db
+        MCaratteristiche caratteristichemostro = new MCaratteristiche(3, 1500, 1500, 10, 22, 46, 31, 12, "DardoInfuocato", 0, 10, "Mag");
         ArrayList<MMostro> mostri= new ArrayList<>();
+        MMostro mostro = new MMostro(10, caratteristichemostro);
+        mostri.add(mostro);
         //aggiungere mostri manualmente nell'array
         return mostri;
     }
+
+    public void update(double latitudine, double longitudine){
+
+        // controlla se gli attributi sono stati gia istanziati e in caso positivo controlla se
+        // latitudine e longitudine che gli vengono passate appartengo all'area gia istanziata
+        // nel caso la if si verifichi viene fatta una richeista al db per l'area relativa alle coordinate passate
+        if(!this.area.checkPuntiInterni(latitudine, longitudine)){
+            this.area = getAreaFromDb(latitudine, longitudine);
+            this.mostri = getMostriFromDb(this.area.getId());
+        }
+    }
+
+    public int getRicompensa(){
+        return this.getOneMostro().getRicompensa();
+    }
+
 }
