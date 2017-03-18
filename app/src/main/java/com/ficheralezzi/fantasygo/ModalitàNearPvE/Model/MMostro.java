@@ -11,8 +11,9 @@ public class MMostro extends MCombattente {
 
     private int ricompensa;
 
-    public MMostro(int id, MCaratteristiche caratteristiche) {
+    public MMostro(String id, MCaratteristiche caratteristiche, int ricompensa) {
         super(id, caratteristiche);
+        this.ricompensa = ricompensa;
     }
 
     public int getRicompensa() {

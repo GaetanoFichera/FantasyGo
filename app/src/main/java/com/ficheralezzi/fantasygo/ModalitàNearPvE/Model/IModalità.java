@@ -1,5 +1,7 @@
 package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model;
 
+import com.ficheralezzi.fantasygo.Utils.RisultatoFinale;
+
 /**
  * Created by ASUS on 09/03/2017.
  */

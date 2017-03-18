@@ -10,11 +10,11 @@ import java.util.Random;
 
 public class CalcoloDannoStrategyAttFis implements ICalcoloDannoStrategy {
 
-    private static final String TAG = "AttFis";
+    private static final String TAG = "CdS AttFis";
     protected MCombattente attaccante = null;
     protected MCombattente difensore = null;
 
-    public void eseguiMossa(int id){
+    public void eseguiMossa(String id){
 
         if(MBattaglia.getSingletoneInstance().getCombattenteA().getId() == id){
             attaccante = MBattaglia.getSingletoneInstance().getCombattenteA();
@@ -28,8 +28,8 @@ public class CalcoloDannoStrategyAttFis implements ICalcoloDannoStrategy {
 
         int dannoParziale = 0;
 
-        log(TAG, "Azione: AttFis");
-        log(TAG, "Check: " + "ATT attacco: " + attaccante.getCaratteristiche().getAttaccoFisico() + "DIF difesa: " +  difensore.getCaratteristiche().getDifesaFisica());
+        Log.d(TAG, "Azione: AttFis");
+        Log.d(TAG, "Check: " + "ATT attacco: " + attaccante.getCaratteristiche().getAttaccoFisico() + "DIF difesa: " +  difensore.getCaratteristiche().getDifesaFisica());
 
         if(attaccante.getCaratteristiche().getAttaccoFisico() > difensore.getCaratteristiche().getDifesaFisica()){
             int dannoBase = attaccante.getCaratteristiche().getAttaccoFisico() - difensore.getCaratteristiche().getDifesaFisica();
@@ -38,11 +38,7 @@ public class CalcoloDannoStrategyAttFis implements ICalcoloDannoStrategy {
                     ((attaccante.getCaratteristiche().getLivello() + attaccante.getCaratteristiche().getAttaccoFisico()) / 8) + 1);
             dannoParziale = dannoBase * dannoBonus;
             MBattaglia.getSingletoneInstance().getCombattenteById(difensore.getId()).getCaratteristiche().diminuisciPuntiFerita(dannoParziale);
-            log(TAG, "Danno: " + dannoParziale);
-        } else log(TAG, "Else Danno: " + dannoParziale);
-    }
-
-    public void log (String classe, String msg){
-        Log.d(classe, msg);
+            Log.d(TAG, "Danno: " + dannoParziale);
+        } else Log.d(TAG, "Else Danno: " + dannoParziale);
     }
 }

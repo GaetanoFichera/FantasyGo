@@ -31,25 +31,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         displayLog();
-        battaglia();
+        modalità();
     }
 
-    private void battaglia(){
+    private void modalità(){
 
         /*
         MCaratteristiche(int livello, int puntiFerita, int puntiFeritaMax, int attaccoFisico, int difesaFisico, int attaccoMagico,
                      int difesaMagico, String abilità, int caricaAbilità, int caricaMaxAbilità, String tipoAttBase, int velocitadAttacco )
          */
-        MCaratteristiche caratteristicheA = new MCaratteristiche(2, 1000, 1000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
+        MCaratteristiche caratteristicheA = new MCaratteristiche(2, 10000, 1000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
         ArrayList<String> inv = new ArrayList<>();
-        MPersonaggio Gaetano = new MPersonaggio(1, caratteristicheA, 0, "F", "Umano", "Tizio", 0, inv, 0);
-
+        MPersonaggio Gaetano = new MPersonaggio("P0001", caratteristicheA, 0, "F", "Umano", "Tizio", 0, inv, 0);
         ArrayList<MPersonaggio> personaggios = new ArrayList<>();
         personaggios.add(Gaetano);
-        MGiocatore.getSingletoneInstance().init("P0", personaggios, "Gaetano");
 
-        MRegoleDiSoddisfazione.getSingletoneInstance().init(100, 200, 30, 10);
-        MModalitàNearPvE modalitàNearPvE = new MModalitàNearPvE(1);
+        MGiocatore.getSingletoneInstance().init("G0001", personaggios, "Gaetano");
+
+        MRegoleDiSoddisfazione.getSingletoneInstance().init(10000, 20000, 30000, 10);
+        MModalitàNearPvE modalitàNearPvE = new MModalitàNearPvE("P0001");
         modalitàNearPvE.avviaModalità();
         Log.i("Risultato", modalitàNearPvE.terminaModalità().toString());
     }

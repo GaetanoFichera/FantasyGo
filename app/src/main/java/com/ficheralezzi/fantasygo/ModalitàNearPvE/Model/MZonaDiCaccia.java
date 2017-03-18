@@ -1,11 +1,9 @@
 package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model;
 
-import android.app.IntentService;
-import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
+import com.ficheralezzi.fantasygo.Utils.Posizione;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -56,9 +54,18 @@ public class MZonaDiCaccia {
     }
 
     public MMostro getOneMostro(){
-        Random random = new Random();
-        int index = random.nextInt(this.mostri.size());
-        return this.mostri.get(index-1);
+
+        MMostro mostro = null;
+        if (this.mostri.size() == 0){
+
+        } else if (this.mostri.size() == 1){
+            mostro = this.mostri.get(0);
+        } else{
+            Random random = new Random();
+            int index = random.nextInt(this.mostri.size() - 1);
+            mostro = this.mostri.get(index);
+        }
+        return mostro;
     }
 
     private MArea getAreaFromDb(double latitudine, double longitudine){
@@ -75,9 +82,9 @@ public class MZonaDiCaccia {
     private ArrayList<MMostro> getMostriFromDb(String idArea){
 
         //da implementare con interazione col db
-        MCaratteristiche caratteristichemostro = new MCaratteristiche(3, 1500, 1500, 10, 22, 46, 31, 12, "DardoInfuocato", 0, 10, "Mag");
+        MCaratteristiche caratteristichemostro = new MCaratteristiche(1, 70, 70, 3, 5, 5, 4, 6, "DardoInfuocato", 0, 10, "Mag");
         ArrayList<MMostro> mostri= new ArrayList<>();
-        MMostro mostro = new MMostro(10, caratteristichemostro);
+        MMostro mostro = new MMostro("M0001", caratteristichemostro, 10);
         mostri.add(mostro);
         //aggiungere mostri manualmente nell'array
         return mostri;
@@ -88,10 +95,17 @@ public class MZonaDiCaccia {
         // controlla se gli attributi sono stati gia istanziati e in caso positivo controlla se
         // latitudine e longitudine che gli vengono passate appartengo all'area gia istanziata
         // nel caso la if si verifichi viene fatta una richeista al db per l'area relativa alle coordinate passate
-        if(!this.area.checkPuntiInterni(latitudine, longitudine)){
+        if(this.area != null || this.mostri != null) {
+            if (!this.area.checkPuntiInterni(latitudine, longitudine)) {
+                this.area = getAreaFromDb(latitudine, longitudine);
+                this.mostri = getMostriFromDb(this.area.getId());
+            }
+        } else{
             this.area = getAreaFromDb(latitudine, longitudine);
             this.mostri = getMostriFromDb(this.area.getId());
         }
+        Log.i("mostri", this.mostri.toString());
+
     }
 
     public int getRicompensa(){

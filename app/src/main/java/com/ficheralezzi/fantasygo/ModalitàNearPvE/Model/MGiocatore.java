@@ -62,10 +62,9 @@ public class MGiocatore extends MGps {
         this.nome = nome;
     }
 
-    public MPersonaggio getOnePersonaggio(int id){
+    public MPersonaggio getOnePersonaggio(String id){
 
         MPersonaggio personaggio = null;
-        Log.i("MGiocatore", "Fuori dal ciclo");
         for(int i=0; i <= this.personaggi.size()-1 && personaggio == null; i++){
             if(this.personaggi.get(i).getId() == id){
                 personaggio = this.personaggi.get(i);

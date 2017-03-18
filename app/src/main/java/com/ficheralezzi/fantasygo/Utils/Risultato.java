@@ -1,4 +1,4 @@
-package com.ficheralezzi.fantasygo.ElaboraBattaglia.Model;
+package com.ficheralezzi.fantasygo.Utils;
 
 public class Risultato {
     private  boolean risultato = false;

@@ -10,11 +10,11 @@ import java.util.Random;
 
 public class CalcoloDannoStrategyAttaccoPoderoso implements ICalcoloDannoStrategy {
 
-    private static final String TAG = "ICalcoloDannoStrategy";
+    private static final String TAG = "CdS AttPod";
     protected MCombattente attaccante = null;
     protected MCombattente difensore = null;
 
-    public void eseguiMossa(int id) {
+    public void eseguiMossa(String id) {
 
         if(MBattaglia.getSingletoneInstance().getCombattenteA().getId() == id){
             attaccante = MBattaglia.getSingletoneInstance().getCombattenteA();
@@ -28,7 +28,7 @@ public class CalcoloDannoStrategyAttaccoPoderoso implements ICalcoloDannoStrateg
 
         int dannoParziale = 0;
 
-        log(this.getClass().toString(), "Azione: AttaccoPoderoso");
+        Log.d(TAG, "Azione: AttaccoPoderoso");
 
         if(attaccante.getCaratteristiche().getAttaccoFisico() > difensore.getCaratteristiche().getDifesaFisica()){
             int dannoBase = attaccante.getCaratteristiche().getAttaccoFisico() - difensore.getCaratteristiche().getDifesaFisica();
@@ -38,11 +38,7 @@ public class CalcoloDannoStrategyAttaccoPoderoso implements ICalcoloDannoStrateg
             dannoParziale = dannoBase * dannoBonus;
             int dannoParzialePoderoso = dannoParziale * 3;
             MBattaglia.getSingletoneInstance().getCombattenteById(difensore.getId()).getCaratteristiche().diminuisciPuntiFerita(dannoParzialePoderoso);
-            log(this.getClass().toString(), ((Integer) dannoParzialePoderoso).toString());
+            Log.i(TAG, "Danno : " + ((Integer) dannoParzialePoderoso).toString());
         }
-    }
-
-    public void log (String classe, String msg){
-        Log.d(classe, msg);
     }
 }

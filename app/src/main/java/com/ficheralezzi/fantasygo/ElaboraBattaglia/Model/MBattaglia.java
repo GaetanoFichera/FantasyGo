@@ -2,6 +2,8 @@ package com.ficheralezzi.fantasygo.ElaboraBattaglia.Model;
 
 import android.util.Log;
 
+import com.ficheralezzi.fantasygo.Utils.Risultato;
+
 public class MBattaglia {
 
     private static final String TAG = "MBattaglia";
@@ -59,7 +61,7 @@ public class MBattaglia {
         this.combattenteB = combattenteB;
     }
 
-    public MCombattente getCombattenteById(int id){
+    public MCombattente getCombattenteById(String id){
         if (combattenteA.getId() == id) return combattenteA;
         else return combattenteB;
     }

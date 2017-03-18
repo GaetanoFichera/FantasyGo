@@ -6,13 +6,12 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
-import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCombattente;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.IModalità;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MZonaDiCaccia;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.RisultatoFinale;
+import com.ficheralezzi.fantasygo.Utils.RisultatoFinale;
 
 
 import java.util.Observable;
@@ -21,9 +20,9 @@ import java.util.Observer;
 public class MModalitàNearPvE extends IntentService implements IModalità, Observer {
 
     private RisultatoFinale risultatoFinale = null;
-    private int idPersonaggioScelto;
+    private String idPersonaggioScelto;
 
-    public MModalitàNearPvE(int idPersonaggioScelto){
+    public MModalitàNearPvE(String idPersonaggioScelto){
         super("MModalitàNearPvE");
         this.idPersonaggioScelto = idPersonaggioScelto;
         this.risultatoFinale = new RisultatoFinale();
@@ -33,6 +32,8 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
         MPersonaggio personaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggio(this.idPersonaggioScelto);
         MZonaDiCaccia.getSingletoneInstance().init();
+        MZonaDiCaccia.getSingletoneInstance().update(0,0);
+        MZonaDiCaccia.getSingletoneInstance().getMostri().toString();
 
         // il while controlla sul risultatoFinale gli avanzamenti dell'oro guadagnato fino a quel momento
         // e al giocatore le caratteristiche del combattente
@@ -41,17 +42,13 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
                 this.risultatoFinale.getPuntiFerita())){
 
             MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostro());
-            Log.i("SonoinAvvModnelwhile", "ok");
-
             MBattaglia.getSingletoneInstance().elaboraBattaglia();
 
             this.updateRisultatoFinale(MZonaDiCaccia.getSingletoneInstance().getRicompensa(),
                     MZonaDiCaccia.getSingletoneInstance().getRicompensa()*2,
                     MBattaglia.getSingletoneInstance().getRisultato().getPuntiferitaA());
+            Log.i("MMod", MBattaglia.getSingletoneInstance().getCombattenteA().toString());
         }
-
-        Log.i("uscito", "uscito");
-
         this.terminaModalità();
     }
 
@@ -68,7 +65,7 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         this.risultatoFinale.setOro(this.risultatoFinale.getOro() + oro);
         this.risultatoFinale.setPuntiEsperienza(this.risultatoFinale.getPuntiEsperienza() + puntiEsperienza);
         this.risultatoFinale.setNumeroDiBattaglie(this.risultatoFinale.getNumeroDiBattaglie() + 1);
-        this.risultatoFinale.setPuntiFerita(this.risultatoFinale.getPuntiFerita() + puntiFerita);
+        this.risultatoFinale.setPuntiFerita(puntiFerita);
     }
 
     @Override

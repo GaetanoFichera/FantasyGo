@@ -1,5 +1,7 @@
 package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model;
 
+import com.ficheralezzi.fantasygo.Utils.Posizione;
+
 import java.util.ArrayList;
 
 /**
@@ -38,12 +40,3 @@ public class MArea {
 }
 
 
-class Posizione{
-    double latitudine;
-    double longitudine;
-
-    public Posizione(double latitudine, double longitudine) {
-        this.latitudine = latitudine;
-        this.longitudine = longitudine;
-    }
-}

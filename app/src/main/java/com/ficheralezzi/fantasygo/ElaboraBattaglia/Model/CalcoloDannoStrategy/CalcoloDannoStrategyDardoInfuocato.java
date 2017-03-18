@@ -10,15 +10,25 @@ import java.util.Random;
 
 public class CalcoloDannoStrategyDardoInfuocato implements ICalcoloDannoStrategy {
 
-    private static final String TAG = "ICalcoloDannoStrategy";
+    private static final String TAG = "CdS DardoInf";
     protected MCombattente attaccante = null;
     protected MCombattente difensore = null;
 
-    public void eseguiMossa(int id) {
+    public void eseguiMossa(String id) {
+
+        if(MBattaglia.getSingletoneInstance().getCombattenteA().getId() == id){
+            attaccante = MBattaglia.getSingletoneInstance().getCombattenteA();
+            difensore = MBattaglia.getSingletoneInstance().getCombattenteB();
+        } else{
+            attaccante = MBattaglia.getSingletoneInstance().getCombattenteB();
+            difensore = MBattaglia.getSingletoneInstance().getCombattenteA();
+        }
+        Log.d(TAG, "Attaccante: " + attaccante.toString());
+        Log.d(TAG, "Difensore: " + difensore.toString());
 
         int dannoParziale = 0;
 
-        log(this.getClass().toString(), "Azione: DardoInfuocato");
+        Log.d(this.getClass().toString(), "Azione: DardoInfuocato");
 
         if(attaccante.getCaratteristiche().getAttaccoMagico() > difensore.getCaratteristiche().getDifesaMagica()){
             int dannobase = attaccante.getCaratteristiche().getAttaccoMagico() - difensore.getCaratteristiche().getDifesaMagica();
@@ -28,12 +38,7 @@ public class CalcoloDannoStrategyDardoInfuocato implements ICalcoloDannoStrategy
             dannoParziale = dannobase*bonus;
             int dannoParzialeDardo = dannoParziale * 3;
             MBattaglia.getSingletoneInstance().getCombattenteById(difensore.getId()).getCaratteristiche().diminuisciPuntiFerita(dannoParzialeDardo);
-            log(this.getClass().toString(), ((Integer) dannoParzialeDardo).toString());
+            Log.d(TAG, ((Integer) dannoParzialeDardo).toString());
         }
     }
-
-    public void log (String classe, String msg){
-        Log.d(classe, msg);
-    }
-
 }
