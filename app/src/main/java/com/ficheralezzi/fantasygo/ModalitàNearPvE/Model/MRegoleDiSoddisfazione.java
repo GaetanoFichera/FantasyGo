@@ -77,14 +77,6 @@ public class MRegoleDiSoddisfazione {
                 '}';
     }
 
-    public static MRegoleDiSoddisfazione getSingletoneinstance() {
-        return singletoneinstance;
-    }
-
-    public static void setSingletoneinstance(MRegoleDiSoddisfazione singletoneinstance) {
-        MRegoleDiSoddisfazione.singletoneinstance = singletoneinstance;
-    }
-
     //controllo se almeno una delle regole di soddisfazione sono soddisfatte
     public boolean regoleSoddisfatte(int oro, int puntiEsperienza, int numeroDiBattaglie, int puntiFerita) {
 

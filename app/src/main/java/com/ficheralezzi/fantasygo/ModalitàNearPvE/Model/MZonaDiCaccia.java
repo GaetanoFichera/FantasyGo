@@ -108,8 +108,19 @@ public class MZonaDiCaccia {
 
     }
 
-    public int getRicompensa(){
-        return this.getOneMostro().getRicompensa();
+    public int getRicompensa(String id){
+        int ricompensa = 0;
+        for (int i=0; i < this.mostri.size(); i++){
+            if (this.mostri.get(i).getId() == id) ricompensa = this.mostri.get(i).getRicompensa();
+        }
+        return ricompensa;
     }
 
+    public MMostro getOneMostroById(String id){
+        MMostro mostro = null;
+        for (int i=0; i < this.mostri.size(); i++){
+            if (this.mostri.get(i).getId() == id) mostro = this.mostri.get(i);
+        }
+        return mostro;
+    }
 }

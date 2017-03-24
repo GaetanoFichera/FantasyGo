@@ -41,11 +41,12 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
             this.risultatoFinale.getPuntiEsperienza(), this.risultatoFinale.getNumeroDiBattaglie(),
                 this.risultatoFinale.getPuntiFerita())){
 
-            MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostro());
+            String idmostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
+            MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostroById(idmostro));
             MBattaglia.getSingletoneInstance().elaboraBattaglia();
 
-            this.updateRisultatoFinale(MZonaDiCaccia.getSingletoneInstance().getRicompensa(),
-                    MZonaDiCaccia.getSingletoneInstance().getRicompensa()*2,
+            this.updateRisultatoFinale(MZonaDiCaccia.getSingletoneInstance().getRicompensa(idmostro),
+                    MZonaDiCaccia.getSingletoneInstance().getRicompensa(idmostro)*2,
                     MBattaglia.getSingletoneInstance().getRisultato().getPuntiferitaA());
             Log.i("MMod", MBattaglia.getSingletoneInstance().getCombattenteA().toString());
         }
