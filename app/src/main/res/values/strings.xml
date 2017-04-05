@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FantasyGo</string>
+
+    <string-array name="menu_options">
+        <item>Avvia Modalità</item>
+        <item>I Tuoi Personaggi</item>
+        <item>Il Tuo Profilo</item>
+        <item>Impostazioni</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="select_pg">Scegli il tuo Personaggio</string>
 </resources>

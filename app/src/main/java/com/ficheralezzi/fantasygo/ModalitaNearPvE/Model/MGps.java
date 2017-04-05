@@ -1,6 +1,4 @@
-package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model;
-
-import android.util.Log;
+package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 
 import java.util.ArrayList;
 import java.util.Observable;

@@ -1,9 +1,8 @@
-package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model;
+package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 /**
  * Created by ASUS on 09/03/2017.

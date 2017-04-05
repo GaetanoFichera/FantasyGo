@@ -2,7 +2,7 @@ package com.ficheralezzi.fantasygo.ElaboraBattaglia.Model;
 
 import android.util.Log;
 
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MEquipaggiamento;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MEquipaggiamento;
 
 public class MCombattente {
 

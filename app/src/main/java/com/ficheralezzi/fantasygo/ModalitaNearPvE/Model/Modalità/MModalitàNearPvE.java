@@ -1,4 +1,4 @@
-package com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.Modalità;
+package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -6,11 +6,11 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.IModalità;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MGiocatore;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MPersonaggio;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MRegoleDiSoddisfazione;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MZonaDiCaccia;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.IModalità;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MZonaDiCaccia;
 import com.ficheralezzi.fantasygo.Utils.RisultatoFinale;
 
 

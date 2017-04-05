@@ -5,20 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
-import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCombattente;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MGiocatore;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MMostro;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MPersonaggio;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MRegoleDiSoddisfazione;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.MZonaDiCaccia;
-import com.ficheralezzi.fantasygo.ModalitàNearPvE.Model.Modalità.MModalitàNearPvE;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
