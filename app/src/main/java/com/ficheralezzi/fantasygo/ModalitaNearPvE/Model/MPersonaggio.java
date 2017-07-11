@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class MPersonaggio extends MCombattente {
 
+    private String nome;
     private int bottino;
     private String sesso;
     private String razza;
@@ -19,7 +20,7 @@ public class MPersonaggio extends MCombattente {
     private ArrayList<String> inventario;
     private int oro;
 
-    public MPersonaggio(String id, MCaratteristiche caratteristiche, int bottino, String sesso,
+    public MPersonaggio(String id, String nome, MCaratteristiche caratteristiche, int bottino, String sesso,
                         String razza, String classe, int puntiEsperienza, ArrayList<String> inventario, int oro) {
         super(id, caratteristiche);
         this.bottino = bottino;
@@ -29,7 +30,12 @@ public class MPersonaggio extends MCombattente {
         this.puntiEsperienza = puntiEsperienza;
         this.inventario = inventario;
         this.oro = oro;
+        this.nome = nome;
     }
+
+    public String getNome() { return nome; }
+
+    public void setNome(String nome) { this.nome = nome; }
 
     public int getBottino() {
         return bottino;

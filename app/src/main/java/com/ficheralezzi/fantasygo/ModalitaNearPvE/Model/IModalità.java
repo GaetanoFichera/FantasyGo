@@ -8,6 +8,7 @@ import com.ficheralezzi.fantasygo.Utils.RisultatoFinale;
 
 public interface IModalità {
 
-    public void avviaModalità();
-    public RisultatoFinale terminaModalità();
+    boolean createModalità();
+    void avviaModalità();
+    RisultatoFinale terminaModalità();
 }

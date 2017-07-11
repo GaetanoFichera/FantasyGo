@@ -28,6 +28,15 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         this.risultatoFinale = new RisultatoFinale();
     }
 
+    public boolean createModalità(){
+        return true;
+    }
+
+
+    public boolean enterRegolediSoddisfazione(){
+        return true;
+    }
+
     public void avviaModalità(){
 
         MPersonaggio personaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggio(this.idPersonaggioScelto);

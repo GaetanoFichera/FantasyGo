@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
 
-    private static final String  TAG = "MainActivity";
+    private static final String  TAG = "TestActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
          */
         MCaratteristiche caratteristicheA = new MCaratteristiche(2, 10000, 1000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
         ArrayList<String> inv = new ArrayList<>();
-        MPersonaggio Gaetano = new MPersonaggio("P0001", caratteristicheA, 0, "F", "Umano", "Tizio", 0, inv, 0);
+        MPersonaggio Gaetano = new MPersonaggio("P0001", "Gaetano", caratteristicheA, 0, "F", "Umano", "Tizio", 0, inv, 0);
         ArrayList<MPersonaggio> personaggios = new ArrayList<>();
         personaggios.add(Gaetano);
 

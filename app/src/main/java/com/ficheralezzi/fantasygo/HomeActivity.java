@@ -18,8 +18,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity.ModalitaNearPvEActivity;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MEquipaggiamento;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.Utils.UDrawerItemClickListener;
+import com.ficheralezzi.fantasygo.Utils.UserPrefs;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
@@ -34,6 +41,11 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //da fare in una splashScreen
+        updateMineDb();
+        updateInfoGiocatore();
+
         setContentView(R.layout.activity_home);
 
         setTitle("FantasyGo Developing");
@@ -130,5 +142,29 @@ public class HomeActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(context, msg, duration);
         toast.show();
+    }
+
+    private void updateMineDb(){
+        //sostituire le 5 righe successive con un update dal server
+        MCaratteristiche caratteristicheA = new MCaratteristiche(2, 10000, 1000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
+        ArrayList<String> inv = new ArrayList<>();
+        MPersonaggio Gaetano = new MPersonaggio("P0001", "Gaetano", caratteristicheA, 0, "F", "Umano", "Tizio", 0, inv, 0);
+        ArrayList<MPersonaggio> personaggios = new ArrayList<>();
+        personaggios.add(Gaetano);
+
+        UserPrefs up = new UserPrefs(this);
+
+        if(up.save(Gaetano, Gaetano.getId() + "_Personaggio")) makeShortToast("Update dal Server Riuscito con Successo!");
+    }
+
+    private void updateInfoGiocatore(){
+        UserPrefs userPrefs = new UserPrefs(this);
+        ArrayList<MPersonaggio> PersonaggiFromDb = new ArrayList<>();
+        ArrayList<String> idsPersonaggiDb = userPrefs.getIdsOneType("_Personaggio");
+        for(int i=0; i < idsPersonaggiDb.size(); i++){
+            MPersonaggio onePersonaggio = (MPersonaggio) userPrefs.load(MPersonaggio.class, idsPersonaggiDb.get(i));
+            PersonaggiFromDb.add(onePersonaggio);
+        }
+        MGiocatore.getSingletoneInstance().init("0001", PersonaggiFromDb, "Demo");
     }
 }
