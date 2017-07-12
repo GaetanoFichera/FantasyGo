@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /** stores the user object in SharedPreferences */
-public class UserPrefs{
+public class UserPreferencesManager {
 
     /** This application's preferences label */
     private static final String PREFS_NAME = "com.ficheralezzi.package.FantasyGo";
@@ -28,7 +28,7 @@ public class UserPrefs{
     private static SharedPreferences.Editor editor;
 
     /** Constructor takes an android.content.Context argument*/
-    public UserPrefs(Context ctx){
+    public UserPreferencesManager(Context ctx){
         if(settings == null){
             settings = ctx.getSharedPreferences(PREFS_NAME,
                     Context.MODE_PRIVATE );
