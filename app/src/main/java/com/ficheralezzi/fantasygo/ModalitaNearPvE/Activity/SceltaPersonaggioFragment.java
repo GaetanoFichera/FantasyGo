@@ -53,7 +53,6 @@ public class SceltaPersonaggioFragment extends ListFragment {
 
         CustomAdapter customAdapter = new CustomAdapter(getActivity(), android.R.layout.simple_list_item_1, nomiPersonaggi, myMap);
         setListAdapter(customAdapter);
-
     }
 
     @Override
@@ -61,16 +60,16 @@ public class SceltaPersonaggioFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         String nome =((TextView) v).getText().toString();
         idPersonaggioScelto = ((CustomAdapter) getListAdapter()).getId(nome);
-        transiction();
+        goToNextFragment();
     }
 
-    private void transiction(){
+    private void goToNextFragment(){
         RegoleDiSoddisfazioneFragment regoleDiSoddisfazioneFragment = new RegoleDiSoddisfazioneFragment();
         android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         Bundle args = new Bundle();
-        args.putString("value", idPersonaggioScelto);
+        args.putString("idPersonaggioScelto", idPersonaggioScelto);
         regoleDiSoddisfazioneFragment.setArguments(args);
 
         fragmentTransaction.replace(R.id.fragment_container_modnearpve, regoleDiSoddisfazioneFragment);

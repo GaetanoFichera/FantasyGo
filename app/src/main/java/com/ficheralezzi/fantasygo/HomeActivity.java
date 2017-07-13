@@ -143,11 +143,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void updateMineDb(){
-        MCaratteristiche caratteristicheA = new MCaratteristiche(2, 10000, 1000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
+        MCaratteristiche caratteristicheA = new MCaratteristiche(2, 10000, 10000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
         ArrayList<String> inv = new ArrayList<>();
         MPersonaggio Gaetano = new MPersonaggio("P0001", "Gaetano", caratteristicheA, 0, "M", "Umano", "Tizio", 0, inv, 0);
 
-        MCaratteristiche caratteristicheB = new MCaratteristiche(5, 10000, 1000, 50, 21, 10, 20, 17, "DardoIncantato", 0, 13, "Fis");
+        MCaratteristiche caratteristicheB = new MCaratteristiche(5, 10000, 10000, 50, 21, 10, 20, 17, "DardoIncantato", 0, 13, "Fis");
         ArrayList<String> inv2 = new ArrayList<>();
         MPersonaggio Giovanni = new MPersonaggio("P0002", "Giovanni", caratteristicheB, 0, "M", "Umano", "Tizios", 0, inv, 0);
 

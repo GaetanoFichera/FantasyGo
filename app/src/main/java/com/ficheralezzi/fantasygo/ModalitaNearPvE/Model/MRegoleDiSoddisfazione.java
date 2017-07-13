@@ -12,6 +12,7 @@ public class MRegoleDiSoddisfazione {
     private int puntiEsperienzaMinimi = 0;
     private int numeroDiBattaglie = 0;
     private int puntiFeritaMinimi = 0;
+
     private static MRegoleDiSoddisfazione singletoneinstance = null;
 
     MRegoleDiSoddisfazione(){}
