@@ -29,9 +29,9 @@ public class MRegoleDiSoddisfazione {
     public static MRegoleDiSoddisfazione getSingletoneInstance() {
 
         if(singletoneinstance == null){
-            Log.d("regolediSOddisfazione", "no");
+            Log.d("RegoleDiSoddisfazione", "no");
             singletoneinstance = new MRegoleDiSoddisfazione();
-        } else Log.d("regolediSOddisfazione", "si");
+        } else Log.d("RegoleDiSoddisfazione", "si");
 
         return singletoneinstance;
     }
@@ -90,5 +90,9 @@ public class MRegoleDiSoddisfazione {
         }
 
         return controllo;
+    }
+
+    public void destroy(){
+        if(singletoneinstance != null) singletoneinstance = null;
     }
 }

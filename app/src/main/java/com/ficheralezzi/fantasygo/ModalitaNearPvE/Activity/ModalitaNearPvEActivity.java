@@ -6,6 +6,10 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
@@ -29,10 +33,10 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
         mFragmentManager = getFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         setContentView(R.layout.activity_modnearpve);
+
+        setBackButtonListener();
+
         createListaPersonaggi();
-
-        //listener sulla lista per passare alle regole di soddisfazione
-
     }
 
     private void createListaPersonaggi() {
@@ -44,12 +48,9 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
 
     }
 
-    private void createListaRegolediSoddisfazione() {
-
-
-    }
-
     private void avviaModalità() {
+
+        Log.i(TAG, "Modalità Avviata");
 
     }
 
@@ -62,5 +63,24 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
             PersonaggiFromDb.add(onePersonaggio);
         }
         MGiocatore.getSingletoneInstance().setPersonaggi(PersonaggiFromDb);
+    }
+
+    private void setBackButtonListener(){
+        Button backButton = ((Button) findViewById(R.id.back_button));
+        Button goButton = ((Button) findViewById(R.id.go_button));
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        goButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                avviaModalità();
+            }
+        });
     }
 }

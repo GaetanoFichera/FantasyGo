@@ -8,29 +8,28 @@
     <FrameLayout
         android:id="@+id/fragment_container_modnearpve"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_above="@id/buttons_frame"
-        android:alignParentTop="true"></FrameLayout>
+        android:layout_height="300dp"></FrameLayout>
 
     <RelativeLayout
         android:id="@+id/buttons_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true">
         <Button
             android:id="@+id/back_button"
             android:text="@string/back_button_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"/>
 
         <Button
-            android:id="@+id/start_button"
-            android:text="@string/start_button_label"
+            android:id="@+id/go_button"
+            android:text="@string/go_button_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/back_button"/>
     </RelativeLayout>
 
 

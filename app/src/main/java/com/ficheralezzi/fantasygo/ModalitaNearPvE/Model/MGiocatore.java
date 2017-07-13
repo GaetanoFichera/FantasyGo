@@ -3,6 +3,8 @@ package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ASUS on 09/03/2017.
@@ -61,19 +63,39 @@ public class MGiocatore extends MGps {
         this.nome = nome;
     }
 
-    public MPersonaggio getOnePersonaggio(String id){
-
+    public MPersonaggio getOnePersonaggioById(String id){
         MPersonaggio personaggio = null;
         for(int i=0; i <= this.personaggi.size()-1 && personaggio == null; i++){
             if(this.personaggi.get(i).getId() == id){
                 personaggio = this.personaggi.get(i);
-                Log.i("MGiocatore", "Personaggio Trovato");
+                Log.i("MGiocatore", "Personaggio con Id Trovato");
             }
         }
         if(personaggio == null){
-            Log.i("MGiocatore", "Personaggio non Trovato");
+            Log.i("MGiocatore", "Personaggio con Id non Trovato");
         }
         return personaggio;
     }
 
+    public MPersonaggio getOnePersonaggioByNome(String nome){
+        MPersonaggio personaggio = null;
+        for(int i=0; i <= this.personaggi.size()-1 && personaggio == null; i++){
+            if(this.personaggi.get(i).getNome() == nome){
+                personaggio = this.personaggi.get(i);
+                Log.i("MGiocatore", "Personaggio con Nome Trovato");
+            }
+        }
+        if(personaggio == null){
+            Log.i("MGiocatore", "Personaggio con Nome non Trovato");
+        }
+        return personaggio;
+    }
+
+    public ArrayList<String> getNomiPersonaggi() {
+        ArrayList<String> idsPersonaggi = new ArrayList<>();
+        for (int i = 0; i < this.personaggi.size(); i++) {
+            idsPersonaggi.add(this.personaggi.get(i).getNome());
+        }
+        return idsPersonaggi;
+    }
 }

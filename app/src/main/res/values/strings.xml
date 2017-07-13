@@ -15,6 +15,7 @@
 
     <!-- Label Bottoni -->
     <string name="back_button_label">Indietro</string>
+    <string name="go_button_label">Avanti</string>
     <string name="start_button_label">Avvia</string>
     
     <!-- Label Tabella Regole di Soddisfazione -->
@@ -24,9 +25,9 @@
     <string name="punti_ferita_minimi">Punti Ferita Minimi da Poter Raggiungere</string>
 
     <!-- Max Values Regole di Soddisfazione -->
-    <string name="oro_minimo_max">9999999</string>
-    <string name="punti_esperienza_minimi_max">9999</string>
-    <string name="numero_di_battaglie_max">9999</string>
-    <string name="punti_ferita_minimi_max">9999</string>
+    <integer name="oro_minimo_max">999999</integer>
+    <integer name="punti_esperienza_minimi_max">9999</integer>
+    <integer name="numero_di_battaglie_max">9999</integer>
+    <integer name="punti_ferita_minimi_max">9999</integer>
     
 </resources>

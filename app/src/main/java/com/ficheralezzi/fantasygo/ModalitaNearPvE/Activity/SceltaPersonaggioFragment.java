@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class SceltaPersonaggioFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setVisibilityButtons();
         return inflater.inflate(R.layout.fragment_lista_scelta_personaggio, container, false);
     }
 
@@ -36,30 +39,17 @@ public class SceltaPersonaggioFragment extends ListFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        int lenghtArray = MGiocatore.getSingletoneInstance().getPersonaggi().size();
+        ArrayList<String> nomiPersonaggi = MGiocatore.getSingletoneInstance().getNomiPersonaggi();
 
-        ArrayList<String> idsPersonaggi = new ArrayList<>();
-        for (int i = 0; i < lenghtArray; i++) {
-            idsPersonaggi.add(MGiocatore.getSingletoneInstance().getPersonaggi().get(i).getId());
-        }
-        Map<String, String> myMap = new HashMap<String, String>();
-        for (int i = 0; i < idsPersonaggi.size(); i++) {
-            myMap.put(MGiocatore.getSingletoneInstance().getOnePersonaggio(idsPersonaggi.get(i)).getNome(), idsPersonaggi.get(i));
-        }
-        ArrayList<String> nomiPersonaggi = new ArrayList<>();
-        for (int i = 0; i < lenghtArray; i++) {
-            nomiPersonaggi.add(MGiocatore.getSingletoneInstance().getPersonaggi().get(i).getNome());
-        }
-
-        CustomAdapter customAdapter = new CustomAdapter(getActivity(), android.R.layout.simple_list_item_1, nomiPersonaggi, myMap);
-        setListAdapter(customAdapter);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, nomiPersonaggi);
+        setListAdapter(arrayAdapter);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        String nome =((TextView) v).getText().toString();
-        idPersonaggioScelto = ((CustomAdapter) getListAdapter()).getId(nome);
+        String nomePersonaggioScelto =((TextView) v).getText().toString();
+        idPersonaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggioByNome(nomePersonaggioScelto).getId();
         goToNextFragment();
     }
 
@@ -76,4 +66,14 @@ public class SceltaPersonaggioFragment extends ListFragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    private void setVisibilityButtons(){
+        Button backButton = ((Button) getActivity().findViewById(R.id.back_button));
+        Button startButton = ((Button) getActivity().findViewById(R.id.go_button));
+
+        if(backButton.getVisibility() == View.INVISIBLE) backButton.setVisibility(View.VISIBLE);
+        if(startButton.getVisibility() == View.VISIBLE) startButton.setVisibility(View.INVISIBLE);
+    }
+
+
 }

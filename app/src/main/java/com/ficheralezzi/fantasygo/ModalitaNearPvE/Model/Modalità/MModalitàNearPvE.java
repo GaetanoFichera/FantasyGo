@@ -39,7 +39,7 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
     public void avviaModalità(){
 
-        MPersonaggio personaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggio(this.idPersonaggioScelto);
+        MPersonaggio personaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggioById(this.idPersonaggioScelto);
         MZonaDiCaccia.getSingletoneInstance().init();
         MZonaDiCaccia.getSingletoneInstance().update(0,0);
         MZonaDiCaccia.getSingletoneInstance().getMostri().toString();
