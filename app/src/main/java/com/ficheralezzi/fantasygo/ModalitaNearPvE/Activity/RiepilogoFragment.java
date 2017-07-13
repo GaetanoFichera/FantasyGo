@@ -26,20 +26,20 @@ public class RiepilogoFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_riepilogo, container, false);
-        String idPersonaggio = getArguments().getString("idPersonaggioScelto");
+        final String idPersonaggio = getArguments().getString("idPersonaggioScelto");
 
         MPersonaggio mPersonaggio = MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggio);
         riempiTableCaratteristiche(mPersonaggio, view);
 
         MRegoleDiSoddisfazione mRegoleDiSoddisfazione = MRegoleDiSoddisfazione.getSingletoneInstance();
-        rIempiTabellaRegoleDiSoddisfazione(mRegoleDiSoddisfazione, view);
+        riempiTabellaRegoleDiSoddisfazione(mRegoleDiSoddisfazione, view);
 
         Button button = ((Button) getActivity().findViewById(R.id.go_button));
         button.setText("Avvia");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ModalitaNearPvEActivity) getActivity()).avviaModalità();
+                ((ModalitaNearPvEActivity) getActivity()).avviaModalità(idPersonaggio);
             }
         });
 
@@ -86,7 +86,7 @@ public class RiepilogoFragment extends Fragment{
 
     }
 
-    public void rIempiTabellaRegoleDiSoddisfazione(MRegoleDiSoddisfazione mRegoleDiSoddisfazione, View view){
+    public void riempiTabellaRegoleDiSoddisfazione(MRegoleDiSoddisfazione mRegoleDiSoddisfazione, View view){
 
         TableRow tableRowOroMinimo = ((TableRow) view.findViewById(R.id.tableOroMinimo));
         TextView textViewOroMinimo = ((TextView) tableRowOroMinimo.findViewById(R.id.oroMinimo));

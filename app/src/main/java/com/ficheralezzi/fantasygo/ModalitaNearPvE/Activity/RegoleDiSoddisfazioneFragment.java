@@ -191,5 +191,18 @@ public class RegoleDiSoddisfazioneFragment extends Fragment{
 
     private void goToNextFragment(){
         System.out.println(MRegoleDiSoddisfazione.getSingletoneInstance().toString());
+
+        RiepilogoFragment riepilogoFragment = new RiepilogoFragment();
+
+        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Bundle args = new Bundle();
+        args.putString("idPersonaggioScelto", getArguments().getString("idPersonaggioScelto"));
+        riepilogoFragment.setArguments(args);
+
+        fragmentTransaction.replace(R.id.fragment_container_modnearpve, riepilogoFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

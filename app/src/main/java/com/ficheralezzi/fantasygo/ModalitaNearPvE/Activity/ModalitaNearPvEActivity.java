@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomAdapter;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
@@ -50,9 +51,10 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
 
     }
 
-    public void avviaModalità() {
+    public void avviaModalità(String idPersonaggioScelto) {
 
-        Log.i(TAG, "Modalità Avviata");
+        Log.i(TAG, "Modalità Avviata con il personaggio: " + MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggioScelto).getNome());
+        Log.i(TAG, "Le Regole di Soddisfazione sono " + MRegoleDiSoddisfazione.getSingletoneInstance().toString());
 
     }
 
@@ -71,19 +73,11 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
     private void setBackButtonListener(){
 
         Button backButton = ((Button) findViewById(R.id.back_button));
-        Button goButton = ((Button) findViewById(R.id.go_button));
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
-            }
-        });
-
-        goButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                avviaModalità();
             }
         });
     }
