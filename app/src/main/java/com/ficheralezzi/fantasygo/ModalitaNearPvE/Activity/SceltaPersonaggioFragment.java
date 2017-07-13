@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,9 +28,13 @@ public class SceltaPersonaggioFragment extends ListFragment {
     private String idPersonaggioScelto = null;
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_lista_scelta_personaggio, container, false);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        System.out.println("ciao");
 
         int lenghtArray = MGiocatore.getSingletoneInstance().getPersonaggi().size();
 
@@ -55,16 +61,20 @@ public class SceltaPersonaggioFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         String nome =((TextView) v).getText().toString();
         idPersonaggioScelto = ((CustomAdapter) getListAdapter()).getId(nome);
-        System.out.println(idPersonaggioScelto);
-        //transiction();
+        transiction();
     }
 
-    /*private void transiction(){
+    private void transiction(){
         RegoleDiSoddisfazioneFragment regoleDiSoddisfazioneFragment = new RegoleDiSoddisfazioneFragment();
         android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment, regoleDiSoddisfazioneFragment);
+
+        Bundle args = new Bundle();
+        args.putString("value", idPersonaggioScelto);
+        regoleDiSoddisfazioneFragment.setArguments(args);
+
+        fragmentTransaction.replace(R.id.fragment_container_modnearpve, regoleDiSoddisfazioneFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-    }*/
+    }
 }

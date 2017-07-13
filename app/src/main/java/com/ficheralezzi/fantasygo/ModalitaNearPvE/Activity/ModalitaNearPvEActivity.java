@@ -1,5 +1,6 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -37,10 +38,8 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
     private void createListaPersonaggi() {
         updateInfoPersonaggiGiocatore();
 
+        mFragmentTransaction.add(R.id.fragment_container_modnearpve, new SceltaPersonaggioFragment());
 
-
-        SceltaPersonaggioFragment sceltaPersonaggioFragment = new SceltaPersonaggioFragment();
-        mFragmentTransaction.add(R.id.fragment, sceltaPersonaggioFragment);
         mFragmentTransaction.commit();
 
     }
