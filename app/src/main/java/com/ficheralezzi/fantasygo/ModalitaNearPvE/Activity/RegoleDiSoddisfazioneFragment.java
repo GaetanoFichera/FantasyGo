@@ -1,6 +1,7 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity;
 
 import android.app.Fragment;
+import android.location.GpsStatus;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.R;
+
+import java.util.zip.Inflater;
 
 /**
  * Created by gaetano on 13/07/17.
@@ -33,39 +36,53 @@ public class RegoleDiSoddisfazioneFragment extends Fragment{
         View viewFragment = inflater.inflate(R.layout.fragment_regole_di_soddisfazione, container, false);
 
         TableRow OroMinimoRow = ((TableRow) inflater.inflate(R.layout.row_regola_di_soddisfazione, container, false));
-        TextView OroMinimoTextView = ((TextView) OroMinimoRow.findViewById(R.id.text_seek_bar));
+        OroMinimoRow.setTag(R.string.oro_minimo + "_row");
+        TextView OroMinimoTextView = ((TextView) OroMinimoRow.findViewById(R.id.text_seekbar));
         OroMinimoTextView.setText(R.string.oro_minimo);
-        SeekBar OroMinimoSeekBar = ((SeekBar) OroMinimoRow.findViewById(R.id.seekBar));
+        SeekBar OroMinimoSeekBar = ((SeekBar) OroMinimoRow.findViewById(R.id.seekbar));
         OroMinimoSeekBar.setTag(R.string.oro_minimo);
         OroMinimoSeekBar.setMax(getContext().getResources().getInteger(R.integer.oro_minimo_max));
+        TextView OroMinimoProgress = ((TextView) OroMinimoRow.findViewById(R.id.progress_seekbar));
+        OroMinimoProgress.setTag(R.string.oro_minimo + "_progress");
 
         TableRow PuntiEsperienzaMinimiRow = ((TableRow)inflater.inflate(R.layout.row_regola_di_soddisfazione, container, false));
-        TextView PuntiEsperienzaMinimiTextView = ((TextView) PuntiEsperienzaMinimiRow.findViewById(R.id.text_seek_bar));
+        PuntiEsperienzaMinimiRow.setTag(R.string.punti_esperienza_minimi + "_row");
+        TextView PuntiEsperienzaMinimiTextView = ((TextView) PuntiEsperienzaMinimiRow.findViewById(R.id.text_seekbar));
         PuntiEsperienzaMinimiTextView.setText(R.string.punti_esperienza_minimi);
-        SeekBar PuntiEsperienzaMinimiSeekBar = ((SeekBar) PuntiEsperienzaMinimiRow.findViewById(R.id.seekBar));
+        SeekBar PuntiEsperienzaMinimiSeekBar = ((SeekBar) PuntiEsperienzaMinimiRow.findViewById(R.id.seekbar));
         PuntiEsperienzaMinimiSeekBar.setTag(R.string.punti_esperienza_minimi);
         PuntiEsperienzaMinimiSeekBar.setMax(getContext().getResources().getInteger(R.integer.punti_esperienza_minimi_max));
+        TextView PuntiEsperienzaMinimiProgress = ((TextView) PuntiEsperienzaMinimiRow.findViewById(R.id.progress_seekbar));
+        PuntiEsperienzaMinimiProgress.setTag(R.string.punti_esperienza_minimi + "_progress");
 
         TableRow NumeroBattaglieRow = ((TableRow) inflater.inflate(R.layout.row_regola_di_soddisfazione, container, false));
-        TextView NumeroBattaglieTextView = ((TextView) NumeroBattaglieRow.findViewById(R.id.text_seek_bar));
+        NumeroBattaglieRow.setTag(R.string.numero_di_battaglie + "_row");
+        TextView NumeroBattaglieTextView = ((TextView) NumeroBattaglieRow.findViewById(R.id.text_seekbar));
         NumeroBattaglieTextView.setText(R.string.numero_di_battaglie);
-        SeekBar NumeroBattaglieSeekBar = ((SeekBar) NumeroBattaglieRow.findViewById(R.id.seekBar));
+        SeekBar NumeroBattaglieSeekBar = ((SeekBar) NumeroBattaglieRow.findViewById(R.id.seekbar));
         NumeroBattaglieSeekBar.setTag(R.string.numero_di_battaglie);
         NumeroBattaglieSeekBar.setMax(getContext().getResources().getInteger(R.integer.numero_di_battaglie_max));
+        TextView NumeroBattaglieProgress = ((TextView) NumeroBattaglieRow.findViewById(R.id.progress_seekbar));
+        NumeroBattaglieProgress.setTag(R.string.numero_di_battaglie + "_progress");
 
         TableRow PuntiFeritaMinimiRow = ((TableRow) inflater.inflate(R.layout.row_regola_di_soddisfazione, container, false));
-        TextView PuntiFeritaMinimiTextView = ((TextView) PuntiFeritaMinimiRow.findViewById(R.id.text_seek_bar));
+        PuntiFeritaMinimiRow.setTag(R.string.punti_ferita_minimi + "_row");
+        TextView PuntiFeritaMinimiTextView = ((TextView) PuntiFeritaMinimiRow.findViewById(R.id.text_seekbar));
         PuntiFeritaMinimiTextView.setText(R.string.punti_ferita_minimi);
-        SeekBar PuntiFeritaMinimiSeekBar = ((SeekBar) PuntiFeritaMinimiRow.findViewById(R.id.seekBar));
+        SeekBar PuntiFeritaMinimiSeekBar = ((SeekBar) PuntiFeritaMinimiRow.findViewById(R.id.seekbar));
         PuntiFeritaMinimiSeekBar.setTag(R.string.punti_ferita_minimi);
         String idPersonaggioScelto = getArguments().getString("idPersonaggioScelto");
         PuntiFeritaMinimiSeekBar.setMax(MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggioScelto).getCaratteristiche().getPuntiFeritaMax());
+        TextView PuntiFeritaMinimiProgress = ((TextView) PuntiFeritaMinimiRow.findViewById(R.id.progress_seekbar));
+        PuntiFeritaMinimiProgress.setTag(R.string.punti_ferita_minimi + "_progress");
 
         TableLayout viewTable = (TableLayout) viewFragment.findViewById(R.id.table_regole_di_soddisfazione);
         viewTable.addView(OroMinimoRow);
         viewTable.addView(PuntiEsperienzaMinimiRow);
         viewTable.addView(NumeroBattaglieRow);
         viewTable.addView(PuntiFeritaMinimiRow);
+
+        setProgressBarListener(viewFragment);
 
         return viewFragment;
     }
@@ -90,6 +107,76 @@ public class RegoleDiSoddisfazioneFragment extends Fragment{
             }
         });
 
+    }
+
+    private void setProgressBarListener(final View v){
+        ((SeekBar) v.findViewWithTag(R.string.oro_minimo + "_row").findViewById(R.id.seekbar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                String progress = String.valueOf(seekBar.getProgress());
+                ((TextView) getView().findViewWithTag(R.string.oro_minimo + "_row").findViewById(R.id.progress_seekbar)).setText(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+       ((SeekBar) v.findViewWithTag(R.string.punti_esperienza_minimi + "_row").findViewById(R.id.seekbar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                String progress = String.valueOf(seekBar.getProgress());
+                ((TextView) getView().findViewWithTag(R.string.punti_esperienza_minimi + "_row").findViewById(R.id.progress_seekbar)).setText(progress);            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        ((SeekBar) v.findViewWithTag(R.string.numero_di_battaglie + "_row").findViewById(R.id.seekbar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                String progress = String.valueOf(seekBar.getProgress());
+                ((TextView) getView().findViewWithTag(R.string.numero_di_battaglie + "_row").findViewById(R.id.progress_seekbar)).setText(progress);            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        ((SeekBar) v.findViewWithTag(R.string.punti_ferita_minimi + "_row").findViewById(R.id.seekbar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                String progress = String.valueOf(seekBar.getProgress());
+                ((TextView) getView().findViewWithTag(R.string.punti_ferita_minimi + "_row").findViewById(R.id.progress_seekbar)).setText(progress);            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     private void setRegoleDiSoddisfazione(){
