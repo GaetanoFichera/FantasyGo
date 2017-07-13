@@ -23,12 +23,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModalitaNearPvEActivity extends AppCompatActivity {
+
     private static final String TAG = "ModalitàNearPvEActivity";
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         mFragmentManager = getFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -48,13 +50,14 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
 
     }
 
-    private void avviaModalità() {
+    public void avviaModalità() {
 
         Log.i(TAG, "Modalità Avviata");
 
     }
 
     private void updateInfoPersonaggiGiocatore() {
+
         UserPreferencesManager userPreferencesManager = new UserPreferencesManager(this);
         ArrayList<MPersonaggio> PersonaggiFromDb = new ArrayList<>();
         ArrayList<String> idsPersonaggiDb = userPreferencesManager.getIdsOneType("_Personaggio");
@@ -66,6 +69,7 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
     }
 
     private void setBackButtonListener(){
+
         Button backButton = ((Button) findViewById(R.id.back_button));
         Button goButton = ((Button) findViewById(R.id.go_button));
 

@@ -54,6 +54,7 @@ public class SceltaPersonaggioFragment extends ListFragment {
     }
 
     private void goToNextFragment(){
+
         RegoleDiSoddisfazioneFragment regoleDiSoddisfazioneFragment = new RegoleDiSoddisfazioneFragment();
         android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

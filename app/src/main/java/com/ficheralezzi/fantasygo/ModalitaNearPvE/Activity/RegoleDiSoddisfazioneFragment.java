@@ -21,15 +21,18 @@ import com.ficheralezzi.fantasygo.R;
  */
 
 public class RegoleDiSoddisfazioneFragment extends Fragment{
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
         setButtons();
         setGoButtonListener();
         return populateTable(inflater, container);
     }
 
     private View populateTable(LayoutInflater inflater, ViewGroup container){
+
         View viewFragment = inflater.inflate(R.layout.fragment_regole_di_soddisfazione, container, false);
 
         TableRow OroMinimoRow = ((TableRow) inflater.inflate(R.layout.row_regola_di_soddisfazione, container, false));
@@ -60,7 +63,6 @@ public class RegoleDiSoddisfazioneFragment extends Fragment{
         PuntiFeritaMinimiSeekBar.setTag(R.string.punti_ferita_minimi);
         String idPersonaggioScelto = getArguments().getString("idPersonaggioScelto");
         PuntiFeritaMinimiSeekBar.setMax(MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggioScelto).getCaratteristiche().getPuntiFeritaMax());
-
         TableLayout viewTable = (TableLayout) viewFragment.findViewById(R.id.table_regole_di_soddisfazione);
         viewTable.addView(OroMinimoRow);
         viewTable.addView(PuntiEsperienzaMinimiRow);
@@ -71,6 +73,7 @@ public class RegoleDiSoddisfazioneFragment extends Fragment{
     }
 
     private void setButtons(){
+
         Button backButton = ((Button) getActivity().findViewById(R.id.back_button));
         Button goButton = ((Button) getActivity().findViewById(R.id.go_button));
 
@@ -81,6 +84,7 @@ public class RegoleDiSoddisfazioneFragment extends Fragment{
     }
 
     private void setGoButtonListener(){
+
         Button goButton = ((Button) getActivity().findViewById(R.id.go_button));
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +97,7 @@ public class RegoleDiSoddisfazioneFragment extends Fragment{
     }
 
     private void setRegoleDiSoddisfazione(){
+
         int oroMinimoScelto = ((SeekBar) getView().findViewWithTag(R.string.oro_minimo)).getProgress();
         int puntiEsperienzaMinimiScelti = ((SeekBar) getView().findViewWithTag(R.string.punti_esperienza_minimi)).getProgress();
         int numeroDiBattaglieScelte = ((SeekBar) getView().findViewWithTag(R.string.numero_di_battaglie)).getProgress();
@@ -103,6 +108,17 @@ public class RegoleDiSoddisfazioneFragment extends Fragment{
     }
 
     private void goToNextFragment(){
-        System.out.println(MRegoleDiSoddisfazione.getSingletoneInstance().toString());
+
+        RiepilogoFragment riepilogoFragment = new RiepilogoFragment();
+        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        String idPersonaggioScelto = getArguments().getString("idPersonaggioScelto");
+        Bundle args = new Bundle();
+        args.putString("idPersonaggioScelto", idPersonaggioScelto);
+        riepilogoFragment.setArguments(args);
+
+        fragmentTransaction.replace(R.id.fragment_container_modnearpve, riepilogoFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
