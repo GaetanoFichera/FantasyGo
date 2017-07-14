@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Benvenuto in FantasyGo"
         android:id="@+id/text_title"
+        android:textAlignment="center"
         android:gravity="center"
         android:textSize="55dp"
         android:textColor="@color/FGcolorPrimary"/>
