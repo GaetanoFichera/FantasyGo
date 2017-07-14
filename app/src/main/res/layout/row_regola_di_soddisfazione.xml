@@ -25,9 +25,7 @@
             android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/progress_seekbar"
-            android:layout_centerHorizontal="true"
-            android:max="0"
-            android:progress="0"/>
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
 </TableRow>

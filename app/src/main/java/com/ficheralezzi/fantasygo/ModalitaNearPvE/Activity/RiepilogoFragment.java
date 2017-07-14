@@ -40,7 +40,7 @@ public class RiepilogoFragment extends CustomFragment{
         riempiTabellaRegoleDiSoddisfazione(mRegoleDiSoddisfazione, view);
 
         Button button = ((Button) getActivity().findViewById(R.id.go_button));
-        button.setText("Avvia");
+        button.setText(R.string.start_button_label);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
