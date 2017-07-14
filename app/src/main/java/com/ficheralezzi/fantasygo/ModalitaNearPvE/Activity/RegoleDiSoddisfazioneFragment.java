@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.location.GpsStatus;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,13 @@ import java.util.zip.Inflater;
  */
 
 public class RegoleDiSoddisfazioneFragment extends CustomFragment{
+
+    private static int FRAGMENT_TITLE = R.string.title_regole_di_soddisfazione;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        setTitleActivity();
         setButtons();
         setGoButtonListener();
         return populateTable(inflater, container);
@@ -65,6 +70,12 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
         progress.setTag(resText + "_progress");
 
         return row;
+    }
+
+    @Override
+    public void setTitleActivity() {
+        super.setTitleActivity();
+        getActivity().setTitle(FRAGMENT_TITLE);
     }
 
     private void setButtons(){

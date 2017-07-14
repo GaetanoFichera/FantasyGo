@@ -1,11 +1,8 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity;
 
-import android.app.Fragment;
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,23 +13,22 @@ import android.widget.TextView;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.R;
-import com.ficheralezzi.fantasygo.Utils.CustomAdapter;
-import com.ficheralezzi.fantasygo.Utils.CustomFragment;
 import com.ficheralezzi.fantasygo.Utils.CustomListFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by gaetano on 12/07/17.
  */
 
 public class SceltaPersonaggioFragment extends CustomListFragment{
+
     private String idPersonaggioScelto = null;
+    private static int FRAGMENT_TITLE = R.string.title_scelta_personaggio;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setTitleActivity();
         setVisibilityButtons();
         return inflater.inflate(R.layout.fragment_lista_scelta_personaggio, container, false);
     }
@@ -45,6 +41,12 @@ public class SceltaPersonaggioFragment extends CustomListFragment{
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, nomiPersonaggi);
         setListAdapter(arrayAdapter);
+    }
+
+    @Override
+    public void setTitleActivity() {
+        super.setTitleActivity();
+        getActivity().setTitle(FRAGMENT_TITLE);
     }
 
     @Override

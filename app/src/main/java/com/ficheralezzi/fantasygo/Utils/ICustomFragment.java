@@ -10,4 +10,5 @@ public interface ICustomFragment{
     void goToNextFragment(Fragment nextFragment, int resContainerNextFragment);
     void setOneArgToNextFragment(Fragment nextFragment, String key, String value);
     String getOneArg(String key);
+    void setTitleActivity();
 }

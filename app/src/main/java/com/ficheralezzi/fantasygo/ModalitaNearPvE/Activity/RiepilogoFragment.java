@@ -14,17 +14,22 @@ import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.R;
+import com.ficheralezzi.fantasygo.Utils.CustomFragment;
 
 
 /**
  * Created by root on 13/07/17.
  */
 
-public class RiepilogoFragment extends Fragment{
+public class RiepilogoFragment extends CustomFragment{
+
+    private static int FRAGMENT_TITLE = R.string.title_riepilogo;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        setTitleActivity();
+
         View view = inflater.inflate(R.layout.fragment_riepilogo, container, false);
         final String idPersonaggio = getArguments().getString("idPersonaggioScelto");
 
@@ -103,5 +108,11 @@ public class RiepilogoFragment extends Fragment{
         TableRow tableRowPuntiFeritaMinimi = ((TableRow) view.findViewById(R.id.tablePuntiFeritaMinimi));
         TextView textViewPuntiFeritaMinimi = ((TextView) tableRowPuntiFeritaMinimi.findViewById(R.id.puntiFeritaMinimi));
         textViewPuntiFeritaMinimi.setText(String.valueOf(mRegoleDiSoddisfazione.getPuntiFeritaMinimi()));
+    }
+
+    @Override
+    public void setTitleActivity() {
+        super.setTitleActivity();
+        getActivity().setTitle(FRAGMENT_TITLE);
     }
 }

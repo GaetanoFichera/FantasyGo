@@ -33,4 +33,9 @@ public class CustomListFragment extends ListFragment implements ICustomFragment{
     public String getOneArg(String key) {
         return getArguments().getString(key);
     }
+
+    @Override
+    public void setTitleActivity() {
+
+    }
 }

@@ -2,26 +2,32 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/text_seekbar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:text="seekbar text" />
+    <RelativeLayout>
+        <TextView
+            android:id="@+id/text_seekbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="seekbar text"
+            android:textSize="17dp"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/progress_seekbar"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_seekbar"
+            android:textSize="17dp"
+            android:layout_centerHorizontal="true"
+            />
+        <SeekBar
+            android:id="@+id/seekbar"
+            style="@style/Widget.AppCompat.SeekBar"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progress_seekbar"
+            android:layout_centerHorizontal="true"
+            android:max="0"
+            android:progress="0"/>
+    </RelativeLayout>
 
-    <SeekBar
-        android:id="@+id/seekbar"
-        style="@style/Widget.AppCompat.SeekBar"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:max="9999"
-        android:progress="0"/>
-
-    <TextView
-        android:id="@+id/progress_seekbar"
-        android:text="99999"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="end"/>
 </TableRow>

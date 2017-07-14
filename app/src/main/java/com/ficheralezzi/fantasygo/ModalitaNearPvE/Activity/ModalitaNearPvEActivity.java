@@ -1,27 +1,21 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.R;
-import com.ficheralezzi.fantasygo.Utils.CustomAdapter;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ModalitaNearPvEActivity extends AppCompatActivity {
 

@@ -17,6 +17,38 @@
 
         <!-- Insert object of main content view -->
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Benvenuto in FantasyGo"
+            android:gravity="center"
+            android:textSize="60dp"
+            android:textColor="@color/FGcolorPrimary"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:id="@+id/dev_phase_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/FGcolorAccent"
+                android:text="Development Phase"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:textAlignment="center"
+                android:layout_below="@id/dev_phase_text"
+                android:textColor="@color/FGcolorPrimaryDark"
+                android:text="Sviluppatori: \n Gaetano Fichera e Giovanni Lezzi"/>
+        </RelativeLayout>
+
+
     </RelativeLayout>
     <!-- The navigation drawer -->
     <ListView

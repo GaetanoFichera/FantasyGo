@@ -126,7 +126,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void doSelectedOperation(String selection){
-        if(selection.equals("Avvia Modalità")) {
+        if(selection.equals(mMenuOptions[0])) {
             Intent i = new Intent(HomeActivity.this, ModalitaNearPvEActivity.class);
             startActivity(i);
         }else{

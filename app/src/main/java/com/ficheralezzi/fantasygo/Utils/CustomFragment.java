@@ -34,4 +34,9 @@ public class CustomFragment extends Fragment implements ICustomFragment{
     public String getOneArg(String key) {
         return getArguments().getString(key);
     }
+
+    @Override
+    public void setTitleActivity() {
+
+    }
 }

@@ -2,7 +2,7 @@
     <string name="app_name">FantasyGo</string>
 
     <string-array name="menu_options">
-        <item>Avvia Modalità</item>
+        <item>Avvia Modalità NearPvE</item>
         <item>I Tuoi Personaggi</item>
         <item>Il Tuo Profilo</item>
         <item>Impostazioni</item>
@@ -17,8 +17,13 @@
     <string name="back_button_label">Indietro</string>
     <string name="go_button_label">Avanti</string>
     <string name="start_button_label">Avvia</string>
+
+    <string name="title_scelta_personaggio">Scegli un tuo Personaggio</string>
+    <string name="title_riepilogo">Riepilogo</string>
     
     <!-- Label Tabella Regole di Soddisfazione -->
+    <string name="title_regole_di_soddisfazione">Scegli i termini della Modalità</string>
+
     <string name="oro_minimo">Oro Minimo</string>
     <string name="punti_esperienza_minimi">Punti Esperienza Minimi che si vogliono</string>
     <string name="numero_di_battaglie">Numero di Battaglie da Disputare</string>
