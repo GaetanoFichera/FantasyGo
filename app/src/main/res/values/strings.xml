@@ -8,6 +8,22 @@
         <item>Impostazioni</item>
     </string-array>
 
+    <string-array name="swipe_options">
+        <item>Gioca</item>
+        <item>I Tuoi Personaggi</item>
+        <item>Il Tuo Profilo</item>
+        <item>Impostazioni</item>
+    </string-array>
+
+    <string-array name="tab_class_name_fragments">
+        <item>AvviaModalitaFragment</item>
+        <item>PersonaggiFragment</item>
+        <item>ProfiloFragment</item>
+        <item>ImpostazioniFragment</item>
+    </string-array>
+
+    <string name="button_avvia_modNearPvE">Avvia la Modalità Near PvE</string>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 

@@ -22,6 +22,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:design:+'
     compile 'com.github.moondroid.coverflow:library:1.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.android.support:support-v4:24.2.1'

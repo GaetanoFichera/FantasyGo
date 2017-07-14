@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ficheralezzi.fantasygo.HomeActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Benvenuto in FantasyGo"
+        android:id="@+id/text_title"
+        android:gravity="center"
+        android:textSize="55dp"
+        android:textColor="@color/FGcolorPrimary"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_avvia_modNearPvE"
+        android:id="@+id/button_avvia_modNearPvE"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/dev_phase_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/FGcolorAccent"
+            android:text="Development Phase"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:textAlignment="center"
+            android:layout_below="@id/dev_phase_text"
+            android:textColor="@color/FGcolorPrimaryDark"
+            android:text="Sviluppatori: \n Gaetano Fichera e Giovanni Lezzi"/>
+    </RelativeLayout>
+</RelativeLayout>

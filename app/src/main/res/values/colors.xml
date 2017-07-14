@@ -7,4 +7,5 @@
     <color name="FGcolorPrimary">#FD8024</color>
     <color name="FGcolorPrimaryDark">#F6621C</color>
     <color name="FGcolorAccent">#42AAEF</color>
+    <color name="FGcolorWhite">#ffffff</color>
 </resources>
