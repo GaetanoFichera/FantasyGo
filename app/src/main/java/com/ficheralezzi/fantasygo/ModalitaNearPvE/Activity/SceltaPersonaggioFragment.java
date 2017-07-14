@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomAdapter;
+import com.ficheralezzi.fantasygo.Utils.CustomFragment;
+import com.ficheralezzi.fantasygo.Utils.CustomListFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +28,7 @@ import java.util.Map;
  * Created by gaetano on 12/07/17.
  */
 
-public class SceltaPersonaggioFragment extends ListFragment {
+public class SceltaPersonaggioFragment extends CustomListFragment{
     private String idPersonaggioScelto = null;
 
     @Override
@@ -50,9 +52,16 @@ public class SceltaPersonaggioFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         String nomePersonaggioScelto =((TextView) v).getText().toString();
         idPersonaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggioByNome(nomePersonaggioScelto).getId();
-        goToNextFragment();
+        goToRegoleDiSoddisfazioneFragment();
     }
 
+    private void goToRegoleDiSoddisfazioneFragment(){
+        RegoleDiSoddisfazioneFragment regoleDiSoddisfazioneFragment = new RegoleDiSoddisfazioneFragment();
+        setOneArgToNextFragment(regoleDiSoddisfazioneFragment, "idPersonaggioScelto", idPersonaggioScelto);
+        goToNextFragment(regoleDiSoddisfazioneFragment, R.id.fragment_container_modnearpve);
+    }
+
+    /* Rimpiazzato dal metodo qui sopra che utilizza la classe estesa CustomListFragment
     private void goToNextFragment(){
 
         RegoleDiSoddisfazioneFragment regoleDiSoddisfazioneFragment = new RegoleDiSoddisfazioneFragment();
@@ -67,6 +76,7 @@ public class SceltaPersonaggioFragment extends ListFragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+    */
 
     private void setVisibilityButtons(){
         Button backButton = ((Button) getActivity().findViewById(R.id.back_button));
