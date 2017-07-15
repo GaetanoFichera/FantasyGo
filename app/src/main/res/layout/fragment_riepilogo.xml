@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Riepilogo Caratteristiche Personaggio"
         android:textAlignment="center"
+        android:textColor="@color/FGcolorWhite"
         android:paddingTop="10dp"/>/>
 
     <TableRow
@@ -25,12 +26,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="Nome:" />
 
         <TextView
             android:id="@+id/nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -45,12 +48,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="Bottino:" />
 
         <TextView
             android:id="@+id/bottino"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -64,12 +69,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="Razza:" />
 
         <TextView
             android:id="@+id/razza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView:" />
     </TableRow>
 
@@ -83,12 +90,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="Classe:" />
 
         <TextView
             android:id="@+id/classe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -102,12 +111,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="Sesso:" />
 
         <TextView
             android:id="@+id/sesso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
 
     </TableRow>
@@ -122,12 +133,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="PuntiEsperienza:" />
 
         <TextView
             android:id="@+id/puntiEsperienza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -141,12 +154,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="Oro:" />
 
         <TextView
             android:id="@+id/oro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -160,12 +175,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="Livello:" />
 
         <TextView
             android:id="@+id/livello"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -179,12 +196,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="PuntiFerita:" />
 
         <TextView
             android:id="@+id/puntiFerita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
 
     </TableRow>
@@ -195,6 +214,7 @@
         android:layout_height="wrap_content"
         android:text="Riepilogo Regole Di Soddisfazione"
         android:textAlignment="center"
+        android:textColor="@color/FGcolorWhite"
         android:paddingTop="10dp"/>
 
     <TableRow
@@ -208,12 +228,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="OroMinimo:" />
 
         <TextView
             android:id="@+id/oroMinimo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -227,12 +249,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="PuntiEsperienzaMinimi:" />
 
         <TextView
             android:id="@+id/puntiEsperienzaMinimi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -246,12 +270,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="NumeroDiBattaglie:" />
 
         <TextView
             android:id="@+id/numeroDiBattaglie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 
@@ -266,12 +292,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="PuntiFeritaMinimi:" />
 
         <TextView
             android:id="@+id/puntiFeritaMinimi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorWhite"
             android:text="TextView" />
     </TableRow>
 

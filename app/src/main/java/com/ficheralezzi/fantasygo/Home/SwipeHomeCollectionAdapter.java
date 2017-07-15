@@ -82,6 +82,6 @@ public class SwipeHomeCollectionAdapter extends FragmentStatePagerAdapter {
     }
 
     private Fragment getFragmentByPosition(int position) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        return (Fragment) Class.forName("com.ficheralezzi.fantasygo.Home." + getTabNameClassByPosition(position)).newInstance();
+        return (Fragment) Class.forName("com.ficheralezzi.fantasygo.Home.Activity." + getTabNameClassByPosition(position)).newInstance();
     }
 }

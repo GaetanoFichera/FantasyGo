@@ -1,4 +1,4 @@
-package com.ficheralezzi.fantasygo.Home;
+package com.ficheralezzi.fantasygo.Home.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +13,7 @@ import com.ficheralezzi.fantasygo.R;
  * Created by gaetano on 14/07/17.
  */
 
-public class PersonaggiFragment extends Fragment {
+public class ProfiloFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater,

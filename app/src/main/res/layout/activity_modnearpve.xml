@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/FGcolorPrimaryDark">
 
     <FrameLayout
         android:id="@+id/fragment_container_modnearpve"
@@ -16,17 +17,24 @@
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true">
+
         <Button
             android:id="@+id/back_button"
-            android:text="@string/back_button_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:background="@android:color/transparent"
+            android:drawableTop="@android:drawable/arrow_up_float"
+            android:text="@string/back_button_label"
+            android:textColor="@color/FGcolorWhite" />
 
         <Button
+            android:drawableTop="@android:drawable/arrow_down_float"
             android:id="@+id/go_button"
             android:text="@string/go_button_label"
+            android:textColor="@color/FGcolorWhite"
+            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

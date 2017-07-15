@@ -39,7 +39,7 @@ public class SceltaPersonaggioFragment extends CustomListFragment{
 
         ArrayList<String> nomiPersonaggi = MGiocatore.getSingletoneInstance().getNomiPersonaggi();
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, nomiPersonaggi);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), R.layout.simple_list_item_white, nomiPersonaggi);
         setListAdapter(arrayAdapter);
     }
 
