@@ -60,7 +60,48 @@ public class SwipeHomeActivity extends FragmentActivity {
         tabLayout.setupWithViewPager(mViewPager);
         initTabsLayout(tabLayout);
         mTabLayout = tabLayout;
+
+        Log.i(TAG, "sono nella home");
+
+        runInBackground();
+
+        System.out.println("23131231231231");
     }
+
+    public static boolean isRecursionEnable = false;
+
+    private void runInBackground() {
+        if (isRecursionEnable)
+            return;    // Handle not to start multiple parallel threads
+
+        isRecursionEnable = true; // on exception on thread make it true again
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // DO your work here
+                // get the data
+
+                while (true){
+                    System.out.println("ciao");
+                }
+
+                /*
+                if (false) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //uddate UI
+                            runInBackground();
+                        }
+                    });
+                } else {
+                    runInBackground();
+                }
+                */
+            }
+        }).start();
+    }
+
 
     //funzione per settare icone alle tab ma fa cagare => da rifare
     public void initTabsLayout(final TabLayout tabLayout){

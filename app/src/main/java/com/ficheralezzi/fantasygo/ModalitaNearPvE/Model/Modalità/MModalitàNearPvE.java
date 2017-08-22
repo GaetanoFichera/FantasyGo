@@ -21,22 +21,41 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
     private RisultatoFinale risultatoFinale = null;
     private String idPersonaggioScelto;
+    private static MModalitàNearPvE singletoneinstance = null;
 
-    public MModalitàNearPvE(String idPersonaggioScelto){
+    public MModalitàNearPvE(){
         super("MModalitàNearPvE");
-        this.idPersonaggioScelto = idPersonaggioScelto;
-        this.risultatoFinale = new RisultatoFinale();
+    }
+
+    public void init(String idPersonaggioScelto){
+
+        if(this.idPersonaggioScelto == null & this.risultatoFinale == null){
+            this.idPersonaggioScelto = idPersonaggioScelto;
+            this.risultatoFinale = new RisultatoFinale();
+        }
+    }
+
+    public static MModalitàNearPvE getSingletoneInstance() {
+
+        if(singletoneinstance == null){
+            Log.d("MModalitàNearPvE", "no");
+            singletoneinstance = new MModalitàNearPvE();
+        } else Log.d("MGiocatore", "si");
+
+        return singletoneinstance;
     }
 
     public boolean createModalità(){
         return true;
     }
 
+    public void enterRegolediSoddisfazione(int oroMinimoScelto, int puntiEsperienzaMinimiScelti, int numeroDiBattaglieScelte, int puntiFeritaMinimiScelti){
 
-    public boolean enterRegolediSoddisfazione(){
-        return true;
+        MRegoleDiSoddisfazione.getSingletoneInstance().destroy();
+        MRegoleDiSoddisfazione.getSingletoneInstance().init(oroMinimoScelto, puntiEsperienzaMinimiScelti, numeroDiBattaglieScelte, puntiFeritaMinimiScelti);
     }
 
+    //da far fare in background
     public void avviaModalità(){
 
         MPersonaggio personaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggioById(this.idPersonaggioScelto);
@@ -62,7 +81,11 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         this.terminaModalità();
     }
 
-    public RisultatoFinale terminaModalità(){ return this.risultatoFinale;}
+    public RisultatoFinale terminaModalità(){
+
+
+        return this.risultatoFinale;
+    }
 
     public void update(Observable observable, Object o) {
 

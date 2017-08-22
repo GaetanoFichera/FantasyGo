@@ -43,10 +43,12 @@ public class TestActivity extends AppCompatActivity {
 
         MGiocatore.getSingletoneInstance().init("G0001", personaggios, "Gaetano");
 
+        /*
         MRegoleDiSoddisfazione.getSingletoneInstance().init(10000, 20000, 30000, 10);
         MModalitàNearPvE modalitàNearPvE = new MModalitàNearPvE("P0001");
         modalitàNearPvE.avviaModalità();
         Log.i("Risultato", modalitàNearPvE.terminaModalità().toString());
+        */
     }
 
     private void displayLog(){
