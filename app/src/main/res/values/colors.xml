@@ -4,8 +4,15 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="FGcolorPrimary">#FD8024</color>
-    <color name="FGcolorPrimaryDark">#F6621C</color>
-    <color name="FGcolorAccent">#42AAEF</color>
-    <color name="FGcolorWhite">#ffffff</color>
+    <color name="FGcolorPrimary">#2980B9</color>
+    <color name="FGcolorPrimaryDark">#2C3E50</color>
+    <color name="FGcolorAccent">#E74C3C</color>
+    <color name="FGcolorAccentGreyfy">#e7ada7</color>
+    <color name="FGcolorWhite">#ECF0F1</color>
+
+    <color name="FGv1colorPrimary">#FD8024</color>
+    <color name="FGv1colorPrimaryDark">#F6621C</color>
+    <color name="FGv1colorAccent">#42AAEF</color>
+    <color name="FGv1colorWhite">#ffffff</color>
+
 </resources>

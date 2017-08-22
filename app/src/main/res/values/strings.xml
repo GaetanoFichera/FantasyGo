@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FantasyGo</string>
 
+
     <string-array name="menu_options">
         <item>Avvia Modalità NearPvE</item>
         <item>I Tuoi Personaggi</item>
@@ -10,8 +11,8 @@
 
     <string-array name="swipe_options">
         <item>Gioca</item>
-        <item>I Tuoi Personaggi</item>
-        <item>Il Tuo Profilo</item>
+        <item>I Tuoi Pg</item>
+        <item>Profilo</item>
         <item>Impostazioni</item>
     </string-array>
 
@@ -22,7 +23,10 @@
         <item>ImpostazioniFragment</item>
     </string-array>
 
-    <string name="button_avvia_modNearPvE">Avvia la Modalità Near PvE</string>
+    <string name="tab_class_name_fragment_avan_mod_near_pve">AvanzamentoModalitaNearPvEFragment</string>
+    <string name="tab_class_name_fragment_avvia_mod">AvviaModalitaFragment</string>
+
+    <string name="button_avvia_modNearPvE">Avvia Modalità Near PvE</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

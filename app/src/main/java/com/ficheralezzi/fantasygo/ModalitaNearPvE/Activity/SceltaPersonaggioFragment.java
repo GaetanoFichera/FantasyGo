@@ -2,7 +2,6 @@ package com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class SceltaPersonaggioFragment extends CustomListFragment{
 
         ArrayList<String> nomiPersonaggi = MGiocatore.getSingletoneInstance().getNomiPersonaggi();
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), R.layout.simple_list_item_white, nomiPersonaggi);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), R.layout.simple_list_item, nomiPersonaggi);
         setListAdapter(arrayAdapter);
     }
 

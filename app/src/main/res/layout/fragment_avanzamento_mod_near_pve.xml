@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/title_frag_avanz_mod_near_pve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modalità NearPvE in Corso..."
+            android:textAllCaps="true"
+            android:textColor="@color/FGcolorWhite"/>
+
+        <TextView
+            android:id="@+id/nomePersonaggio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome Personaggio"
+            android:textAllCaps="true"
+            android:textColor="@color/FGcolorWhite"
+            android:layout_below="@id/title_frag_avanz_mod_near_pve"/>
+
+        <RelativeLayout
+            android:id="@+id/puntiFeritaContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nomePersonaggio">
+
+            <TextView
+                android:id="@+id/text_punti_ferita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Punti Ferita"
+                android:textAllCaps="true"
+                android:textColor="@color/FGcolorWhite"/>
+
+            <TextView
+                android:id="@+id/puntiFeritaCorrenti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="0"
+                android:layout_toEndOf="@id/text_punti_ferita"
+                android:textColor="@color/FGcolorWhite"/>
+
+            <TextView
+                android:id="@+id/textDivider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/puntiFeritaCorrenti"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="/"
+                android:textColor="@color/FGcolorWhite"/>
+
+            <TextView
+                android:id="@+id/puntiFeritaMassimi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/textDivider"
+                android:text="99999999"
+                android:textColor="@color/FGcolorWhite"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/infoBattContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/puntiFeritaContainer">
+            <TextView
+                android:id="@+id/textBattaglie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Numero di Battaglie Affrontate : "
+                android:textColor="@color/FGcolorWhite"
+                android:textAllCaps="true"/>
+            <TextView
+                android:id="@+id/numeroDiBattaglieAffrontate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/textBattaglie"
+                android:text="0"
+                android:textColor="@color/FGcolorWhite"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/infoOroContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoBattContainer">
+            <TextView
+                android:id="@+id/textOro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Oro in Possesso : "
+                android:textColor="@color/FGcolorWhite"
+                android:textAllCaps="true"/>
+            <TextView
+                android:id="@+id/oroPosseduto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/FGcolorWhite"
+                android:layout_toEndOf="@id/textOro"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

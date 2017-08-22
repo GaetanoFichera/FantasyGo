@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:background="@color/FGcolorPrimaryDark">
+    android:background="@color/FGcolorWhite">
 
     <FrameLayout
         android:id="@+id/fragment_container_modnearpve"
@@ -16,32 +16,32 @@
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp">
 
         <Button
             android:id="@+id/back_button"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:background="@android:color/transparent"
-            android:drawableTop="@android:drawable/arrow_up_float"
+            android:background="@drawable/background_button"
+            android:drawableLeft="@mipmap/ic_indietro"
             android:text="@string/back_button_label"
-            android:textColor="@color/FGcolorWhite" />
+            android:textColor="@color/FGcolorWhite"
+            android:layout_marginRight="30dp"
+            android:paddingRight="15dp"/>
 
         <Button
-            android:drawableTop="@android:drawable/arrow_down_float"
+            android:drawableRight="@mipmap/ic_avanti"
             android:id="@+id/go_button"
             android:text="@string/go_button_label"
             android:textColor="@color/FGcolorWhite"
-            android:background="@android:color/transparent"
-            android:layout_width="wrap_content"
+            android:background="@drawable/background_button"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@id/back_button"
-            android:layout_marginBottom="20dp"/>
+            android:paddingLeft="15dp"/>
     </RelativeLayout>
 
-
 </RelativeLayout>
-

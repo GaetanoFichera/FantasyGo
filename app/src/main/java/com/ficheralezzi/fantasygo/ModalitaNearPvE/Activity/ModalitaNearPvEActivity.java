@@ -2,18 +2,23 @@ package com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.ficheralezzi.fantasygo.Home.Activity.SwipeHomeActivity;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -25,7 +30,6 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         mFragmentManager = getFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -50,6 +54,10 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
         Log.i(TAG, "Modalità Avviata con il personaggio: " + MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggioScelto).getNome());
         Log.i(TAG, "Le Regole di Soddisfazione sono " + MRegoleDiSoddisfazione.getSingletoneInstance().toString());
 
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("avviare mod near pve", "avvia");
+        setResult(AppCompatActivity.RESULT_OK, returnIntent);
+        finish();
     }
 
     private void updateInfoPersonaggiGiocatore() {
