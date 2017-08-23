@@ -1,7 +1,9 @@
 package com.ficheralezzi.fantasygo.Home.Activity;
 
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -111,6 +113,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
 
         Log.i(TAG, "Mod Terminata");
 
+        /*
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.dialog_titolo)
                 .setMessage(R.string.dialog_testo)
@@ -124,5 +127,55 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         AlertDialog dialog = builder.create();
 
         dialog.show();
+        */
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.dialog_titolo)
+                .setMessage(R.string.dialog_testo_mod_in_corso)
+                .setPositiveButton(R.string.string_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        MModalitàNearPvE.getSingletoneInstance().destroy();
+                        ((SwipeHomeActivity) getActivity()).stopAvanzamentoModNearPvE();
+                    }
+                });
+
+        final AlertDialog dialog = builder.create();
+
+        dialog.show();
+
+
+        dialog.getButton(Dialog.BUTTON_POSITIVE).setClickable(false);
+        dialog.getButton(Dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.FGcolorAccentGreyfy));
+
+        Thread controlloTermineUltimaBattaglia = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(MModalitàNearPvE.getSingletoneInstance().isBattagliaInCorso()){
+
+                }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.setMessage(getResources().getString(R.string.dialog_testo));
+                        dialog.getButton(Dialog.BUTTON_POSITIVE).setClickable(true);
+                        dialog.getButton(Dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.FGcolorAccent));
+                    }
+                });
+            }
+        });
+
+        controlloTermineUltimaBattaglia.start();
+
+        /*
+        while(MModalitàNearPvE.getSingletoneInstance().isBattagliaInCorso()){
+            System.out.println("1");
+        }
+
+        /*
+        dialog.setMessage(getResources().getString(R.string.dialog_testo));
+        dialog.getButton(Dialog.BUTTON_POSITIVE).setClickable(true);
+        dialog.getButton(Dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.FGcolorAccent));
+        */
     }
 }

@@ -127,10 +127,6 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         isRunning = false;
         // mSimulazioneBattaglie.interrupt();
 
-        Log.i(TAG, "Modalità terminata");
-        Log.i(TAG, "Risultato finale: " + risultatoFinale.toString());
-
-
         /**
          * continua a controllare finche non c'è alcuna battaglia in corso, a quel punto avvia il reset della modalità con stampa
          * del risultato
@@ -141,8 +137,8 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
                 while (battagliaInCorso){
                     //non fare niente
                 }
-                Log.i(TAG, risultatoFinale.toString());
-                destroy();
+                Log.i(TAG, "Modalità terminata");
+                Log.i(TAG, "Risultato finale: " + risultatoFinale.toString());
             }
         });
 

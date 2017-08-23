@@ -83,7 +83,7 @@ public class MZonaDiCaccia {
     private ArrayList<MMostro> getMostriFromDb(String idArea){
 
         //da implementare con interazione col db
-        MCaratteristiche caratteristichemostro = new MCaratteristiche(1, 70, 70, 3, 5, 5, 4, 6, "DardoInfuocato", 0, 10, "Mag");
+        MCaratteristiche caratteristichemostro = new MCaratteristiche(1, 500, 70, 3, 5, 5, 4, 6, "DardoInfuocato", 0, 10, "Mag");
         ArrayList<MMostro> mostri= new ArrayList<>();
         MMostro mostro = new MMostro("M0001", caratteristichemostro, 10);
         mostri.add(mostro);

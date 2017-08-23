@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class MBattaglia {
 
     private static final String TAG = "MBattaglia";
-    private static final long TIMETOWAIT = 500;
+    private static final long TIMETOWAIT = 3000;
     private Risultato risultato = null;
     private MCombattente combattenteA = null;
     private MCombattente combattenteB = null;
@@ -113,15 +113,6 @@ public class MBattaglia {
         risultato.setPuntiferitaB(combattenteB.getCaratteristiche().getPuntiFerita());
         risultato.setNumeroturni(this.turno);
     }
-
-
-    public void resetBattaglia(){
-
-        this.risultato = null;
-        this.combattenteA = null;
-        this.combattenteB = null;
-    }
-
 
     @Override
     public String toString() {
