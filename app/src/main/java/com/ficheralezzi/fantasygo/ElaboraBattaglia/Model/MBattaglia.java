@@ -1,17 +1,22 @@
 package com.ficheralezzi.fantasygo.ElaboraBattaglia.Model;
 
+import android.os.Handler;
 import android.util.Log;
 
 import com.ficheralezzi.fantasygo.Utils.Risultato;
 
+import java.util.concurrent.TimeUnit;
+
 public class MBattaglia {
 
     private static final String TAG = "MBattaglia";
+    private static final long TIMETOWAIT = 500;
     private Risultato risultato = null;
     private MCombattente combattenteA = null;
     private MCombattente combattenteB = null;
     private static MBattaglia singletoneinstance = null;
     private int turno = 0;
+
 
     public MBattaglia() {
     }
@@ -22,15 +27,16 @@ public class MBattaglia {
             this.combattenteA = combattenteA;
             this.combattenteB = combattenteB;
             this.risultato = new Risultato();
+            Log.i(TAG, "Inizializzato");
         }
     }
 
     public static MBattaglia getSingletoneInstance() {
 
         if(singletoneinstance == null){
-            Log.d("battaglia", "no");
+            Log.d(TAG, "no");
             singletoneinstance = new MBattaglia();
-        } else Log.d("battaglia", "si");
+        } else Log.d(TAG, "si");
 
 
         return singletoneinstance;
@@ -71,8 +77,11 @@ public class MBattaglia {
     }
 
     public void elaboraBattaglia(){
-
+        Log.i(TAG, "elabora battaglia eseguito");
+        Log.i(TAG, "combattenteA : " + combattenteA.toString());
+        Log.i(TAG, "combattenteB : " + combattenteB.toString());
         while (combattenteA.getCaratteristiche().getPuntiFerita() > 0 && combattenteB.getCaratteristiche().getPuntiFerita() > 0){
+            Log.i(TAG, "sono nel while");
             if ((combattenteA.getCaratteristiche().getVelocitàdAttacco() >= 0  & turno%2 == 0 )||
                     (combattenteA.getCaratteristiche().getVelocitàdAttacco()< combattenteB.getCaratteristiche().getVelocitàdAttacco()
                     & turno%2 != 0)) {
@@ -87,6 +96,12 @@ public class MBattaglia {
             Log.d(TAG, "Turno " + turno + " finito");
             Log.d(TAG, this.toString());
             turno++;
+
+            try {
+                Thread.sleep(TIMETOWAIT);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         if(combattenteA.getCaratteristiche().getPuntiFerita() > combattenteB.getCaratteristiche().getPuntiFerita()){
@@ -115,6 +130,15 @@ public class MBattaglia {
                 ", combattenteB=" + combattenteB.toString() +
                 ", turno=" + turno +
                 '}';
+    }
+
+    public void destroy(){
+        if(singletoneinstance != null){
+            singletoneinstance = null;
+            combattenteA = null;
+            combattenteB = null;
+            risultato = null;
+        }
     }
 }
 

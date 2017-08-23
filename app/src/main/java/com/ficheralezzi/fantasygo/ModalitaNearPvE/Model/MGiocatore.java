@@ -34,9 +34,9 @@ public class MGiocatore extends MGps {
     public static MGiocatore getSingletoneInstance() {
 
         if(singletoneinstance == null){
-            Log.d("MGiocatore", "no");
+            //Log.d("MGiocatore", "no");
             singletoneinstance = new MGiocatore();
-        } else Log.d("MGiocatore", "si");
+        } //else //Log.d("MGiocatore", "si");
 
         return singletoneinstance;
     }
@@ -68,11 +68,11 @@ public class MGiocatore extends MGps {
         for(int i=0; i <= this.personaggi.size()-1 && personaggio == null; i++){
             if(this.personaggi.get(i).getId() == id){
                 personaggio = this.personaggi.get(i);
-                Log.i("MGiocatore", "Personaggio con Id Trovato");
+                //Log.i("MGiocatore", "Personaggio con Id Trovato");
             }
         }
         if(personaggio == null){
-            Log.i("MGiocatore", "Personaggio con Id non Trovato");
+            //Log.i("MGiocatore", "Personaggio con Id non Trovato");
         }
         return personaggio;
     }

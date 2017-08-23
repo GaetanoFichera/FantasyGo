@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomFragment;
 
@@ -31,7 +32,8 @@ public class RiepilogoFragment extends CustomFragment{
         setTitleActivity();
 
         View view = inflater.inflate(R.layout.fragment_riepilogo, container, false);
-        final String idPersonaggio = getArguments().getString("idPersonaggioScelto");
+        //final String idPersonaggio = getArguments().getString("idPersonaggioScelto");
+        final String idPersonaggio = MModalitàNearPvE.getSingletoneInstance().getIdPersonaggioScelto();
 
         MPersonaggio mPersonaggio = MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggio);
         riempiTableCaratteristiche(mPersonaggio, view);
@@ -39,14 +41,8 @@ public class RiepilogoFragment extends CustomFragment{
         MRegoleDiSoddisfazione mRegoleDiSoddisfazione = MRegoleDiSoddisfazione.getSingletoneInstance();
         riempiTabellaRegoleDiSoddisfazione(mRegoleDiSoddisfazione, view);
 
-        Button button = ((Button) getActivity().findViewById(R.id.go_button));
-        button.setText(R.string.start_button_label);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((ModalitaNearPvEActivity) getActivity()).avviaModalità(idPersonaggio);
-            }
-        });
+        setButtons();
+        setGoButtonListener();
 
         return view;
     }
@@ -114,5 +110,26 @@ public class RiepilogoFragment extends CustomFragment{
     public void setTitleActivity() {
         super.setTitleActivity();
         getActivity().setTitle(FRAGMENT_TITLE);
+    }
+
+    private void setButtons(){
+        Button backButton = ((Button) getActivity().findViewById(R.id.back_button));
+        Button goButton = ((Button) getActivity().findViewById(R.id.go_button));
+
+        goButton.setText(R.string.go_button_label);
+
+        if(backButton.getVisibility() == View.INVISIBLE) backButton.setVisibility(View.VISIBLE);
+        if(goButton.getVisibility() == View.INVISIBLE) goButton.setVisibility(View.VISIBLE);
+    }
+
+    private void setGoButtonListener(){
+        Button goButton = ((Button) getActivity().findViewById(R.id.go_button));
+        goButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ModalitaNearPvEActivity) getActivity()).avviaModalità();
+            }
+        });
+
     }
 }

@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class MZonaDiCaccia {
 
+    private static final String TAG = "MZonaDiCaccia";
     private ArrayList<MMostro> mostri = null;
     private MArea area = null;
     private static MZonaDiCaccia singletoneinstance = null;
@@ -122,5 +123,13 @@ public class MZonaDiCaccia {
             if (this.mostri.get(i).getId() == id) mostro = this.mostri.get(i);
         }
         return mostro;
+    }
+
+    public void reviveMostroById(String id){
+        MMostro mostro = null;
+        for (int i=0; i < this.mostri.size(); i++){
+            if (this.mostri.get(i).getId() == id) mostro = this.mostri.get(i);
+        }
+        mostro.revive();
     }
 }

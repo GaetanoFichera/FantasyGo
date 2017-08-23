@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 
 import java.util.Timer;
@@ -77,14 +78,12 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
     }
 
     private void updateView(){
-        System.out.println(MGiocatore.getSingletoneInstance().getNome());
-
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                mTextViewPuntiFeritaCorrenti.setText(String.valueOf(MGiocatore.getSingletoneInstance().getOnePersonaggioById(mIdPersonaggioCorrente).getCaratteristiche().getPuntiFerita()));
+                mTextViewPuntiFeritaCorrenti.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getPuntiFerita()));
                 mTextViewPuntiFeritaMassimi.setText(String.valueOf(MGiocatore.getSingletoneInstance().getOnePersonaggioById(mIdPersonaggioCorrente).getCaratteristiche().getPuntiFeritaMax()));
-                mTextViewNumeroDiBattaglieAffrontate.setText("0");
-                mTextViewOroPosseduto.setText(String.valueOf(MGiocatore.getSingletoneInstance().getOnePersonaggioById(mIdPersonaggioCorrente).getOro()));
+                mTextViewNumeroDiBattaglieAffrontate.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getNumeroDiBattaglie()));
+                mTextViewOroPosseduto.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getOro()));
 
             }
 

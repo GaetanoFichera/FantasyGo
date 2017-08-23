@@ -38,13 +38,18 @@ public class SwipeHomeActivity extends FragmentActivity {
     ViewPager mViewPager;
     TabLayout mTabLayout;
 
+    private boolean updateEffettuato = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //da fare in una splashScreen
-        updateMineDb();
-        updateInfoGiocatore();
+        if (!updateEffettuato){
+            updateMineDb();
+            updateInfoGiocatore();
+            updateEffettuato = true;
+        }
 
         ArrayList<String> swipeOptions = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.swipe_options)));
         ArrayList<String> tabClassNameFragments = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.tab_class_name_fragments)));
@@ -60,49 +65,7 @@ public class SwipeHomeActivity extends FragmentActivity {
         tabLayout.setupWithViewPager(mViewPager);
         initTabsLayout(tabLayout);
         mTabLayout = tabLayout;
-
-        Log.i(TAG, "sono nella home");
-
-        runInBackground();
-
-        System.out.println("23131231231231");
     }
-
-    public static boolean isRecursionEnable = false;
-
-    private void runInBackground() {
-        if (isRecursionEnable)
-            return;    // Handle not to start multiple parallel threads
-
-        isRecursionEnable = true; // on exception on thread make it true again
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // DO your work here
-                // get the data
-
-                while (true){
-                    System.out.println("ciao");
-                }
-
-                /*
-                if (false) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //uddate UI
-                            runInBackground();
-                        }
-                    });
-                } else {
-                    runInBackground();
-                }
-                */
-            }
-        }).start();
-    }
-
-
     //funzione per settare icone alle tab ma fa cagare => da rifare
     public void initTabsLayout(final TabLayout tabLayout){
         for (int i=0; i < tabLayout.getTabCount(); i++){
@@ -120,7 +83,6 @@ public class SwipeHomeActivity extends FragmentActivity {
         }
 
         mSwipeHomeCollectionAdapter.initializeFirstPageTextColor(tabLayout);
-        System.out.println("ciaoooo");
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

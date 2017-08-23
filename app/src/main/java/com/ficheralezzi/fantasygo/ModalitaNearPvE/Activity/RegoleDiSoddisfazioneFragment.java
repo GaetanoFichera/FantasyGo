@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomFragment;
 
@@ -45,7 +46,8 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
         viewTablev2.addView(createOneRow(inflater, container, R.string.oro_minimo, getContext().getResources().getInteger(R.integer.oro_minimo_max)));
         viewTablev2.addView(createOneRow(inflater, container, R.string.punti_esperienza_minimi, getContext().getResources().getInteger(R.integer.punti_esperienza_minimi_max)));
         viewTablev2.addView(createOneRow(inflater, container, R.string.numero_di_battaglie, getContext().getResources().getInteger(R.integer.numero_di_battaglie_max)));
-        String idPersonaggioSceltov2 = getOneArg("idPersonaggioScelto");
+        String idPersonaggioSceltov2 = MModalitàNearPvE.getSingletoneInstance().getIdPersonaggioScelto();
+        //String idPersonaggioSceltov2 = getOneArg("idPersonaggioScelto");
         viewTablev2.addView(createOneRow(inflater, container, R.string.punti_ferita_minimi, MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggioSceltov2).getCaratteristiche().getPuntiFeritaMax()));
 
         setOneProgressBarListener(viewFragment, R.string.oro_minimo);
@@ -132,7 +134,7 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
     private void goToRiepilogoFragment(){
         System.out.println(MRegoleDiSoddisfazione.getSingletoneInstance().toString());
         RiepilogoFragment riepilogoFragment = new RiepilogoFragment();
-        setOneArgToNextFragment(riepilogoFragment, "idPersonaggioScelto", getOneArg("idPersonaggioScelto"));
+        //setOneArgToNextFragment(riepilogoFragment, "idPersonaggioScelto", getOneArg("idPersonaggioScelto"));
         goToNextFragment(riepilogoFragment, R.id.fragment_container_modnearpve);
     }
 }

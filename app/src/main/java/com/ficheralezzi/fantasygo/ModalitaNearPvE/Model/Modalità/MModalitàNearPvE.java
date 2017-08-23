@@ -19,16 +19,17 @@ import java.util.Observer;
 
 public class MModalitàNearPvE extends IntentService implements IModalità, Observer {
 
+    private static final String TAG = "MModalitàNearPvE";
     private RisultatoFinale risultatoFinale = null;
     private String idPersonaggioScelto;
     private static MModalitàNearPvE singletoneinstance = null;
+    private Thread mSimulazioneBattaglie = null;
 
     public MModalitàNearPvE(){
         super("MModalitàNearPvE");
     }
 
     public void init(String idPersonaggioScelto){
-
         if(this.idPersonaggioScelto == null & this.risultatoFinale == null){
             this.idPersonaggioScelto = idPersonaggioScelto;
             this.risultatoFinale = new RisultatoFinale();
@@ -38,9 +39,9 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
     public static MModalitàNearPvE getSingletoneInstance() {
 
         if(singletoneinstance == null){
-            Log.d("MModalitàNearPvE", "no");
+            Log.d(TAG, "no");
             singletoneinstance = new MModalitàNearPvE();
-        } else Log.d("MGiocatore", "si");
+        } else Log.d(TAG, "si");
 
         return singletoneinstance;
     }
@@ -58,11 +59,41 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
     //da far fare in background
     public void avviaModalità(){
 
-        MPersonaggio personaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggioById(this.idPersonaggioScelto);
+        final MPersonaggio personaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggioById(this.idPersonaggioScelto);
         MZonaDiCaccia.getSingletoneInstance().init();
         MZonaDiCaccia.getSingletoneInstance().update(0,0);
         MZonaDiCaccia.getSingletoneInstance().getMostri().toString();
 
+        Log.i(TAG, "ModalitàNearPvE avviata");
+
+        mSimulazioneBattaglie = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte(risultatoFinale.getOro(),
+                        risultatoFinale.getPuntiEsperienza(), risultatoFinale.getNumeroDiBattaglie(),
+                        risultatoFinale.getPuntiFerita())){
+
+                    String idmostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
+                    MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostroById(idmostro));
+                    MBattaglia.getSingletoneInstance().elaboraBattaglia();
+
+                    updateRisultatoFinale(MZonaDiCaccia.getSingletoneInstance().getRicompensa(idmostro),
+                            MZonaDiCaccia.getSingletoneInstance().getRicompensa(idmostro)*2,
+                            MBattaglia.getSingletoneInstance().getRisultato().getPuntiferitaA());
+
+                    MZonaDiCaccia.getSingletoneInstance().reviveMostroById(idmostro);
+
+                    Log.i(TAG, MBattaglia.getSingletoneInstance().getCombattenteA().toString());
+
+                    MBattaglia.getSingletoneInstance().destroy();
+                }
+                terminaModalità();
+            }
+        });
+
+        mSimulazioneBattaglie.start();
+
+        /*
         // il while controlla sul risultatoFinale gli avanzamenti dell'oro guadagnato fino a quel momento
         // e al giocatore le caratteristiche del combattente
         while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte(this.risultatoFinale.getOro(),
@@ -79,10 +110,15 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
             Log.i("MMod", MBattaglia.getSingletoneInstance().getCombattenteA().toString());
         }
         this.terminaModalità();
+        */
     }
 
     public RisultatoFinale terminaModalità(){
 
+        mSimulazioneBattaglie.interrupt();
+
+        Log.i(TAG, "Modalità terminata");
+        Log.i(TAG, "Risultato finale: " + risultatoFinale.toString());
 
         return this.risultatoFinale;
     }
@@ -106,6 +142,30 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
         MZonaDiCaccia.getSingletoneInstance().update(MGiocatore.getSingletoneInstance().getLatitude(),
                 MGiocatore.getSingletoneInstance().getLongitude());
+    }
+
+    public void destroy(){
+        if(singletoneinstance != null) {
+            singletoneinstance = null;
+            idPersonaggioScelto = null;
+            risultatoFinale = null;
+        }
+    }
+
+    public String getIdPersonaggioScelto() {
+        return idPersonaggioScelto;
+    }
+
+    public void setIdPersonaggioScelto(String idPersonaggioScelto) {
+        this.idPersonaggioScelto = idPersonaggioScelto;
+    }
+
+    public RisultatoFinale getRisultatoFinale() {
+        return risultatoFinale;
+    }
+
+    public void setRisultatoFinale(RisultatoFinale risultatoFinale) {
+        this.risultatoFinale = risultatoFinale;
     }
 }
 
