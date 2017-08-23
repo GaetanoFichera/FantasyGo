@@ -54,5 +54,11 @@
     <integer name="punti_esperienza_minimi_max">9999</integer>
     <integer name="numero_di_battaglie_max">9999</integer>
     <integer name="punti_ferita_minimi_max">9999</integer>
+
+    <!-- String Titolo e Messaggio Dialog End Mod Near PvE -->
+    <string name="dialog_titolo">Modalità Near PvE</string>
+    <string name="dialog_testo">Modalità Near PvE Terminata</string>
+    <string name="string_ok">OK</string>
+    <string name="dialog_testo_mod_in_corso">Ultima Battaglia in Corso, Attendere...</string>
     
 </resources>

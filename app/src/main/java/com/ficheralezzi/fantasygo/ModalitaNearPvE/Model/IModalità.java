@@ -10,5 +10,5 @@ public interface IModalità {
 
     boolean createModalità();
     void avviaModalità();
-    RisultatoFinale terminaModalità();
+    void terminaModalità();
 }

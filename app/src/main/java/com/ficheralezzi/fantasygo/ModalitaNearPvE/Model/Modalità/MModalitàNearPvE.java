@@ -24,6 +24,8 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
     private String idPersonaggioScelto;
     private static MModalitàNearPvE singletoneinstance = null;
     private Thread mSimulazioneBattaglie = null;
+    private boolean isRunning = false;
+    private boolean battagliaInCorso = false;
 
     public MModalitàNearPvE(){
         super("MModalitàNearPvE");
@@ -39,9 +41,9 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
     public static MModalitàNearPvE getSingletoneInstance() {
 
         if(singletoneinstance == null){
-            Log.d(TAG, "no");
+            //Log.d(TAG, "no");
             singletoneinstance = new MModalitàNearPvE();
-        } else Log.d(TAG, "si");
+        } //else Log.d(TAG, "si");
 
         return singletoneinstance;
     }
@@ -66,12 +68,17 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
         Log.i(TAG, "ModalitàNearPvE avviata");
 
+        isRunning = true;
+
+
+
         mSimulazioneBattaglie = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte(risultatoFinale.getOro(),
                         risultatoFinale.getPuntiEsperienza(), risultatoFinale.getNumeroDiBattaglie(),
-                        risultatoFinale.getPuntiFerita())){
+                        risultatoFinale.getPuntiFerita()) && isRunning ){
+                    battagliaInCorso = true;
 
                     String idmostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
                     MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostroById(idmostro));
@@ -86,8 +93,10 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
                     Log.i(TAG, MBattaglia.getSingletoneInstance().getCombattenteA().toString());
 
                     MBattaglia.getSingletoneInstance().destroy();
+
+                    battagliaInCorso = false;
                 }
-                terminaModalità();
+                if (isRunning) terminaModalità();
             }
         });
 
@@ -113,14 +122,31 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         */
     }
 
-    public RisultatoFinale terminaModalità(){
+    public void terminaModalità(){
 
-        mSimulazioneBattaglie.interrupt();
+        isRunning = false;
+        // mSimulazioneBattaglie.interrupt();
 
         Log.i(TAG, "Modalità terminata");
         Log.i(TAG, "Risultato finale: " + risultatoFinale.toString());
 
-        return this.risultatoFinale;
+
+        /**
+         * continua a controllare finche non c'è alcuna battaglia in corso, a quel punto avvia il reset della modalità con stampa
+         * del risultato
+         */
+        Thread controlloBattagliaInCorso = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (battagliaInCorso){
+                    //non fare niente
+                }
+                Log.i(TAG, risultatoFinale.toString());
+                destroy();
+            }
+        });
+
+        controlloBattagliaInCorso.start();
     }
 
     public void update(Observable observable, Object o) {
@@ -166,6 +192,14 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
     public void setRisultatoFinale(RisultatoFinale risultatoFinale) {
         this.risultatoFinale = risultatoFinale;
+    }
+
+    public boolean isBattagliaInCorso() {
+        return battagliaInCorso;
+    }
+
+    public void setBattagliaInCorso(boolean battagliaInCorso) {
+        this.battagliaInCorso = battagliaInCorso;
     }
 }
 

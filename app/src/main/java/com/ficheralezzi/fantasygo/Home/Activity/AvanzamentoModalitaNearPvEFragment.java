@@ -1,12 +1,16 @@
 package com.ficheralezzi.fantasygo.Home.Activity;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -50,6 +54,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         mTextViewPuntiFeritaMassimi = ((TextView) view.findViewById(R.id.puntiFeritaMassimi));
         mTextViewNumeroDiBattaglieAffrontate = ((TextView) view.findViewById(R.id.numeroDiBattaglieAffrontate));
         mTextViewOroPosseduto = ((TextView) view.findViewById(R.id.oroPosseduto));
+        setButtonListener(view);
 
         return view;
     }
@@ -80,13 +85,44 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
     private void updateView(){
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                mTextViewPuntiFeritaCorrenti.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getPuntiFerita()));
-                mTextViewPuntiFeritaMassimi.setText(String.valueOf(MGiocatore.getSingletoneInstance().getOnePersonaggioById(mIdPersonaggioCorrente).getCaratteristiche().getPuntiFeritaMax()));
-                mTextViewNumeroDiBattaglieAffrontate.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getNumeroDiBattaglie()));
-                mTextViewOroPosseduto.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getOro()));
-
+                if (MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null) {
+                    mTextViewPuntiFeritaCorrenti.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getPuntiFerita()));
+                    mTextViewPuntiFeritaMassimi.setText(String.valueOf(MGiocatore.getSingletoneInstance().getOnePersonaggioById(mIdPersonaggioCorrente).getCaratteristiche().getPuntiFeritaMax()));
+                    mTextViewNumeroDiBattaglieAffrontate.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getNumeroDiBattaglie()));
+                    mTextViewOroPosseduto.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getOro()));
+                }
             }
 
         });
+    }
+
+    private void setButtonListener(View v){
+        Button endModButton = ((Button) v.findViewById(R.id.button_end_mod));
+        endModButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                terminaModalitaNearPvE();
+            }
+        });
+    }
+
+    private void terminaModalitaNearPvE(){
+        MModalitàNearPvE.getSingletoneInstance().terminaModalità();
+
+        Log.i(TAG, "Mod Terminata");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.dialog_titolo)
+                .setMessage(R.string.dialog_testo)
+                .setPositiveButton(R.string.string_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        ((SwipeHomeActivity) getActivity()).stopAvanzamentoModNearPvE();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
     }
 }

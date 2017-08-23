@@ -175,6 +175,15 @@ public class SwipeHomeActivity extends FragmentActivity {
     }
 
     public void stopAvanzamentoModNearPvE(){
+        Log.i(TAG, "Avanzamento ModNearPvE Terminato");
         mSwipeHomeCollectionAdapter.replaceFragment("Gioca", getString(R.string.tab_class_name_fragment_avvia_mod), 0);
+        mViewPager.setCurrentItem(2);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(0);
+            }
+        }, 400);
     }
 }
