@@ -180,6 +180,7 @@ public class SwipeHomeActivity extends FragmentActivity {
     }
 
     public void stopAvanzamentoModNearPvE(){
+        mViewPager.setCurrentItem(0);
         Log.i(TAG, "Avanzamento ModNearPvE Terminato");
         mSwipeHomeCollectionAdapter.replaceFragment("Gioca", getString(R.string.tab_class_name_fragment_avvia_mod), 0);
         mViewPager.setCurrentItem(2);
@@ -198,5 +199,9 @@ public class SwipeHomeActivity extends FragmentActivity {
         boolean isOnline = NetworkManager.isOnline(this);
 
         Log.i(TAG, "Connessione: " + String.valueOf(isOnline));
+    }
+
+    public void moveToFirstPage(){
+        if (mViewPager.getCurrentItem() != 0) mViewPager.setCurrentItem(0);
     }
 }

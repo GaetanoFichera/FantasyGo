@@ -60,5 +60,6 @@
     <string name="dialog_testo">Modalità Near PvE Terminata</string>
     <string name="string_ok">OK</string>
     <string name="dialog_testo_mod_in_corso">Ultima Battaglia in Corso, Attendere...</string>
+    <string name="dialog_testo_internet_disconnesso">Connessione Assente e ModNearPvE Terminata</string>
     
 </resources>

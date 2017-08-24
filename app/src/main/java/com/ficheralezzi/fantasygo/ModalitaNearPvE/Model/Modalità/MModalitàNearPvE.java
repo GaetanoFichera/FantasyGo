@@ -20,21 +20,30 @@ import java.util.Observer;
 public class MModalitàNearPvE extends IntentService implements IModalità, Observer {
 
     private static final String TAG = "MModalitàNearPvE";
+    private static final int MOD_STATE_NONE = 0;
+    private static final int MOD_STATE_INITIALIZED = 1;
+    private static final int MOD_STATE_DECIDED_RULES = 2;
+    private static final int MOD_STATE_STARTED = 3;
+    private static final int MOD_STATE_RUNNING_BATTLE_NOT_IN_PROGRESS = 4;
+    private static final int MOD_STATE_RUNNING_BATTLE_IN_PROGRESS = 5;
+    private static final int MOD_STATE_TERMINATED = 6;
+
     private RisultatoFinale risultatoFinale = null;
     private String idPersonaggioScelto;
     private static MModalitàNearPvE singletoneinstance = null;
-    private Thread mSimulazioneBattaglie = null;
-    private boolean isRunning = false;
-    private boolean battagliaInCorso = false;
+    private Thread mThreadEsecuzioneModalità = null;
+    private int mState = 0;
+    private boolean mStopEsterno = false;
 
     public MModalitàNearPvE(){
         super("MModalitàNearPvE");
     }
 
     public void init(String idPersonaggioScelto){
-        if(this.idPersonaggioScelto == null & this.risultatoFinale == null){
+        if(this.idPersonaggioScelto == null & this.risultatoFinale == null & this.mState == MOD_STATE_NONE){
             this.idPersonaggioScelto = idPersonaggioScelto;
             this.risultatoFinale = new RisultatoFinale();
+            this.mState = MOD_STATE_INITIALIZED;
         }
     }
 
@@ -56,6 +65,8 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
         MRegoleDiSoddisfazione.getSingletoneInstance().destroy();
         MRegoleDiSoddisfazione.getSingletoneInstance().init(oroMinimoScelto, puntiEsperienzaMinimiScelti, numeroDiBattaglieScelte, puntiFeritaMinimiScelti);
+
+        mState = MOD_STATE_DECIDED_RULES;
     }
 
     //da far fare in background
@@ -66,19 +77,27 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         MZonaDiCaccia.getSingletoneInstance().update(0,0);
         MZonaDiCaccia.getSingletoneInstance().getMostri().toString();
 
+        mState = MOD_STATE_STARTED;
         Log.i(TAG, "ModalitàNearPvE avviata");
 
-        isRunning = true;
-
-
-
-        mSimulazioneBattaglie = new Thread(new Runnable() {
+        /**
+         * Utilizziamo un thread parallelo per l'esecuzione della modalità così da non bloccare
+         * il dispositivo
+         */
+        mThreadEsecuzioneModalità = new Thread(new Runnable() {
             @Override
             public void run() {
+                /**
+                 * Il While termina :
+                 *  1) alla soddisfazione delle Regole
+                 *      oppure
+                 *  2) per una Interruzione esterna
+                 */
                 while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte(risultatoFinale.getOro(),
                         risultatoFinale.getPuntiEsperienza(), risultatoFinale.getNumeroDiBattaglie(),
-                        risultatoFinale.getPuntiFerita()) && isRunning ){
-                    battagliaInCorso = true;
+                        risultatoFinale.getPuntiFerita()) && !mStopEsterno){
+
+                    mState = MOD_STATE_RUNNING_BATTLE_IN_PROGRESS;
 
                     String idmostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
                     MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostroById(idmostro));
@@ -94,55 +113,33 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
                     MBattaglia.getSingletoneInstance().destroy();
 
-                    battagliaInCorso = false;
+                    mState = MOD_STATE_RUNNING_BATTLE_NOT_IN_PROGRESS;
                 }
-                if (isRunning) terminaModalità();
+                terminaModalità();
             }
         });
 
-        mSimulazioneBattaglie.start();
+        mThreadEsecuzioneModalità.start();
+    }
 
-        /*
-        // il while controlla sul risultatoFinale gli avanzamenti dell'oro guadagnato fino a quel momento
-        // e al giocatore le caratteristiche del combattente
-        while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte(this.risultatoFinale.getOro(),
-            this.risultatoFinale.getPuntiEsperienza(), this.risultatoFinale.getNumeroDiBattaglie(),
-                this.risultatoFinale.getPuntiFerita())){
-
-            String idmostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
-            MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostroById(idmostro));
-            MBattaglia.getSingletoneInstance().elaboraBattaglia();
-
-            this.updateRisultatoFinale(MZonaDiCaccia.getSingletoneInstance().getRicompensa(idmostro),
-                    MZonaDiCaccia.getSingletoneInstance().getRicompensa(idmostro)*2,
-                    MBattaglia.getSingletoneInstance().getRisultato().getPuntiferitaA());
-            Log.i("MMod", MBattaglia.getSingletoneInstance().getCombattenteA().toString());
-        }
-        this.terminaModalità();
-        */
+    /**
+     * Metodo utilizzato dal Controllore per interrompere in anticipo la Modalità, mediante l'attributo
+     * mStopEsterno
+     */
+    public void stopModalità(){
+        mStopEsterno = true;
     }
 
     public void terminaModalità(){
 
-        isRunning = false;
-        // mSimulazioneBattaglie.interrupt();
+        mState = MOD_STATE_TERMINATED;
 
-        /**
-         * continua a controllare finche non c'è alcuna battaglia in corso, a quel punto avvia il reset della modalità con stampa
-         * del risultato
-         */
-        Thread controlloBattagliaInCorso = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (battagliaInCorso){
-                    //non fare niente
-                }
-                Log.i(TAG, "Modalità terminata");
-                Log.i(TAG, "Risultato finale: " + risultatoFinale.toString());
-            }
-        });
+        Log.i(TAG, "Modalità terminata");
+        Log.i(TAG, "Risultato finale: " + risultatoFinale.toString());
+    }
 
-        controlloBattagliaInCorso.start();
+    public void resetModalità(){
+        destroy();
     }
 
     public void update(Observable observable, Object o) {
@@ -174,6 +171,7 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
             singletoneinstance = null;
             idPersonaggioScelto = null;
             risultatoFinale = null;
+            mState = 0;
         }
     }
 
@@ -193,20 +191,24 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         this.risultatoFinale = risultatoFinale;
     }
 
-    public boolean isBattagliaInCorso() {
-        return battagliaInCorso;
+    public int getmState() {
+        return mState;
     }
 
-    public void setBattagliaInCorso(boolean battagliaInCorso) {
-        this.battagliaInCorso = battagliaInCorso;
+    public void setmState(int mState) {
+        this.mState = mState;
     }
 
-    public boolean isRunning() {
-        return isRunning;
+    public boolean ismStopEsterno() {
+        return mStopEsterno;
     }
 
-    public void setRunning(boolean running) {
-        isRunning = running;
+    public void setmStopEsterno(boolean mStopEsterno) {
+        this.mStopEsterno = mStopEsterno;
+    }
+
+    public boolean isRunning(){
+        return mState == MOD_STATE_RUNNING_BATTLE_NOT_IN_PROGRESS || mState == MOD_STATE_RUNNING_BATTLE_IN_PROGRESS;
     }
 }
 

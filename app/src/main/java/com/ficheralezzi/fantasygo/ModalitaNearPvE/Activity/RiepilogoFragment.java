@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
@@ -16,6 +17,7 @@ import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomFragment;
+import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 
 
 /**
@@ -127,7 +129,8 @@ public class RiepilogoFragment extends CustomFragment{
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ModalitaNearPvEActivity) getActivity()).avviaModalità();
+                if (NetworkManager.isOnline(getActivity())) ((ModalitaNearPvEActivity) getActivity()).avviaModalità();
+                    else NetworkManager.showToastOffline(getContext());
             }
         });
 

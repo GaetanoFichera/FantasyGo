@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class MBattaglia {
 
     private static final String TAG = "MBattaglia";
-    private static final long TIMETOWAIT = 500;
+    private static final long TIMETOWAIT = 800; //tempo che intercorre tra un turno ed un altro (in millisecondi)
     private Risultato risultato = null;
     private MCombattente combattenteA = null;
     private MCombattente combattenteB = null;

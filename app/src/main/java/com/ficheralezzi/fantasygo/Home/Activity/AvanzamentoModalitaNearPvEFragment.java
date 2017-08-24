@@ -1,11 +1,10 @@
 package com.ficheralezzi.fantasygo.Home.Activity;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -17,7 +16,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
@@ -33,6 +31,7 @@ import java.util.TimerTask;
 public class AvanzamentoModalitaNearPvEFragment extends Fragment {
 
     private static final String TAG = "AvanzModNearPvEFragment";
+    private static final int TIME_VIEW_REFRESH = 500;
     private Timer mTimer;
     private TimerTask mTimerTask;
     private String mIdPersonaggioCorrente;
@@ -40,7 +39,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
     private TextView mTextViewPuntiFeritaMassimi;
     private TextView mTextViewNumeroDiBattaglieAffrontate;
     private TextView mTextViewOroPosseduto;
-    private Thread battagliaTerminata;
+    private Thread mControlloModalitàTerminata;
 
     @Nullable
     @Override
@@ -60,7 +59,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         mTextViewNumeroDiBattaglieAffrontate = ((TextView) view.findViewById(R.id.numeroDiBattaglieAffrontate));
         mTextViewOroPosseduto = ((TextView) view.findViewById(R.id.oroPosseduto));
         setButtonListener(view);
-        modNearPvETerminata();
+        controlloTermineModNearPvE();
 
         return view;
     }
@@ -82,12 +81,15 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
                     updateView();
                 }
             };
-            mTimer.schedule(mTimerTask, 500, 500);
+            mTimer.schedule(mTimerTask, TIME_VIEW_REFRESH, TIME_VIEW_REFRESH);
         } catch (IllegalStateException e){
             android.util.Log.i(TAG, "Resume error");
         }
     }
 
+    /**
+     * Aggiorna i parametri della View inerenti alle statistiche della Modalità in Corso
+     */
     private void updateView(){
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
@@ -112,29 +114,42 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         });
     }
 
+    /**
+     * Metodo utilizzato quando viene premuto il pulsante "Termina"
+     */
     private void terminaModalitaNearPvE(){
-        if(battagliaTerminata != null){
-            if(battagliaTerminata.isAlive()){
-                battagliaTerminata.interrupt();
+        if(mControlloModalitàTerminata != null){
+            if(mControlloModalitàTerminata.isAlive()){
+                mControlloModalitàTerminata.interrupt();
                 Log.i(TAG, "Thread Controllo Modalità Interrotto");
-                Log.i(TAG, String.valueOf(battagliaTerminata.isInterrupted()));
+                Log.i(TAG, String.valueOf(mControlloModalitàTerminata.isInterrupted()));
             }
 
         }
-        MModalitàNearPvE.getSingletoneInstance().terminaModalità();
+        MModalitàNearPvE.getSingletoneInstance().stopModalità();
 
         Log.i(TAG, "Mod Terminata");
 
-        dialog();
+        showDialogEndModNearPvE(R.string.dialog_testo, getActivity());
     }
 
-    private void modNearPvETerminata(){
+    /**
+     * Metodo che avvia un thread parallelo che controlla:
+     *  1) se la Modalità Near PvE è in ancora in fase di RUNNING;
+     *  2) se è ancora presente la Connessione ad Internet;
+     * se uno di questi due casi viene a mancare allora visualizza un AlertDialog con un messaggio
+     * inerente al caso in questione
+     */
+    private void controlloTermineModNearPvE(){
 
-        battagliaTerminata = new Thread(new Runnable() {
+        mControlloModalitàTerminata = new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean isRunning = true;
-                while (isRunning && NetworkManager.isOnline(getActivity())){
+
+                final Activity activity = getActivity();
+
+                while (isRunning && NetworkManager.isOnline(activity)){
                     if(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null){
                         if(!MModalitàNearPvE.getSingletoneInstance().isRunning()){
                             isRunning = false;
@@ -142,18 +157,30 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
                     }else isRunning = false;
                 }
 
-                //se è uscito dal while perchè non c'è più connessione allora devo terminare la modalità
-                if(!NetworkManager.isOnline(getActivity()) && MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null)
-                    if(MModalitàNearPvE.getSingletoneInstance().isRunning())
-                        MModalitàNearPvE.getSingletoneInstance().terminaModalità();
+                //Personalizzo il Testo del messagio nell'AlertDialog in base all'Evento
+                int resStringIdMessage = 0;
+
+                //Controllo se il motivo per cui il While si è interrotto è legato alla mancanza di Connessione ad Internet
+                if(!NetworkManager.isOnline(activity) && MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null) {
+                    resStringIdMessage = R.string.dialog_testo_internet_disconnesso;
+                    if (MModalitàNearPvE.getSingletoneInstance().isRunning()) {
+                        MModalitàNearPvE.getSingletoneInstance().stopModalità();
+                    }
+                }else{
+                    resStringIdMessage = R.string.dialog_testo;
+                }
 
                 Log.i(TAG, "Mod Terminata in automatico");
 
                 if (!Thread.interrupted()){
-                    getActivity().runOnUiThread(new Runnable() {
+
+                    final int finalResStringIdMessage = resStringIdMessage;
+
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            dialog();
+                            ((SwipeHomeActivity) activity).moveToFirstPage();
+                            showDialogEndModNearPvE(finalResStringIdMessage, activity);
                         }
                     });
                 }
@@ -161,18 +188,27 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
             }
         });
 
-        battagliaTerminata.start();
+        mControlloModalitàTerminata.start();
     }
 
-    private void dialog(){
+    /**
+     * Metodo per la Creazione di un AlertDialog che attende il termine dell'ultima Battaglia per
+     * visualizzare il tasto "OK" per uscire
+     * @param resStringId Messaggio da visualizzare nell'AlertDialog
+     */
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    private void showDialogEndModNearPvE(final int resStringId, final Activity activity){
+
+        ((SwipeHomeActivity) activity).moveToFirstPage();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.dialog_titolo)
                 .setMessage(R.string.dialog_testo_mod_in_corso)
                 .setPositiveButton(R.string.string_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ((SwipeHomeActivity) getActivity()).stopAvanzamentoModNearPvE();
+                        MModalitàNearPvE.getSingletoneInstance().resetModalità();
+                        ((SwipeHomeActivity) activity).stopAvanzamentoModNearPvE();
                     }
                 });
 
@@ -180,25 +216,27 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
 
         dialog.show();
 
-
         dialog.getButton(Dialog.BUTTON_POSITIVE).setClickable(false);
-        dialog.getButton(Dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.FGcolorAccentGreyfy));
+        dialog.getButton(Dialog.BUTTON_POSITIVE).setTextColor(activity.getResources().getColor(R.color.FGcolorAccentGreyfy));
 
         Thread controlloTermineUltimaBattaglia = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                while(MModalitàNearPvE.getSingletoneInstance().isBattagliaInCorso()){
+            while(MModalitàNearPvE.getSingletoneInstance().isRunning()){
 
+            }
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    Log.i(TAG, "Id res string messaggio AlertDialog: " + resStringId);
+
+                    dialog.setMessage(activity.getResources().getString(resStringId));
+                    dialog.getButton(Dialog.BUTTON_POSITIVE).setClickable(true);
+                    dialog.getButton(Dialog.BUTTON_POSITIVE).setTextColor(activity.getResources().getColor(R.color.FGcolorAccent));
                 }
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.setMessage(getResources().getString(R.string.dialog_testo));
-                        dialog.getButton(Dialog.BUTTON_POSITIVE).setClickable(true);
-                        dialog.getButton(Dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.FGcolorAccent));
-                    }
-                });
+            });
             }
         });
 

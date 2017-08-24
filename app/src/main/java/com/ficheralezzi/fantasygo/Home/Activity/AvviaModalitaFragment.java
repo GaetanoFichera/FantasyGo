@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
+import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 
 /**
  * Created by gaetano on 14/07/17.
@@ -29,8 +31,13 @@ public class AvviaModalitaFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MModalitàNearPvE.getSingletoneInstance().destroy();
-                ((com.ficheralezzi.fantasygo.Home.Activity.SwipeHomeActivity) getActivity()).goToModNearPve();
+                if(NetworkManager.isOnline(getActivity())){
+                    MModalitàNearPvE.getSingletoneInstance().destroy();
+                    ((com.ficheralezzi.fantasygo.Home.Activity.SwipeHomeActivity) getActivity()).goToModNearPve();
+                }else{
+                    NetworkManager.showToastOffline(getContext());
+                }
+
             }
         });
     }
