@@ -153,10 +153,13 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
     private void updateRisultatoFinale(int oro, int puntiEsperienza, int puntiFerita){
 
-        this.risultatoFinale.setOro(this.risultatoFinale.getOro() + oro);
-        this.risultatoFinale.setPuntiEsperienza(this.risultatoFinale.getPuntiEsperienza() + puntiEsperienza);
-        this.risultatoFinale.setNumeroDiBattaglie(this.risultatoFinale.getNumeroDiBattaglie() + 1);
-        this.risultatoFinale.setPuntiFerita(puntiFerita);
+        if(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null){
+            this.risultatoFinale.setOro(this.risultatoFinale.getOro() + oro);
+            this.risultatoFinale.setPuntiEsperienza(this.risultatoFinale.getPuntiEsperienza() + puntiEsperienza);
+            this.risultatoFinale.setNumeroDiBattaglie(this.risultatoFinale.getNumeroDiBattaglie() + 1);
+            this.risultatoFinale.setPuntiFerita(puntiFerita);
+        }else Log.i(TAG, "Risultato Finale di Mod è null");
+
     }
 
     @Override

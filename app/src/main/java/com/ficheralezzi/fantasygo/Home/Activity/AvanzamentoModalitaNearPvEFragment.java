@@ -21,6 +21,7 @@ import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
+import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -132,16 +133,22 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         battagliaTerminata = new Thread(new Runnable() {
             @Override
             public void run() {
-                Boolean isFinished = true;
-                while (isFinished){
+                boolean isRunning = true;
+                while (isRunning && NetworkManager.isOnline(getActivity())){
                     if(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null){
                         if(!MModalitàNearPvE.getSingletoneInstance().isRunning()){
-                            isFinished = false;
+                            isRunning = false;
                         }
-                    }else isFinished = false;
+                    }else isRunning = false;
                 }
 
+                //se è uscito dal while perchè non c'è più connessione allora devo terminare la modalità
+                if(!NetworkManager.isOnline(getActivity()) && MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null)
+                    if(MModalitàNearPvE.getSingletoneInstance().isRunning())
+                        MModalitàNearPvE.getSingletoneInstance().terminaModalità();
+
                 Log.i(TAG, "Mod Terminata in automatico");
+
                 if (!Thread.interrupted()){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override

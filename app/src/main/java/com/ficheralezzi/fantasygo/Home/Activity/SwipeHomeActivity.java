@@ -21,6 +21,8 @@ import com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity.ModalitaNearPvEActivi
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.R;
+import com.ficheralezzi.fantasygo.Utils.NetworkManager;
+import com.ficheralezzi.fantasygo.Utils.PermissionManager;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
 
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ public class SwipeHomeActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        checkLocationPermission();
+
         //da fare in una splashScreen
         if (!updateEffettuato){
             updateMineDb();
@@ -66,6 +70,7 @@ public class SwipeHomeActivity extends FragmentActivity {
         initTabsLayout(tabLayout);
         mTabLayout = tabLayout;
     }
+
     //funzione per settare icone alle tab ma fa cagare => da rifare
     public void initTabsLayout(final TabLayout tabLayout){
         for (int i=0; i < tabLayout.getTabCount(); i++){
@@ -185,5 +190,13 @@ public class SwipeHomeActivity extends FragmentActivity {
                 mViewPager.setCurrentItem(0);
             }
         }, 400);
+    }
+
+    private void checkLocationPermission(){
+        PermissionManager.askPermissionsLocation(this);
+
+        boolean isOnline = NetworkManager.isOnline(this);
+
+        Log.i(TAG, "Connessione: " + String.valueOf(isOnline));
     }
 }
