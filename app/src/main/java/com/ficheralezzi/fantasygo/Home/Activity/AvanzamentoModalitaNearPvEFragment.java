@@ -39,6 +39,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
     private TextView mTextViewPuntiFeritaMassimi;
     private TextView mTextViewNumeroDiBattaglieAffrontate;
     private TextView mTextViewOroPosseduto;
+    private Thread battagliaTerminata;
 
     @Nullable
     @Override
@@ -111,21 +112,24 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
     }
 
     private void terminaModalitaNearPvE(){
+        if(battagliaTerminata != null){
+            if(battagliaTerminata.isAlive()){
+                battagliaTerminata.interrupt();
+                Log.i(TAG, "Thread Controllo Modalità Interrotto");
+                Log.i(TAG, String.valueOf(battagliaTerminata.isInterrupted()));
+            }
+
+        }
         MModalitàNearPvE.getSingletoneInstance().terminaModalità();
 
         Log.i(TAG, "Mod Terminata");
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                dialog();
-            }
-        });
+        dialog();
     }
 
     private void modNearPvETerminata(){
 
-        Thread battagliaTerminata = new Thread(new Runnable() {
+        battagliaTerminata = new Thread(new Runnable() {
             @Override
             public void run() {
                 Boolean isFinished = true;
@@ -138,12 +142,15 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
                 }
 
                 Log.i(TAG, "Mod Terminata in automatico");
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog();
-                    }
-                });
+                if (!Thread.interrupted()){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog();
+                        }
+                    });
+                }
+
             }
         });
 
