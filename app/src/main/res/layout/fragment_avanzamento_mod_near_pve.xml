@@ -111,10 +111,17 @@
                 android:layout_toEndOf="@id/textOro"/>
         </RelativeLayout>
 
+        <pl.droidsonroids.gif.GifTextView
+            android:layout_width="117dp"
+            android:layout_height="66dp"
+            android:layout_below="@id/infoOroContainer"
+            android:background="@drawable/battle_gif"
+            />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="27dp"
             android:layout_marginRight="10dp"
             android:text="Termina"
             android:id="@+id/button_end_mod"

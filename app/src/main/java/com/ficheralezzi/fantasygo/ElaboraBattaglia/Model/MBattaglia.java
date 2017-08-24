@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class MBattaglia {
 
     private static final String TAG = "MBattaglia";
-    private static final long TIMETOWAIT = 3000;
+    private static final long TIMETOWAIT = 500;
     private Risultato risultato = null;
     private MCombattente combattenteA = null;
     private MCombattente combattenteB = null;
