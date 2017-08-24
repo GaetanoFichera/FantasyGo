@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -51,12 +52,13 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         mIdPersonaggioCorrente = MGiocatore.getSingletoneInstance().getPersonaggi().get(0).getId();
         System.out.println(MGiocatore.getSingletoneInstance().getPersonaggi().get(0).getId());
         ((TextView) view.findViewById(R.id.nomePersonaggio)).setText(MGiocatore.getSingletoneInstance().getOnePersonaggioById(mIdPersonaggioCorrente).getNome());
-
+    
         mTextViewPuntiFeritaCorrenti = ((TextView) view.findViewById(R.id.puntiFeritaCorrenti));
         mTextViewPuntiFeritaMassimi = ((TextView) view.findViewById(R.id.puntiFeritaMassimi));
         mTextViewNumeroDiBattaglieAffrontate = ((TextView) view.findViewById(R.id.numeroDiBattaglieAffrontate));
         mTextViewOroPosseduto = ((TextView) view.findViewById(R.id.oroPosseduto));
         setButtonListener(view);
+        modNearPvETerminata();
 
         return view;
     }
@@ -113,21 +115,42 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
 
         Log.i(TAG, "Mod Terminata");
 
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_titolo)
-                .setMessage(R.string.dialog_testo)
-                .setPositiveButton(R.string.string_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialog();
+            }
+        });
+    }
 
-                        ((SwipeHomeActivity) getActivity()).stopAvanzamentoModNearPvE();
+    private void modNearPvETerminata(){
+
+        Thread battagliaTerminata = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Boolean isFinished = true;
+                while (isFinished){
+                    if(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null){
+                        if(!MModalitàNearPvE.getSingletoneInstance().isRunning()){
+                            isFinished = false;
+                        }
+                    }else isFinished = false;
+                }
+
+                Log.i(TAG, "Mod Terminata in automatico");
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog();
                     }
                 });
+            }
+        });
 
-        AlertDialog dialog = builder.create();
+        battagliaTerminata.start();
+    }
 
-        dialog.show();
-        */
+    private void dialog(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.dialog_titolo)
@@ -135,7 +158,6 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
                 .setPositiveButton(R.string.string_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        MModalitàNearPvE.getSingletoneInstance().destroy();
                         ((SwipeHomeActivity) getActivity()).stopAvanzamentoModNearPvE();
                     }
                 });
@@ -151,6 +173,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         Thread controlloTermineUltimaBattaglia = new Thread(new Runnable() {
             @Override
             public void run() {
+
                 while(MModalitàNearPvE.getSingletoneInstance().isBattagliaInCorso()){
 
                 }
@@ -167,15 +190,5 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
 
         controlloTermineUltimaBattaglia.start();
 
-        /*
-        while(MModalitàNearPvE.getSingletoneInstance().isBattagliaInCorso()){
-            System.out.println("1");
-        }
-
-        /*
-        dialog.setMessage(getResources().getString(R.string.dialog_testo));
-        dialog.getButton(Dialog.BUTTON_POSITIVE).setClickable(true);
-        dialog.getButton(Dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.FGcolorAccent));
-        */
     }
 }

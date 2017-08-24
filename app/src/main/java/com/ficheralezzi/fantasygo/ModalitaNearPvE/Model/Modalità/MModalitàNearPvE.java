@@ -197,5 +197,13 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
     public void setBattagliaInCorso(boolean battagliaInCorso) {
         this.battagliaInCorso = battagliaInCorso;
     }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
 }
 
