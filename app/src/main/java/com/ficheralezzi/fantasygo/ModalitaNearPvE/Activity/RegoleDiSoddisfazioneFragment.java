@@ -127,8 +127,7 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
         int numeroDiBattaglieScelte = ((SeekBar) getView().findViewWithTag(R.string.numero_di_battaglie)).getProgress();
         int puntiFeritaMinimiScelti = ((SeekBar) getView().findViewWithTag(R.string.punti_ferita_minimi)).getProgress();
 
-        MRegoleDiSoddisfazione.getSingletoneInstance().destroy();
-        MRegoleDiSoddisfazione.getSingletoneInstance().init(oroMinimoScelto, puntiEsperienzaMinimiScelti, numeroDiBattaglieScelte, puntiFeritaMinimiScelti);
+        MModalitàNearPvE.getSingletoneInstance().enterRegolediSoddisfazione(oroMinimoScelto, puntiEsperienzaMinimiScelti, numeroDiBattaglieScelte, puntiFeritaMinimiScelti);
     }
 
     private void goToRiepilogoFragment(){

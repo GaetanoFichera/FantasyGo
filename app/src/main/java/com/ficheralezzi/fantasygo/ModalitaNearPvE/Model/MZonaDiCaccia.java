@@ -132,4 +132,9 @@ public class MZonaDiCaccia {
         }
         mostro.revive();
     }
+
+    public boolean IsInZonaDiCaccia(double latitude, double longitude) {
+
+        return true;
+    }
 }

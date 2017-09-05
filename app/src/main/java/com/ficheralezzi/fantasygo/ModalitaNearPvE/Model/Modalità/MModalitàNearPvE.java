@@ -98,7 +98,9 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
                         risultatoFinale.getPuntiFerita()) && !mStopEsterno){
 
                     mState = MOD_STATE_RUNNING_BATTLE_IN_PROGRESS;
-
+                    if(!MZonaDiCaccia.getSingletoneInstance().IsInZonaDiCaccia(MGiocatore.getSingletoneInstance().getLatitude(), MGiocatore.getSingletoneInstance().getLongitude())){
+                        MZonaDiCaccia.getSingletoneInstance().update(0,0);
+                    }
                     String idmostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
                     MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostroById(idmostro));
                     MBattaglia.getSingletoneInstance().elaboraBattaglia();
