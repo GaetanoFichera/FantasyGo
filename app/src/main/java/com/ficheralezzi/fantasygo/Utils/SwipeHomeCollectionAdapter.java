@@ -1,4 +1,4 @@
-package com.ficheralezzi.fantasygo.Home;
+package com.ficheralezzi.fantasygo.Utils;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -34,14 +34,10 @@ public class RiepilogoFragment extends CustomFragment{
         setTitleActivity();
 
         View view = inflater.inflate(R.layout.fragment_riepilogo, container, false);
-        //final String idPersonaggio = getArguments().getString("idPersonaggioScelto");
-        final String idPersonaggio = MModalitàNearPvE.getSingletoneInstance().getIdPersonaggioScelto();
 
-        MPersonaggio mPersonaggio = MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggio);
-        riempiTableCaratteristiche(mPersonaggio, view);
+        riempiTableCaratteristiche(view);
 
-        MRegoleDiSoddisfazione mRegoleDiSoddisfazione = MRegoleDiSoddisfazione.getSingletoneInstance();
-        riempiTabellaRegoleDiSoddisfazione(mRegoleDiSoddisfazione, view);
+        riempiTabellaRegoleDiSoddisfazione(view);
 
         setButtons();
         setGoButtonListener();
@@ -49,7 +45,9 @@ public class RiepilogoFragment extends CustomFragment{
         return view;
     }
 
-    public void riempiTableCaratteristiche(MPersonaggio mPersonaggio, View view){
+    public void riempiTableCaratteristiche(View view){
+
+        MPersonaggio mPersonaggio = MGiocatore.getSingletoneInstance().getOnePersonaggioById(MModalitàNearPvE.getSingletoneInstance().getIdPersonaggioScelto());
 
         TableRow tableRowNome = ((TableRow) view.findViewById(R.id.tableNome));
         TextView textViewNome = ((TextView) tableRowNome.findViewById(R.id.nome));
@@ -89,23 +87,23 @@ public class RiepilogoFragment extends CustomFragment{
 
     }
 
-    public void riempiTabellaRegoleDiSoddisfazione(MRegoleDiSoddisfazione mRegoleDiSoddisfazione, View view){
+    public void riempiTabellaRegoleDiSoddisfazione(View view){
 
         TableRow tableRowOroMinimo = ((TableRow) view.findViewById(R.id.tableOroMinimo));
         TextView textViewOroMinimo = ((TextView) tableRowOroMinimo.findViewById(R.id.oroMinimo));
-        textViewOroMinimo.setText(String.valueOf(mRegoleDiSoddisfazione.getOroMinimo()));
+        textViewOroMinimo.setText(String.valueOf(MRegoleDiSoddisfazione.getSingletoneInstance().getOroMinimo()));
 
         TableRow tableRowPuntiEsperienzaMinimi = ((TableRow) view.findViewById(R.id.tablePuntiEsperienzaMinimi));
         TextView textViewPuntiEsperienzaMinimi = ((TextView) tableRowPuntiEsperienzaMinimi.findViewById(R.id.puntiEsperienzaMinimi));
-        textViewPuntiEsperienzaMinimi.setText(String.valueOf(mRegoleDiSoddisfazione.getPuntiEsperienzaMinimi()));
+        textViewPuntiEsperienzaMinimi.setText(String.valueOf(MRegoleDiSoddisfazione.getSingletoneInstance().getPuntiEsperienzaMinimi()));
 
         TableRow tableRowNumeroDiBattaglie = ((TableRow) view.findViewById(R.id.tableNumeroDiBattaglie));
         TextView textViewNumeroDiBattaglie = ((TextView) tableRowNumeroDiBattaglie.findViewById(R.id.numeroDiBattaglie));
-        textViewNumeroDiBattaglie.setText(String.valueOf(mRegoleDiSoddisfazione.getNumeroDiBattaglie()));
+        textViewNumeroDiBattaglie.setText(String.valueOf(MRegoleDiSoddisfazione.getSingletoneInstance().getNumeroDiBattaglie()));
 
         TableRow tableRowPuntiFeritaMinimi = ((TableRow) view.findViewById(R.id.tablePuntiFeritaMinimi));
         TextView textViewPuntiFeritaMinimi = ((TextView) tableRowPuntiFeritaMinimi.findViewById(R.id.puntiFeritaMinimi));
-        textViewPuntiFeritaMinimi.setText(String.valueOf(mRegoleDiSoddisfazione.getPuntiFeritaMinimi()));
+        textViewPuntiFeritaMinimi.setText(String.valueOf(MRegoleDiSoddisfazione.getSingletoneInstance().getPuntiFeritaMinimi()));
     }
 
     @Override

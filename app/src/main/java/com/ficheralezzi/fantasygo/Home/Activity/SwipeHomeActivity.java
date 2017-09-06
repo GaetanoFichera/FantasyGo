@@ -2,13 +2,11 @@ package com.ficheralezzi.fantasygo.Home.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
-import com.ficheralezzi.fantasygo.Home.SwipeHomeCollectionAdapter;
+import com.ficheralezzi.fantasygo.Utils.SwipeHomeCollectionAdapter;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity.ModalitaNearPvEActivity;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;

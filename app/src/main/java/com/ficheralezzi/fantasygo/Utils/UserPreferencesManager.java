@@ -28,9 +28,9 @@ public class UserPreferencesManager {
     private static SharedPreferences.Editor editor;
 
     /** Constructor takes an android.content.Context argument*/
-    public UserPreferencesManager(Context ctx){
+    public UserPreferencesManager(Context context){
         if(settings == null){
-            settings = ctx.getSharedPreferences(PREFS_NAME,
+            settings = context.getSharedPreferences(PREFS_NAME,
                     Context.MODE_PRIVATE );
         }
        /*
