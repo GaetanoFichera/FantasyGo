@@ -151,6 +151,13 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
         Log.i(TAG, "Modalità terminata");
         Log.i(TAG, "Risultato finale: " + risultatoFinale.toString());
+
+        aggiornaBottinoPersonaggio();
+    }
+
+    private void aggiornaBottinoPersonaggio(){
+        MGiocatore.getSingletoneInstance().getOnePersonaggioById(this.idPersonaggioScelto).increaseOro(this.risultatoFinale.getOro());
+        MGiocatore.getSingletoneInstance().getOnePersonaggioById(this.idPersonaggioScelto).increasePuntiEsperienza(this.risultatoFinale.getPuntiEsperienza());
     }
 
     public void resetModalità(){

@@ -93,6 +93,14 @@ public class MPersonaggio extends MCombattente {
         this.sesso = sesso;
     }
 
+    public void increaseOro(int oro){
+        this.oro += oro;
+    }
+
+    public void increasePuntiEsperienza(int puntiEsperienza){
+        this.puntiEsperienza += puntiEsperienza;
+    }
+
     public void addOnetoInventory(String id){
         this.inventario.add(id);
     }
