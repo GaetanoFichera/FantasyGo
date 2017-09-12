@@ -1,5 +1,6 @@
 package com.ficheralezzi.fantasygo.Home.Activity;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
+import com.ficheralezzi.fantasygo.Utils.PlayAudio;
 import com.ficheralezzi.fantasygo.Utils.SwipeHomeCollectionAdapter;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity.ModalitaNearPvEActivity;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
@@ -67,6 +69,8 @@ public class SwipeHomeActivity extends FragmentActivity {
         tabLayout.setupWithViewPager(mViewPager);
         initTabsLayout(tabLayout);
         mTabLayout = tabLayout;
+
+        playAudio();
     }
 
     //funzione per settare icone alle tab ma fa cagare => da rifare
@@ -201,5 +205,33 @@ public class SwipeHomeActivity extends FragmentActivity {
 
     public void moveToFirstPage(){
         if (mViewPager.getCurrentItem() != 0) mViewPager.setCurrentItem(0);
+    }
+
+    public void playAudio() {
+        Intent objIntent = new Intent(this, PlayAudio.class);
+        startService(objIntent);
+    }
+
+    public void stopAudio() {
+        Intent objIntent = new Intent(this, PlayAudio.class);
+        stopService(objIntent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopAudio();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playAudio();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopAudio();
     }
 }

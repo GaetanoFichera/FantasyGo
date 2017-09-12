@@ -9,11 +9,12 @@ import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MBattaglia;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.IModalità;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.RegoleDiSoddisfazione.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MZonaDiCaccia;
 import com.ficheralezzi.fantasygo.Utils.RisultatoFinale;
 
 
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -39,9 +40,8 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         super("MModalitàNearPvE");
     }
 
-    public void init(String idPersonaggioScelto){
+    public void init(){
         if(this.idPersonaggioScelto == null & this.risultatoFinale == null & this.mState == MOD_STATE_NONE){
-            this.idPersonaggioScelto = idPersonaggioScelto;
             this.risultatoFinale = new RisultatoFinale();
             this.mState = MOD_STATE_INITIALIZED;
         }
@@ -61,10 +61,25 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         return true;
     }
 
+    public void selezionaPersonaggio(String idPersonaggioScelto) {
+        this.idPersonaggioScelto = idPersonaggioScelto;
+    }
+
+    /*
     public void enterRegolediSoddisfazione(int oroMinimoScelto, int puntiEsperienzaMinimiScelti, int numeroDiBattaglieScelte, int puntiFeritaMinimiScelti){
 
         MRegoleDiSoddisfazione.getSingletoneInstance().destroy();
         MRegoleDiSoddisfazione.getSingletoneInstance().init(oroMinimoScelto, puntiEsperienzaMinimiScelti, numeroDiBattaglieScelte, puntiFeritaMinimiScelti);
+
+        mState = MOD_STATE_DECIDED_RULES;
+    }
+    */
+
+    public void enterRegolediSoddisfazione(HashMap<String, Integer> valori){
+
+        MRegoleDiSoddisfazione.getSingletoneInstance().destroy();
+        MRegoleDiSoddisfazione.getSingletoneInstance().init();
+        MRegoleDiSoddisfazione.getSingletoneInstance().setRegoleDiSoddisfazione(valori);
 
         mState = MOD_STATE_DECIDED_RULES;
     }
@@ -93,9 +108,7 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
                  *      oppure
                  *  2) per una Interruzione esterna
                  */
-                while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte(risultatoFinale.getOro(),
-                        risultatoFinale.getPuntiEsperienza(), risultatoFinale.getNumeroDiBattaglie(),
-                        risultatoFinale.getPuntiFerita()) && !mStopEsterno){
+                while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte() && !mStopEsterno){
 
                     mState = MOD_STATE_RUNNING_BATTLE_IN_PROGRESS;
                     if(!MZonaDiCaccia.getSingletoneInstance().IsInZonaDiCaccia(MGiocatore.getSingletoneInstance().getLatitude(), MGiocatore.getSingletoneInstance().getLongitude())){

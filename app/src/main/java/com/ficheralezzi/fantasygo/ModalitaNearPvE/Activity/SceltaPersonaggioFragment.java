@@ -59,7 +59,8 @@ public class SceltaPersonaggioFragment extends CustomListFragment{
 
     private void goToRegoleDiSoddisfazioneFragment(){
         MModalitàNearPvE.getSingletoneInstance().destroy(); //vedere se si può resettare un singleton
-        MModalitàNearPvE.getSingletoneInstance().init(idPersonaggioScelto);
+        MModalitàNearPvE.getSingletoneInstance().init();
+        MModalitàNearPvE.getSingletoneInstance().selezionaPersonaggio(idPersonaggioScelto);
 
         RegoleDiSoddisfazioneFragment regoleDiSoddisfazioneFragment = new RegoleDiSoddisfazioneFragment();
         //setOneArgToNextFragment(regoleDiSoddisfazioneFragment, "idPersonaggioScelto", idPersonaggioScelto);

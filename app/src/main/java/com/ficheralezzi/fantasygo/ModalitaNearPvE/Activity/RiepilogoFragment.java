@@ -1,23 +1,28 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MRegoleDiSoddisfazione;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.RegoleDiSoddisfazione.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomFragment;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -27,6 +32,7 @@ import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 public class RiepilogoFragment extends CustomFragment{
 
     private static int FRAGMENT_TITLE = R.string.title_riepilogo;
+    private static String TAG = "RiepilogoFragment";
 
     @Nullable
     @Override
@@ -37,7 +43,8 @@ public class RiepilogoFragment extends CustomFragment{
 
         riempiTableCaratteristiche(view);
 
-        riempiTabellaRegoleDiSoddisfazione(view);
+        stampaValoriRegoleDiSoddisfazione();
+        riempiTabellaRegoleDiSoddisfazione(view, inflater, container);
 
         setButtons();
         setGoButtonListener();
@@ -87,23 +94,33 @@ public class RiepilogoFragment extends CustomFragment{
 
     }
 
-    public void riempiTabellaRegoleDiSoddisfazione(View view){
 
-        TableRow tableRowOroMinimo = ((TableRow) view.findViewById(R.id.tableOroMinimo));
-        TextView textViewOroMinimo = ((TextView) tableRowOroMinimo.findViewById(R.id.oroMinimo));
-        textViewOroMinimo.setText(String.valueOf(MRegoleDiSoddisfazione.getSingletoneInstance().getOroMinimo()));
+    private TableRow createOneRow(LayoutInflater inflater, @Nullable ViewGroup container, String nome, int valore){
+        TableRow row = ((TableRow) inflater.inflate(R.layout.row_riepilogo_regole, container, false));
+        row.setTag(nome + "_row");
+        TextView textView = ((TextView) row.findViewById(R.id.text_nome));
+        textView.setText(nome);
+        TextView textView2 = ((TextView) row.findViewById(R.id.text_valore));
+        textView2.setText(String.valueOf(valore));
 
-        TableRow tableRowPuntiEsperienzaMinimi = ((TableRow) view.findViewById(R.id.tablePuntiEsperienzaMinimi));
-        TextView textViewPuntiEsperienzaMinimi = ((TextView) tableRowPuntiEsperienzaMinimi.findViewById(R.id.puntiEsperienzaMinimi));
-        textViewPuntiEsperienzaMinimi.setText(String.valueOf(MRegoleDiSoddisfazione.getSingletoneInstance().getPuntiEsperienzaMinimi()));
+        return row;
+    }
 
-        TableRow tableRowNumeroDiBattaglie = ((TableRow) view.findViewById(R.id.tableNumeroDiBattaglie));
-        TextView textViewNumeroDiBattaglie = ((TextView) tableRowNumeroDiBattaglie.findViewById(R.id.numeroDiBattaglie));
-        textViewNumeroDiBattaglie.setText(String.valueOf(MRegoleDiSoddisfazione.getSingletoneInstance().getNumeroDiBattaglie()));
+    public void stampaValoriRegoleDiSoddisfazione(){
+        Log.i(TAG, MRegoleDiSoddisfazione.getSingletoneInstance().toString());
+    }
 
-        TableRow tableRowPuntiFeritaMinimi = ((TableRow) view.findViewById(R.id.tablePuntiFeritaMinimi));
-        TextView textViewPuntiFeritaMinimi = ((TextView) tableRowPuntiFeritaMinimi.findViewById(R.id.puntiFeritaMinimi));
-        textViewPuntiFeritaMinimi.setText(String.valueOf(MRegoleDiSoddisfazione.getSingletoneInstance().getPuntiFeritaMinimi()));
+    public void riempiTabellaRegoleDiSoddisfazione(View view, LayoutInflater inflater, ViewGroup container){
+
+        TableLayout viewTable = (TableLayout) view.findViewById(R.id.table_riepilogo_regole);
+
+        HashMap<String, Integer> parametri = MRegoleDiSoddisfazione.getSingletoneInstance().getValoriRegoleDiSoddisfazione();
+
+        List<String> nomiParametri = new ArrayList<>(parametri.keySet());
+
+        for (int i = 0; i < nomiParametri.size(); i++){
+            viewTable.addView(createOneRow(inflater, container, nomiParametri.get(i), parametri.get(nomiParametri.get(i))));
+        }
     }
 
     @Override

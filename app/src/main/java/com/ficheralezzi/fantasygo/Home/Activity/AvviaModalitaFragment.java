@@ -32,7 +32,11 @@ public class AvviaModalitaFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(NetworkManager.isOnline(getActivity())){
+
                     MModalitàNearPvE.getSingletoneInstance().destroy();
+                    MModalitàNearPvE.getSingletoneInstance().init();
+                    MModalitàNearPvE.getSingletoneInstance().createModalità();
+
                     ((com.ficheralezzi.fantasygo.Home.Activity.SwipeHomeActivity) getActivity()).goToModNearPve();
                 }else{
                     NetworkManager.showToastOffline(getContext());

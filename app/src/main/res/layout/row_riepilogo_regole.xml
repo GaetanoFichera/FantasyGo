@@ -1,0 +1,26 @@
+<TableRow android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout>
+        <TextView
+            android:id="@+id/text_nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorPrimary" />
+
+        <TextView
+            android:id="@+id/separator1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorPrimary"
+            android:text=" : "
+            android:layout_toEndOf="@id/text_nome"/>
+
+        <TextView
+            android:id="@+id/text_valore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/FGcolorPrimary"
+            android:layout_toEndOf="@id/separator1"/>
+    </RelativeLayout>
+</TableRow>

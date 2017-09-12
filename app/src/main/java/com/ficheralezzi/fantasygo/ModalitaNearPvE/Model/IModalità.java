@@ -9,6 +9,7 @@ import com.ficheralezzi.fantasygo.Utils.RisultatoFinale;
 public interface IModalità {
 
     boolean createModalità();
+    void selezionaPersonaggio(String idPersonaggioScelto);
     void avviaModalità();
     void terminaModalità();
 }

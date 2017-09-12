@@ -219,90 +219,11 @@
         android:textColor="@color/FGcolorPrimary"
         android:paddingTop="10dp"/>
 
-    <TableRow
-        android:id="@+id/tableOroMinimo"
-        android:layout_marginLeft="5dp"
+    <TableLayout
+        android:id="@+id/table_riepilogo_regole"
         android:paddingTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.05">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/FGcolorPrimary"
-            android:text="OroMinimo:" />
-
-        <TextView
-            android:id="@+id/oroMinimo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/FGcolorPrimary"
-            android:text="TextView" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tablePuntiEsperienzaMinimi"
-        android:layout_marginLeft="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.05">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/FGcolorPrimary"
-            android:text="PuntiEsperienzaMinimi:" />
-
-        <TextView
-            android:id="@+id/puntiEsperienzaMinimi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/FGcolorPrimary"
-            android:text="TextView" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableNumeroDiBattaglie"
-        android:layout_marginLeft="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.05">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/FGcolorPrimary"
-            android:text="NumeroDiBattaglie:" />
-
-        <TextView
-            android:id="@+id/numeroDiBattaglie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/FGcolorPrimary"
-            android:text="TextView" />
-    </TableRow>
-
-
-    <TableRow
-        android:id="@+id/tablePuntiFeritaMinimi"
-        android:layout_marginLeft="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.05">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/FGcolorPrimary"
-            android:text="PuntiFeritaMinimi:" />
-
-        <TextView
-            android:id="@+id/puntiFeritaMinimi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/FGcolorPrimary"
-            android:text="TextView" />
-    </TableRow>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TableLayout>
 
 </LinearLayout>
