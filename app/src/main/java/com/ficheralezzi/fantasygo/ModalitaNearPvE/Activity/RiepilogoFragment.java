@@ -43,7 +43,6 @@ public class RiepilogoFragment extends CustomFragment{
 
         riempiTableCaratteristiche(view);
 
-        stampaValoriRegoleDiSoddisfazione();
         riempiTabellaRegoleDiSoddisfazione(view, inflater, container);
 
         setButtons();
@@ -94,7 +93,6 @@ public class RiepilogoFragment extends CustomFragment{
 
     }
 
-
     private TableRow createOneRow(LayoutInflater inflater, @Nullable ViewGroup container, String nome, int valore){
         TableRow row = ((TableRow) inflater.inflate(R.layout.row_riepilogo_regole, container, false));
         row.setTag(nome + "_row");
@@ -104,10 +102,6 @@ public class RiepilogoFragment extends CustomFragment{
         textView2.setText(String.valueOf(valore));
 
         return row;
-    }
-
-    public void stampaValoriRegoleDiSoddisfazione(){
-        Log.i(TAG, MRegoleDiSoddisfazione.getSingletoneInstance().toString());
     }
 
     public void riempiTabellaRegoleDiSoddisfazione(View view, LayoutInflater inflater, ViewGroup container){
