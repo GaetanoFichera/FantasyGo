@@ -14,7 +14,13 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
+import com.ficheralezzi.fantasygo.Utils.Messaggio;
 import com.ficheralezzi.fantasygo.Utils.PlayAudio;
 import com.ficheralezzi.fantasygo.Utils.SwipeHomeCollectionAdapter;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity.ModalitaNearPvEActivity;
@@ -25,8 +31,12 @@ import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 import com.ficheralezzi.fantasygo.Utils.PermissionManager;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * Created by gaetano on 14/07/17.
@@ -71,6 +81,7 @@ public class SwipeHomeActivity extends FragmentActivity {
         mTabLayout = tabLayout;
 
         playAudio();
+        send();
     }
 
     //funzione per settare icone alle tab ma fa cagare => da rifare
@@ -233,5 +244,35 @@ public class SwipeHomeActivity extends FragmentActivity {
     protected void onPause() {
         super.onPause();
         stopAudio();
+    }
+
+    public void send(){
+        Messaggio messaggio = new Messaggio();
+        final String URL = "http://192.168.1.107:8080/ApiFantasyGo/ApiTest";
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", "00");
+        messaggio.setMessaggio(1);
+        messaggio.setObject(params);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(URL, new JSONObject(params),  new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    VolleyLog.v("Response:", response.toString(4));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.i("Errore", e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+        Log.i("Json da inviare", new JSONObject(params).toString());
+
+
     }
 }
