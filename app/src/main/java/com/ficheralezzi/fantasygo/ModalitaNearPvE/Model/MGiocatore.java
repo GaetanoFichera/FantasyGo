@@ -3,14 +3,12 @@ package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by ASUS on 09/03/2017.
  */
 
-public class MGiocatore extends MGps {
+public class MGiocatore extends MGpsObservableObserver {
 
     private String id;
     private ArrayList<MPersonaggio> personaggi;

@@ -1,10 +1,12 @@
 package com.ficheralezzi.fantasygo.Utils;
 
+import org.json.JSONObject;
+
 /**
  * Created by juan on 20/10/17.
  */
 
-public class Messaggio {
+public class Messaggio extends JSONObject {
 
     private int messaggio; // Il Messaggio è codificato in numeri: Ex. 100 = OK
     private Object object;

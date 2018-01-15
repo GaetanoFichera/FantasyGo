@@ -2,10 +2,14 @@ package com.ficheralezzi.fantasygo.Utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.widget.Toast;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 /**
  * Created by gaetano on 24/08/17.
@@ -54,5 +58,18 @@ public class NetworkManager {
 
     public static void showToastOffline(Context context){
         Toast.makeText(context, "Connessione non Disponibile", Toast.LENGTH_SHORT).show();
+    }
+
+    public void updateLocationOnServer(Context context , Location location) throws JSONException {
+        Volley volley = new Volley();
+        Messaggio messaggio = new Messaggio();
+        ArrayList<String> datiGiocatore = new ArrayList<>();
+        datiGiocatore.add("G00001");
+        datiGiocatore.add(String.valueOf(location.getLatitude()));
+        datiGiocatore.add(String.valueOf(location.getLongitude()));
+        messaggio.setMessaggio(1);
+        messaggio.setObject(datiGiocatore);
+        Log.i("network: ", messaggio.toString());
+        volley.send(context, messaggio);
     }
 }

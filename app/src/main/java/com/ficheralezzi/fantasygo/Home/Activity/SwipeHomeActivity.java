@@ -1,6 +1,5 @@
 package com.ficheralezzi.fantasygo.Home.Activity;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +13,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
+import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
 import com.ficheralezzi.fantasygo.Utils.Messaggio;
 import com.ficheralezzi.fantasygo.Utils.PlayAudio;
 import com.ficheralezzi.fantasygo.Utils.SwipeHomeCollectionAdapter;
@@ -30,13 +25,12 @@ import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 import com.ficheralezzi.fantasygo.Utils.PermissionManager;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
+import com.ficheralezzi.fantasygo.Utils.Volley;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Created by gaetano on 14/07/17.
@@ -80,8 +74,14 @@ public class SwipeHomeActivity extends FragmentActivity {
         initTabsLayout(tabLayout);
         mTabLayout = tabLayout;
 
-        playAudio();
-        send();
+        //playAudio();
+        startLocation();
+
+        /*try {
+            send();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
     }
 
     //funzione per settare icone alle tab ma fa cagare => da rifare
@@ -246,33 +246,18 @@ public class SwipeHomeActivity extends FragmentActivity {
         stopAudio();
     }
 
-    public void send(){
+    public void startLocation(){
+        Log.i(TAG, "sono in start location");
+        LocationListeningServiceObservable locationListeningServiceObservable = new LocationListeningServiceObservable(this);
+        locationListeningServiceObservable.startLocation(this);
+    }
+
+    public void send() throws JSONException {
+        double coordinate[] = {42.7323424, 45.5456};
         Messaggio messaggio = new Messaggio();
-        final String URL = "http://192.168.1.107:8080/ApiFantasyGo/ApiTest";
-        HashMap<String, String> params = new HashMap<>();
-        params.put("id", "00");
+        messaggio.setObject(coordinate);
         messaggio.setMessaggio(1);
-        messaggio.setObject(params);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(URL, new JSONObject(params),  new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    VolleyLog.v("Response:", response.toString(4));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.i("Errore", e.getMessage());
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.e("Error: ", error.getMessage());
-            }
-        });
-
-        Volley.newRequestQueue(this).add(jsonObjectRequest);
-        Log.i("Json da inviare", new JSONObject(params).toString());
-
-
+        Volley volley = new Volley();
+        volley.send(this, messaggio);
     }
 }

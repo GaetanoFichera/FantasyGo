@@ -1,18 +1,25 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 
+import android.content.Context;
+import android.location.Location;
+import com.ficheralezzi.fantasygo.Utils.NetworkManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MGps extends Observable {
+public class MGpsObservableObserver extends Observable implements Observer {
 
     private double latitude;
     private double longitude;
     private ArrayList<Observer> observers = null;
 
-    public MGps() {
+    public MGpsObservableObserver() {
         this.observers = new ArrayList<>();
-        this.randomPosition();
     }
 
     public double getLatitude() {
@@ -37,9 +44,11 @@ public class MGps extends Observable {
         this.setLongitude(13.352198);
     }
 
-    //da implementare
-    public void updateLocation(){
-        this.randomPosition();
+    public void updateLocation(Context context, Location location) throws JSONException {
+        this.setLatitude(location.getLatitude());
+        this.setLongitude(location.getLongitude());
+        NetworkManager networkManager = new NetworkManager();
+        networkManager.updateLocationOnServer(context, location);
     }
 
     @Override
@@ -58,7 +67,11 @@ public class MGps extends Observable {
     @Override
     public void notifyObservers() {
         super.notifyObservers();
-        this.updateLocation(); //non va fatto così
+        /*try {
+            this.updateLocation(latitude, longitude); //non va fatto così
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
         for(int i = this.observers.size(); i > 0; i--){
             this.observers.get(i).update(this, this);
         }
@@ -68,5 +81,10 @@ public class MGps extends Observable {
     public synchronized void deleteObservers() {
         super.deleteObservers();
         this.observers.clear();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }
