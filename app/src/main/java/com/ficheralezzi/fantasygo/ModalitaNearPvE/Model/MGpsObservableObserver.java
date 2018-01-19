@@ -2,6 +2,8 @@ package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
+
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 
 import org.json.JSONException;
@@ -45,10 +47,16 @@ public class MGpsObservableObserver extends Observable implements Observer {
     }
 
     public void updateLocation(Context context, Location location) throws JSONException {
-        this.setLatitude(location.getLatitude());
-        this.setLongitude(location.getLongitude());
-        NetworkManager networkManager = new NetworkManager();
-        networkManager.updateLocationOnServer(context, location);
+        try{
+            this.setLatitude(location.getLatitude());
+            this.setLongitude(location.getLongitude());
+
+            NetworkManager networkManager = new NetworkManager();
+            networkManager.updateLocationOnServer(context, location);
+        }catch (Exception e){
+            Log.i(getClass().getSimpleName(), "Errore: " + e);
+        }
+
     }
 
     @Override

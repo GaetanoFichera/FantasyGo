@@ -1,6 +1,7 @@
 package com.ficheralezzi.fantasygo.Utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -26,7 +27,7 @@ public class LocationListeningServiceObservable extends Observable implements Ob
 
     private ArrayList<Observer> observers = null;
 
-    private static final String TAG = "LocationListener";
+    private static final String TAG = "LocListServObservable";
     private static final int MIN_PERIOD = 2;
     private static final int MIN_DIST = 2;
 
@@ -54,6 +55,10 @@ public class LocationListeningServiceObservable extends Observable implements Ob
     public boolean getGpsStatus() {
         boolean check = false;
         if (locationManager != null) {
+
+            Log.i(TAG, "GpsProvider: " + locationManager.isProviderEnabled(locationManager.GPS_PROVIDER) +
+            " NetworkProvider: " +  locationManager.isProviderEnabled(locationManager.NETWORK_PROVIDER));
+
             if (locationManager.isProviderEnabled(locationManager.GPS_PROVIDER) ||
                     locationManager.isProviderEnabled(locationManager.NETWORK_PROVIDER))
                 check = true;
@@ -61,21 +66,17 @@ public class LocationListeningServiceObservable extends Observable implements Ob
         return check;
     }
 
-    public void startLocation(Context context) {
-        Log.i(TAG, "sono in start location di LocationLstener");
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-        }else{
-            if(locationManager.getLastKnownLocation(providerIdGps) != null){
-                Log.i(TAG, "GPSPROVIDER");
-                location = locationManager.getLastKnownLocation(providerIdGps);
-                locationManager.requestLocationUpdates(providerIdGps, MIN_PERIOD, MIN_DIST, locationListener);
-            }else{
-                location = locationManager.getLastKnownLocation(providerIdNetwork);
-                Log.i(TAG, String.valueOf(location));
-                locationManager.requestLocationUpdates(providerIdNetwork, MIN_PERIOD, MIN_DIST, locationListener);
-            }
-            notifyObservers();
+    @SuppressLint("MissingPermission")
+    public boolean startLocation(Context context) {
+        //ho inserito il try/catch perchè crasha se effettuo la requestLocationUpdates senza i permessi, quindi
+        //con nel caso ridia errore ritorna false ma lo farebbe anche nel caso in cui sia qualcosa di diverso
+        //alla mancanza di permessi a dare errore
+        try{
+            locationManager.requestLocationUpdates(providerIdGps, MIN_PERIOD, MIN_DIST, locationListener);
+            return true;
+        }catch (Exception e) {
+            Log.i(TAG, "Errore requestLocationUpdates " + e.toString());
+            return false;
         }
     }
 
@@ -86,12 +87,10 @@ public class LocationListeningServiceObservable extends Observable implements Ob
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            Log.i(TAG, "onLocationChanged");
-            if (String.valueOf(location) == null) {
-                Log.i("Location", "location null");
-            } else {
-                Log.i("Location", "location ok");
-            }
+            Log.i(TAG, "onLocationChanged: " + location.toString());
+
+            setLocation(location);
+
             notifyObservers();
         }
 

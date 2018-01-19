@@ -27,7 +27,7 @@ public class PermissionManager {
         }
     }
 
-    private static boolean checkIfAlreadyhavePermissionLocation(Activity current_activity) {
+    public static boolean checkIfAlreadyhavePermissionLocation(Activity current_activity) {
         int result = ContextCompat.checkSelfPermission(current_activity, Manifest.permission.ACCESS_COARSE_LOCATION);
         int result2 = ContextCompat.checkSelfPermission(current_activity, Manifest.permission.ACCESS_FINE_LOCATION);
         if (result == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED) {
@@ -38,8 +38,8 @@ public class PermissionManager {
     }
 
     private static void requestForSpecificPermissionLocation(Activity current_activity) {
-        ActivityCompat.requestPermissions(current_activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE_LOCATION);
-        ActivityCompat.requestPermissions(current_activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_CODE_LOCATION);
+        ActivityCompat.requestPermissions(current_activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_CODE_LOCATION);
+        //ActivityCompat.requestPermissions(current_activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_CODE_LOCATION);
     }
 
 }

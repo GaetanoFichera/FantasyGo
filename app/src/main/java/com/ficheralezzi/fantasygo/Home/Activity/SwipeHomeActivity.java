@@ -50,7 +50,7 @@ public class SwipeHomeActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        checkLocationPermission();
+        startLocation();
 
         //da fare in una splashScreen
         if (!updateEffettuato){
@@ -75,17 +75,6 @@ public class SwipeHomeActivity extends FragmentActivity {
         mTabLayout = tabLayout;
 
         //playAudio();
-        //startLocation();
-
-        for (int i = 0; i < 20 ; i++){
-            Log.i(TAG, "Richiesta n." + (i+1));
-
-            try {
-                send();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     //funzione per settare icone alle tab ma fa cagare => da rifare
@@ -212,10 +201,6 @@ public class SwipeHomeActivity extends FragmentActivity {
 
     private void checkLocationPermission(){
         PermissionManager.askPermissionsLocation(this);
-
-        boolean isOnline = NetworkManager.isOnline(this);
-
-        Log.i(TAG, "Connessione: " + String.valueOf(isOnline));
     }
 
     public void moveToFirstPage(){
@@ -250,10 +235,20 @@ public class SwipeHomeActivity extends FragmentActivity {
         stopAudio();
     }
 
+    //start location consiste prova ad avviare la raccolta dei dati gps, nel caso non sia possibile
+    //(consideriamo solo il caso in cui non siano stati dati i permessi prima) avvia la richiesta dei permessi
+    //che una volta ottenuti avvieranno onRequestPermissionsResult che ritenterà l'avvio di startLocation
     public void startLocation(){
         Log.i(TAG, "sono in start location");
         LocationListeningServiceObservable locationListeningServiceObservable = new LocationListeningServiceObservable(this);
-        locationListeningServiceObservable.startLocation(this);
+        if (!locationListeningServiceObservable.startLocation(this)) {
+            Log.i(TAG, "Non ho i permessi di Location, dammeli per favore!");
+            checkLocationPermission();
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        startLocation();
     }
 
     public void send() throws JSONException {
