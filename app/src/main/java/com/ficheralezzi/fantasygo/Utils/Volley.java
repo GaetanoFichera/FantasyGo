@@ -20,7 +20,8 @@ import java.util.ArrayList;
 
 public class Volley {
 
-    final String URL = "http://192.168.1.71:8080/ApiFantasyGo/ApiTest/prova";
+    //final String URL = "http://192.168.1.71:8080/ApiFantasyGo/ApiTest/TestConnection";
+    final String URL = "http://172.20.10.2:8080/ApiFantasyGo/ApiTest/TestDb";
 
     public Volley() {}
 

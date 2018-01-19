@@ -75,13 +75,17 @@ public class SwipeHomeActivity extends FragmentActivity {
         mTabLayout = tabLayout;
 
         //playAudio();
-        startLocation();
+        //startLocation();
 
-        /*try {
-            send();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
+        for (int i = 0; i < 20 ; i++){
+            Log.i(TAG, "Richiesta n." + (i+1));
+
+            try {
+                send();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //funzione per settare icone alle tab ma fa cagare => da rifare
