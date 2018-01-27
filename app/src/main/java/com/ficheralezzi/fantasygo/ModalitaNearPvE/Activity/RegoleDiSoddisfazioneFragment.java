@@ -11,16 +11,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.RegoleDiSoddisfazione.MRegoleDiSoddisfazione;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by gaetano on 13/07/17.
@@ -63,7 +61,7 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
         viewTablev2.addView(createOneRow(inflater, container, R.string.oro_minimo, getContext().getResources().getInteger(R.integer.oro_minimo_max)));
         viewTablev2.addView(createOneRow(inflater, container, R.string.punti_esperienza_minimi, getContext().getResources().getInteger(R.integer.punti_esperienza_minimi_max)));
         viewTablev2.addView(createOneRow(inflater, container, R.string.numero_di_battaglie, getContext().getResources().getInteger(R.integer.numero_di_battaglie_max)));
-        String idPersonaggioSceltov2 = MModalitàNearPvE.getSingletoneInstance().getIdPersonaggioScelto();
+        String idPersonaggioSceltov2 = MModalitàNearPvEObserver.getSingletoneInstance().getIdPersonaggioScelto();
         //String idPersonaggioSceltov2 = getOneArg("idPersonaggioScelto");
         viewTablev2.addView(createOneRow(inflater, container, R.string.punti_ferita_minimi, MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggioSceltov2).getCaratteristiche().getPuntiFeritaMax()));
 
@@ -155,10 +153,10 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
         int numeroDiBattaglieScelte = ((SeekBar) getView().findViewWithTag(R.string.numero_di_battaglie)).getProgress();
         int puntiFeritaMinimiScelti = ((SeekBar) getView().findViewWithTag(R.string.punti_ferita_minimi)).getProgress();
 
-        MModalitàNearPvE.getSingletoneInstance().enterRegolediSoddisfazione(oroMinimoScelto, puntiEsperienzaMinimiScelti, numeroDiBattaglieScelte, puntiFeritaMinimiScelti);
+        MModalitàNearPvEObserver.getSingletoneInstance().enterRegolediSoddisfazione(oroMinimoScelto, puntiEsperienzaMinimiScelti, numeroDiBattaglieScelte, puntiFeritaMinimiScelti);
         */
 
-        MModalitàNearPvE.getSingletoneInstance().enterRegolediSoddisfazione(valori);
+        MModalitàNearPvEObserver.getSingletoneInstance().enterRegolediSoddisfazione(valori);
     }
 
     private void goToRiepilogoFragment(){

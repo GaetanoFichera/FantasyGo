@@ -1,9 +1,11 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 
+import android.content.ContentQueryMap;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 
 import org.json.JSONException;
@@ -15,6 +17,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MGpsObservableObserver extends Observable implements Observer {
+
+    private final static String TAG = "MGpsObservableObserver";
 
     private double latitude;
     private double longitude;
@@ -51,10 +55,12 @@ public class MGpsObservableObserver extends Observable implements Observer {
             this.setLatitude(location.getLatitude());
             this.setLongitude(location.getLongitude());
 
-            NetworkManager networkManager = new NetworkManager();
-            networkManager.updateLocationOnServer(context, location);
+            Log.i(TAG, "Lat: " + String.valueOf(latitude) + " Long: " + String.valueOf(longitude));
+
+            //NetworkManager.updateLocationOnServer(context, location);
+            NetworkManager.testConnection(context);
         }catch (Exception e){
-            Log.i(getClass().getSimpleName(), "Errore: " + e);
+            Log.i(TAG, "Errore: " + e);
         }
 
     }
@@ -75,13 +81,8 @@ public class MGpsObservableObserver extends Observable implements Observer {
     @Override
     public void notifyObservers() {
         super.notifyObservers();
-        /*try {
-            this.updateLocation(latitude, longitude); //non va fatto così
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         for(int i = this.observers.size(); i > 0; i--){
-            this.observers.get(i).update(this, this);
+            this.observers.get(i-1).update(this, this);
         }
     }
 
@@ -93,6 +94,11 @@ public class MGpsObservableObserver extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        Location location = ((LocationListeningServiceObservable) o).getLocation();
+        try {
+            updateLocation(((LocationListeningServiceObservable) o).context, location);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

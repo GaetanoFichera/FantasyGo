@@ -20,17 +20,18 @@ import java.util.ArrayList;
 
 public class Volley {
 
+    private final static String TAG = "Volley";
+
     //final String URL = "http://192.168.1.71:8080/ApiFantasyGo/ApiTest/TestConnection";
-    final String URL = "http://172.20.10.2:8080/ApiFantasyGo/ApiTest/TestDb";
+    private final static String URL = "http://172.20.10.2:8080/ApiFantasyGo/ApiTest/TestDb";
 
-    public Volley() {}
-
-    public void send (Context context, Messaggio messaggio) throws JSONException {
-
+    public static void sendJSON(Context context, String Url, Object o) throws JSONException {
         JSONObject json = new JSONObject();
-        String messaggio1 = String.valueOf(messaggio);
-        json.put("messaggio", messaggio1);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, json,  new Response.Listener<JSONObject>() {
+        json.put("Messaggio", String.valueOf(o));
+
+        Log.i(TAG, json.toString());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Url, json,  new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -50,8 +51,8 @@ public class Volley {
                 Log.i("ErroreVolley", error.toString());
             }
         });
+
         com.android.volley.toolbox.Volley.newRequestQueue(context).getCache().clear();
         com.android.volley.toolbox.Volley.newRequestQueue(context).add(jsonObjectRequest);
-        Log.i("Json da inviare", json.toString());
     }
 }

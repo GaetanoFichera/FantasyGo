@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 
@@ -93,11 +93,11 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
     private void updateView(){
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                if (MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null) {
-                    mTextViewPuntiFeritaCorrenti.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getPuntiFerita()));
+                if (MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale() != null) {
+                    mTextViewPuntiFeritaCorrenti.setText(String.valueOf(MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale().getPuntiFerita()));
                     mTextViewPuntiFeritaMassimi.setText(String.valueOf(MGiocatore.getSingletoneInstance().getOnePersonaggioById(mIdPersonaggioCorrente).getCaratteristiche().getPuntiFeritaMax()));
-                    mTextViewNumeroDiBattaglieAffrontate.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getNumeroDiBattaglie()));
-                    mTextViewOroPosseduto.setText(String.valueOf(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getOro()));
+                    mTextViewNumeroDiBattaglieAffrontate.setText(String.valueOf(MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale().getNumeroDiBattaglie()));
+                    mTextViewOroPosseduto.setText(String.valueOf(MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale().getOro()));
                 }
             }
 
@@ -126,7 +126,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
             }
 
         }
-        MModalitàNearPvE.getSingletoneInstance().stopModalità();
+        MModalitàNearPvEObserver.getSingletoneInstance().stopModalità();
 
         Log.i(TAG, "Mod Terminata");
 
@@ -150,8 +150,8 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
                 final Activity activity = getActivity();
 
                 while (isRunning && NetworkManager.isOnline(activity)){
-                    if(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null){
-                        if(!MModalitàNearPvE.getSingletoneInstance().isRunning()){
+                    if(MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale() != null){
+                        if(!MModalitàNearPvEObserver.getSingletoneInstance().isRunning()){
                             isRunning = false;
                         }
                     }else isRunning = false;
@@ -161,10 +161,10 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
                 int resStringIdMessage = 0;
 
                 //Controllo se il motivo per cui il While si è interrotto è legato alla mancanza di Connessione ad Internet
-                if(!NetworkManager.isOnline(activity) && MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null) {
+                if(!NetworkManager.isOnline(activity) && MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale() != null) {
                     resStringIdMessage = R.string.dialog_testo_internet_disconnesso;
-                    if (MModalitàNearPvE.getSingletoneInstance().isRunning()) {
-                        MModalitàNearPvE.getSingletoneInstance().stopModalità();
+                    if (MModalitàNearPvEObserver.getSingletoneInstance().isRunning()) {
+                        MModalitàNearPvEObserver.getSingletoneInstance().stopModalità();
                     }
                 }else{
                     resStringIdMessage = R.string.dialog_testo;
@@ -207,7 +207,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
                 .setPositiveButton(R.string.string_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        MModalitàNearPvE.getSingletoneInstance().resetModalità();
+                        MModalitàNearPvEObserver.getSingletoneInstance().resetModalità();
                         ((SwipeHomeActivity) activity).stopAvanzamentoModNearPvE();
                     }
                 });
@@ -223,7 +223,7 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
             @Override
             public void run() {
 
-            while(MModalitàNearPvE.getSingletoneInstance().isRunning()){
+            while(MModalitàNearPvEObserver.getSingletoneInstance().isRunning()){
 
             }
             activity.runOnUiThread(new Runnable() {

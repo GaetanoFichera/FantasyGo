@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ip localhost pc: 10.0.2.2 per AVD e 172.20.10.2 per ADB -->
+    <string name="HTTP_Server_Address">http://10.0.2.2:8080</string>
+
+    <string name="Server_Api">ApiFantasyGo</string>
+
+    <string name="Test_Api">ApiTest</string>
+
+    <string name="TestConnection_Api">TestConnection</string>
+    <string name="TestDb_Api">TestDb</string>
+</resources>

@@ -16,13 +16,13 @@ import android.widget.Toast;
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
 import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
 import com.ficheralezzi.fantasygo.Utils.Messaggio;
+import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 import com.ficheralezzi.fantasygo.Utils.PlayAudio;
 import com.ficheralezzi.fantasygo.Utils.SwipeHomeCollectionAdapter;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity.ModalitaNearPvEActivity;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.R;
-import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 import com.ficheralezzi.fantasygo.Utils.PermissionManager;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
 import com.ficheralezzi.fantasygo.Utils.Volley;
@@ -77,7 +77,7 @@ public class SwipeHomeActivity extends FragmentActivity {
         //playAudio();
     }
 
-    //funzione per settare icone alle tab ma fa cagare => da rifare
+    //funzione per settare icone alle tab... sarebbe da migliorare
     public void initTabsLayout(final TabLayout tabLayout){
         for (int i=0; i < tabLayout.getTabCount(); i++){
             tabLayout.getTabAt(i).setCustomView(R.layout.tab_layout);
@@ -220,27 +220,28 @@ public class SwipeHomeActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopAudio();
+        //stopAudio();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        playAudio();
+        //playAudio();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        stopAudio();
+        //stopAudio();
     }
 
-    //start location consiste prova ad avviare la raccolta dei dati gps, nel caso non sia possibile
+    //start location prova ad avviare la raccolta dei dati gps, nel caso non sia possibile
     //(consideriamo solo il caso in cui non siano stati dati i permessi prima) avvia la richiesta dei permessi
     //che una volta ottenuti avvieranno onRequestPermissionsResult che ritenterà l'avvio di startLocation
     public void startLocation(){
         Log.i(TAG, "sono in start location");
         LocationListeningServiceObservable locationListeningServiceObservable = new LocationListeningServiceObservable(this);
+        locationListeningServiceObservable.addObserver(MGiocatore.getSingletoneInstance());
         if (!locationListeningServiceObservable.startLocation(this)) {
             Log.i(TAG, "Non ho i permessi di Location, dammeli per favore!");
             checkLocationPermission();
@@ -249,14 +250,5 @@ public class SwipeHomeActivity extends FragmentActivity {
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
         startLocation();
-    }
-
-    public void send() throws JSONException {
-        double coordinate[] = {42.7323424, 45.5456};
-        Messaggio messaggio = new Messaggio();
-        messaggio.setObject(coordinate);
-        messaggio.setMessaggio(1);
-        Volley volley = new Volley();
-        volley.send(this, messaggio);
     }
 }

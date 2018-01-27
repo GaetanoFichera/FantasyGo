@@ -18,9 +18,9 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MModalitàNearPvE extends IntentService implements IModalità, Observer {
+public class MModalitàNearPvEObserver extends IntentService implements IModalità, Observer {
 
-    private static final String TAG = "MModalitàNearPvE";
+    private static final String TAG = "MModNearPvEObserver";
     private static final int MOD_STATE_NONE = 0;
     private static final int MOD_STATE_INITIALIZED = 1;
     private static final int MOD_STATE_DECIDED_RULES = 2;
@@ -31,13 +31,13 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
     private RisultatoFinale risultatoFinale = null;
     private String idPersonaggioScelto;
-    private static MModalitàNearPvE singletoneinstance = null;
+    private static MModalitàNearPvEObserver singletoneinstance = null;
     private Thread mThreadEsecuzioneModalità = null;
     private int mState = 0;
     private boolean mStopEsterno = false;
 
-    public MModalitàNearPvE(){
-        super("MModalitàNearPvE");
+    public MModalitàNearPvEObserver(){
+        super("MModalitàNearPvEObserver");
     }
 
     public void init(){
@@ -47,11 +47,11 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
         }
     }
 
-    public static MModalitàNearPvE getSingletoneInstance() {
+    public static MModalitàNearPvEObserver getSingletoneInstance() {
 
         if(singletoneinstance == null){
             //Log.d(TAG, "no");
-            singletoneinstance = new MModalitàNearPvE();
+            singletoneinstance = new MModalitàNearPvEObserver();
         } //else Log.d(TAG, "si");
 
         return singletoneinstance;
@@ -111,18 +111,19 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
                 while(!MRegoleDiSoddisfazione.getSingletoneInstance().regoleSoddisfatte() && !mStopEsterno){
 
                     mState = MOD_STATE_RUNNING_BATTLE_IN_PROGRESS;
-                    if(!MZonaDiCaccia.getSingletoneInstance().IsInZonaDiCaccia(MGiocatore.getSingletoneInstance().getLatitude(), MGiocatore.getSingletoneInstance().getLongitude())){
-                        MZonaDiCaccia.getSingletoneInstance().update(0,0);
-                    }
-                    String idmostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
-                    MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostroById(idmostro));
+
+                    MZonaDiCaccia.getSingletoneInstance().update(MGiocatore.getSingletoneInstance().getLatitude(), MGiocatore.getSingletoneInstance().getLongitude());
+
+                    String idMostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
+
+                    MBattaglia.getSingletoneInstance().init(personaggioScelto, MZonaDiCaccia.getSingletoneInstance().getOneMostroById(idMostro));
                     MBattaglia.getSingletoneInstance().elaboraBattaglia();
 
-                    updateRisultatoFinale(MZonaDiCaccia.getSingletoneInstance().getRicompensa(idmostro),
-                            MZonaDiCaccia.getSingletoneInstance().getRicompensa(idmostro)*2,
+                    updateRisultatoFinale(MZonaDiCaccia.getSingletoneInstance().getRicompensa(idMostro),
+                            MZonaDiCaccia.getSingletoneInstance().getRicompensa(idMostro)*2,
                             MBattaglia.getSingletoneInstance().getRisultato().getPuntiferitaA());
 
-                    MZonaDiCaccia.getSingletoneInstance().reviveMostroById(idmostro);
+                    MZonaDiCaccia.getSingletoneInstance().reviveMostroById(idMostro);
 
                     Log.i(TAG, MBattaglia.getSingletoneInstance().getCombattenteA().toString());
 
@@ -166,13 +167,13 @@ public class MModalitàNearPvE extends IntentService implements IModalità, Obse
 
     public void update(Observable observable, Object o) {
 
-        startService(new Intent(this, MModalitàNearPvE.class));
+        startService(new Intent(this, MModalitàNearPvEObserver.class));
 
     }
 
     private void updateRisultatoFinale(int oro, int puntiEsperienza, int puntiFerita){
 
-        if(MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale() != null){
+        if(MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale() != null){
             this.risultatoFinale.setOro(this.risultatoFinale.getOro() + oro);
             this.risultatoFinale.setPuntiEsperienza(this.risultatoFinale.getPuntiEsperienza() + puntiEsperienza);
             this.risultatoFinale.setNumeroDiBattaglie(this.risultatoFinale.getNumeroDiBattaglie() + 1);

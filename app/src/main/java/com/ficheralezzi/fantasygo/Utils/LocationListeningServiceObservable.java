@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
@@ -23,21 +24,23 @@ import java.util.Observer;
  * Created by ASUS on 26/10/2017.
  */
 
-public class LocationListeningServiceObservable extends Observable implements Observer {
+public class LocationListeningServiceObservable extends Observable {
 
     private ArrayList<Observer> observers = null;
 
     private static final String TAG = "LocListServObservable";
-    private static final int MIN_PERIOD = 2;
-    private static final int MIN_DIST = 2;
+    private static final long MIN_PERIOD = 2;
+    private static final float MIN_DIST = (float) 0.001;
 
     private LocationManager locationManager = null;
     private String providerIdGps;
     private String providerIdNetwork;
     private Location location = null;
-    private Context context;
+    public Context context;
 
+    //vedere se rendere Singleton, sarebbe comodo
     public LocationListeningServiceObservable(Context context) {
+        observers = new ArrayList<>();
         locationManager = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
         providerIdGps = LocationManager.GPS_PROVIDER;
         providerIdNetwork = LocationManager.NETWORK_PROVIDER;
@@ -114,32 +117,20 @@ public class LocationListeningServiceObservable extends Observable implements Ob
     @Override
     public synchronized void addObserver(Observer o) {
         super.addObserver(o);
+        observers.add(o);
     }
 
     @Override
     public synchronized void deleteObserver(Observer o) {
         super.deleteObserver(o);
+        observers.remove(o);
     }
 
     @Override
     public void notifyObservers() {
         super.notifyObservers();
-        MGpsObservableObserver mGpsObservableObserver = new MGpsObservableObserver();
-        Log.i(TAG, "sono nel notify");
-        try {
-            mGpsObservableObserver.updateLocation(context, location);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        for(int i = this.observers.size(); i > 0; i--){
+            this.observers.get(i-1).update(this, this);
         }
-        /*for(int i = this.observers.size(); i > 0; i--){
-            this.observers.get(i).update(this, this);
-        }*/
-
     }
-
-    @Override
-    public void update(Observable o, Object arg) {
-
-    }
-
 }
