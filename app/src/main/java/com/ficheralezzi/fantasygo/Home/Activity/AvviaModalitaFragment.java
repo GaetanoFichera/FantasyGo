@@ -6,7 +6,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGpsObservableObserver;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
@@ -26,18 +26,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.maps.android.kml.KmlLayer;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by gaetano on 14/07/17.
  */
 
-public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallback {
+public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallback, Observer {
 
     /*
     @Override
@@ -70,6 +70,7 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
     */
 
     private static final String TAG = "AvviaModalitaFragment";
+    private static final LatLng LAQUILA = new LatLng(42.354008,13.391992);
     private GoogleMap mMap;
 
     private SensorManager mSensorManager;
@@ -84,6 +85,9 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
         setButtonListener(view);
 
         setMap();
+
+        MGiocatore.getSingletoneInstance().addObserver(this);
+
         return view;
     }
 
@@ -116,8 +120,7 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
         if (sensor != null) {
-            mSensorManager.registerListener(mySensorEventListener, sensor,
-                    SensorManager.SENSOR_DELAY_UI);
+            mSensorManager.registerListener(mySensorEventListener, sensor, SensorManager.SENSOR_DELAY_UI);
             Log.i(TAG, "Compass: Registerered for ORIENTATION Sensor");
         } else {
             Log.e(TAG, "Compass: Not Registerered for ORIENTATION Sensor");
@@ -141,23 +144,23 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
 
     public void setUpMap(Context context) throws IOException, XmlPullParserException {
 
+        /*
         mMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                         context, R.raw.style_map_json));
         //mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        mMap.setTrafficEnabled(true);
+        mMap.setIndoorEnabled(true);
+        mMap.setBuildingsEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        */
 
         //commentato perchè troppo pesante per il tablet
         /*
         KmlLayer layer = new KmlLayer(mMap, R.raw.kml_laquila, context);
         layer.addLayerToMap();
         */
-
-        mMap.setTrafficEnabled(true);
-        mMap.setIndoorEnabled(true);
-        mMap.setBuildingsEnabled(true);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-
-        LatLng LAQUILA = new LatLng(42.354008,13.391992);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(LAQUILA)             // Sets the center of the map to Mountain View
@@ -177,6 +180,7 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
         if (sensor != null) {
             mSensorManager.unregisterListener(mySensorEventListener);
         }
+        MGiocatore.getSingletoneInstance().deleteObserver(this);
     }
 
     private SensorEventListener mySensorEventListener = new SensorEventListener() {
@@ -191,23 +195,17 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
             // 0=North, 90=East, 180=South, 270=West
             float azimuth = event.values[0];
             if (azimuth != 0.0){
-                Log.i(TAG, "Sensing: " + azimuth);
-                updateCamera(azimuth);
+                updateCameraBearing(azimuth);
             }
         }
     };
 
-    private void updateCamera(float bearing) {
-
+    private void updateCameraBearing(float bearing) {
         CameraPosition camera;
 
-        LatLng position = new LatLng(MGiocatore.getSingletoneInstance().getLatitude(), MGiocatore.getSingletoneInstance().getLongitude());
-
         if(!startApp){
-            //LatLng LAQUILA = new LatLng(42.354008,13.391992);
-
             camera = new CameraPosition.Builder()
-                    .target(position)            // Sets the center of the map to Mountain View
+                    .target(LAQUILA)
                     .zoom(100)                   // Sets the zoom
                     .bearing(90)                 // Sets the orientation of the camera to east
                     .tilt(75)                    // Sets the tilt of the camera to 30 degrees
@@ -218,9 +216,36 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
 
         CameraPosition newCamera = CameraPosition.builder(camera)
                 .bearing(bearing)
+                .build();
+
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(newCamera));
+    }
+
+    private void updateCameraPosition(LatLng position){
+        CameraPosition camera;
+
+        if(!startApp){
+            camera = new CameraPosition.Builder()
+                    .target(position)
+                    .zoom(100)                   // Sets the zoom
+                    .bearing(90)                 // Sets the orientation of the camera to east
+                    .tilt(75)                    // Sets the tilt of the camera to 30 degrees
+                    .build();                    // Creates a CameraPosition from the builder
+
+            startApp = true;
+        } else camera = mMap.getCameraPosition();
+
+        CameraPosition newCamera = CameraPosition.builder(camera)
                 .target(position)
                 .build();
 
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(newCamera));
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        LatLng position = new LatLng(((MGpsObservableObserver) observable).getLatitude(), ((MGpsObservableObserver) observable).getLongitude());
+        Log.i(TAG, position.toString());
+        updateCameraPosition(position);
     }
 }

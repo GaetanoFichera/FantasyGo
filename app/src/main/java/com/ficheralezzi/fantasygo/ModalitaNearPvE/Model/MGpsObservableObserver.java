@@ -100,5 +100,6 @@ public class MGpsObservableObserver extends Observable implements Observer {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        notifyObservers();
     }
 }
