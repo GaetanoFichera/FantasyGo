@@ -5,7 +5,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -26,6 +25,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.maps.android.kml.KmlLayer;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -143,8 +144,6 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
     }
 
     public void setUpMap(Context context) throws IOException, XmlPullParserException {
-
-        /*
         mMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                         context, R.raw.style_map_json));
@@ -154,13 +153,10 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
         mMap.setIndoorEnabled(true);
         mMap.setBuildingsEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        */
 
         //commentato perchè troppo pesante per il tablet
-        /*
         KmlLayer layer = new KmlLayer(mMap, R.raw.kml_laquila, context);
         layer.addLayerToMap();
-        */
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(LAQUILA)             // Sets the center of the map to Mountain View
@@ -169,7 +165,6 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
                 .tilt(75)                    // Sets the tilt of the camera to 30 degrees
                 .build();                    // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
 
         setSensor();
     }
