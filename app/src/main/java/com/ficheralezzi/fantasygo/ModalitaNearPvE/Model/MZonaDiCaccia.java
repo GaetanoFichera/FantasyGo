@@ -92,15 +92,9 @@ public class MZonaDiCaccia {
     }
 
     public void update(double latitudine, double longitudine){
-        // controlla se gli attributi sono stati gia istanziati e in caso positivo controlla se
-        // latitudine e longitudine che gli vengono passate appartengo all'area gia istanziata
-        // nel caso la if si verifichi si controlla se le coordinate appartengano a questa zona,
-        // in caso negativo viene fatta una richiesta al db per l'area relativa alle coordinate passate
-        if(this.area != null || this.mostri != null) {
-            if (!this.area.checkPuntiInterni(latitudine, longitudine)) {
-                this.area = getAreaFromDb(latitudine, longitudine);
-                this.mostri = getMostriFromDb(this.area.getId());
-            }
+        if(this.area == null || this.mostri == null) {
+            this.area = getAreaFromDb(latitudine, longitudine);
+            this.mostri = getMostriFromDb(this.area.getId());
         } else{
             if (!IsInZonaDiCaccia(latitudine, longitudine)){
                 this.area = getAreaFromDb(latitudine, longitudine);

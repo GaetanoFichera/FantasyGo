@@ -89,8 +89,7 @@ public class MModalitàNearPvEObserver extends IntentService implements IModalit
 
         final MPersonaggio personaggioScelto = MGiocatore.getSingletoneInstance().getOnePersonaggioById(this.idPersonaggioScelto);
         MZonaDiCaccia.getSingletoneInstance().init();
-        MZonaDiCaccia.getSingletoneInstance().update(0,0);
-        MZonaDiCaccia.getSingletoneInstance().getMostri().toString();
+        MZonaDiCaccia.getSingletoneInstance().update(MGiocatore.getSingletoneInstance().getLatitude(),MGiocatore.getSingletoneInstance().getLongitude());
 
         mState = MOD_STATE_STARTED;
         Log.i(TAG, "ModalitàNearPvE avviata");
