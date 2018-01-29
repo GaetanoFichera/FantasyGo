@@ -84,8 +84,9 @@ public class MZonaDiCaccia {
 
         //da implementare con interazione col db
         MCaratteristiche caratteristichemostro = new MCaratteristiche(1, 500, 500, 10, 8, 5, 4, 6, "DardoInfuocato", 0, 10, "Mag");
+        MEquipaggiamento equipaggiamentoMostro = new MEquipaggiamento("W001", "A01");
         ArrayList<MMostro> mostri= new ArrayList<>();
-        MMostro mostro = new MMostro("M0001", caratteristichemostro, 19);
+        MMostro mostro = new MMostro("M0001", caratteristichemostro, equipaggiamentoMostro,19);
         mostri.add(mostro);
         //aggiungere mostri manualmente nell'array
         return mostri;

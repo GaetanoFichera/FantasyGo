@@ -11,8 +11,8 @@ public class MMostro extends MCombattente implements Cloneable {
 
     private int ricompensa;
 
-    public MMostro(String id, MCaratteristiche caratteristiche, int ricompensa) {
-        super(id, caratteristiche);
+    public MMostro(String id, MCaratteristiche caratteristiche, MEquipaggiamento equipaggiamento, int ricompensa) {
+        super(id, caratteristiche, equipaggiamento);
         this.ricompensa = ricompensa;
     }
 

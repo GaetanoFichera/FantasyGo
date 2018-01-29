@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MEquipaggiamento;
 import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
 import com.ficheralezzi.fantasygo.Utils.Messaggio;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
@@ -131,11 +132,12 @@ public class SwipeHomeActivity extends FragmentActivity {
     private void updateMineDb(){
         MCaratteristiche caratteristicheA = new MCaratteristiche(2, 10000, 10000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
         ArrayList<String> inv = new ArrayList<>();
-        MPersonaggio Gaetano = new MPersonaggio("P0001", "Gaetano", caratteristicheA, 0, "M", "Umano", "Tizio", 0, inv, 0);
+        MEquipaggiamento equipaggiamento = new MEquipaggiamento("W001", "A01");
+        MPersonaggio Gaetano = new MPersonaggio("P0001", "Gaetano", caratteristicheA, equipaggiamento, 0, "M", "Umano", "Tizio", 0, inv, 0);
 
         MCaratteristiche caratteristicheB = new MCaratteristiche(5, 10000, 10000, 50, 21, 10, 20, 17, "DardoIncantato", 0, 13, "Fis");
         ArrayList<String> inv2 = new ArrayList<>();
-        MPersonaggio Giovanni = new MPersonaggio("P0002", "Giovanni", caratteristicheB, 0, "M", "Umano", "Tizios", 0, inv2, 0);
+        MPersonaggio Giovanni = new MPersonaggio("P0002", "Giovanni", caratteristicheB, equipaggiamento, 0, "M", "Umano", "Tizios", 0, inv2, 0);
 
         UserPreferencesManager up = new UserPreferencesManager(this);
 

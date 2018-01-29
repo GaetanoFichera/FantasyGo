@@ -11,9 +11,10 @@ public class MCombattente {
     private MCaratteristiche caratteristiche;
     private MEquipaggiamento equipaggiamento;
 
-    public MCombattente(String id, MCaratteristiche caratteristiche) {
+    public MCombattente(String id, MCaratteristiche caratteristiche, MEquipaggiamento equipaggiamento) {
         this.id = id;
         this.caratteristiche = caratteristiche;
+        this.equipaggiamento = equipaggiamento;
     }
 
     public String getId() {

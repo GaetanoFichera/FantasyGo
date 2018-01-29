@@ -20,9 +20,9 @@ public class MPersonaggio extends MCombattente {
     private ArrayList<String> inventario;
     private int oro;
 
-    public MPersonaggio(String id, String nome, MCaratteristiche caratteristiche, int bottino, String sesso,
+    public MPersonaggio(String id, String nome, MCaratteristiche caratteristiche, MEquipaggiamento equipaggiamento, int bottino, String sesso,
                         String razza, String classe, int puntiEsperienza, ArrayList<String> inventario, int oro) {
-        super(id, caratteristiche);
+        super(id, caratteristiche, equipaggiamento);
         this.bottino = bottino;
         this.sesso = sesso;
         this.razza = razza;
