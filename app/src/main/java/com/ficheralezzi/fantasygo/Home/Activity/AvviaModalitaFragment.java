@@ -23,9 +23,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.kml.KmlLayer;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -73,6 +76,7 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
     private static final String TAG = "AvviaModalitaFragment";
     private static final LatLng LAQUILA = new LatLng(42.354008,13.391992);
     private GoogleMap mMap;
+    private Marker mMarkerPlayer;
 
     private SensorManager mSensorManager;
     private Sensor sensor;
@@ -166,6 +170,12 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
                 .build();                    // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(LAQUILA);
+
+        mMarkerPlayer = mMap.addMarker(markerOptions);
+        mMarkerPlayer.setIcon(BitmapDescriptorFactory.fromResource(R.raw.marker20));
+
         setSensor();
     }
 
@@ -233,6 +243,8 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
         CameraPosition newCamera = CameraPosition.builder(camera)
                 .target(position)
                 .build();
+
+        mMarkerPlayer.setPosition(position);
 
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(newCamera));
     }

@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.R;
 
 import org.json.JSONException;
@@ -71,20 +72,20 @@ public class NetworkManager {
         Toast.makeText(context, "Connessione non Disponibile", Toast.LENGTH_SHORT).show();
     }
 
-    public static void updateLocationOnServer(Context context , Location location) throws JSONException {
+    public static void updateLocationOnServer(Context context) throws JSONException {
         Messaggio messaggio = new Messaggio();
 
         ArrayList<String> datiGiocatore = new ArrayList<>();
-        datiGiocatore.add("G00001");
-        datiGiocatore.add(String.valueOf(location.getLatitude()));
-        datiGiocatore.add(String.valueOf(location.getLongitude()));
+        datiGiocatore.add(MGiocatore.getSingletoneInstance().getId());
+        datiGiocatore.add(String.valueOf(MGiocatore.getSingletoneInstance().getLatitude()));
+        datiGiocatore.add(String.valueOf(MGiocatore.getSingletoneInstance().getLongitude()));
 
-        messaggio.setMessaggio(1);
+        messaggio.setMessaggio(UPDATE_LOCATION);
         messaggio.setObject(datiGiocatore);
 
         Log.i(TAG, messaggio.toString());
 
-        String Url = getUrl(context, TEST_DB);
+        String Url = getUrl(context, UPDATE_LOCATION);
 
         Volley.sendJSON(context, Url, messaggio);
     }
@@ -101,10 +102,9 @@ public class NetworkManager {
 
         if (intention == TEST_DB) Url += (urlSeparator + context.getString(R.string.Test_Api) + urlSeparator + context.getString(R.string.TestDb_Api));
         else if (intention == TEST_CONNECTION) Url += (urlSeparator + context.getString(R.string.Test_Api) + urlSeparator + context.getString(R.string.TestConnection_Api));
+        else if (intention == UPDATE_LOCATION) Url += (urlSeparator + context.getString(R.string.Test_Api) + urlSeparator + context.getString(R.string.UpdateLocation_Api));
 
         Log.i(TAG, "Url: " + Url);
-
-        http://localhost:8080/ApiFantasyGo/ApiTest/TestConnection
 
         return Url;
     }

@@ -29,8 +29,8 @@ public class LocationListeningServiceObservable extends Observable {
     private ArrayList<Observer> observers = null;
 
     private static final String TAG = "LocListServObservable";
-    private static final long MIN_PERIOD = 2;
-    private static final float MIN_DIST = (float) 0.001;
+    private static final long MIN_PERIOD = 2; //milliseconds
+    private static final float MIN_DIST = (float) 0.001; //meters
 
     private LocationManager locationManager = null;
     private String providerIdGps;
@@ -72,7 +72,7 @@ public class LocationListeningServiceObservable extends Observable {
     @SuppressLint("MissingPermission")
     public boolean startLocation(Context context) {
         //ho inserito il try/catch perchè crasha se effettuo la requestLocationUpdates senza i permessi, quindi
-        //con nel caso ridia errore ritorna false ma lo farebbe anche nel caso in cui sia qualcosa di diverso
+        //nel caso ridia errore ritorna false ma lo farebbe anche nel caso in cui sia qualcosa di diverso
         //alla mancanza di permessi a dare errore
         try{
             locationManager.requestLocationUpdates(providerIdGps, MIN_PERIOD, MIN_DIST, locationListener);

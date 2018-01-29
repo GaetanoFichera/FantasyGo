@@ -58,7 +58,8 @@ public class MGpsObservableObserver extends Observable implements Observer {
             Log.i(TAG, "Lat: " + String.valueOf(latitude) + " Long: " + String.valueOf(longitude));
 
             //NetworkManager.updateLocationOnServer(context, location);
-            NetworkManager.testConnection(context);
+            NetworkManager.updateLocationOnServer(context);
+            notifyObservers();
         }catch (Exception e){
             Log.i(TAG, "Errore: " + e);
         }
@@ -100,6 +101,5 @@ public class MGpsObservableObserver extends Observable implements Observer {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        notifyObservers();
     }
 }

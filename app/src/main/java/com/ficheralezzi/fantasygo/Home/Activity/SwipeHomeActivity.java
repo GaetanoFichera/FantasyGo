@@ -152,7 +152,7 @@ public class SwipeHomeActivity extends FragmentActivity {
             MPersonaggio onePersonaggio = (MPersonaggio) userPreferencesManager.load(MPersonaggio.class, idsPersonaggiDb.get(i));
             PersonaggiFromDb.add(onePersonaggio);
         }
-        MGiocatore.getSingletoneInstance().init("0001", PersonaggiFromDb, "Demo");
+        MGiocatore.getSingletoneInstance().init("G00001", PersonaggiFromDb, "Demo");
     }
 
     @Override

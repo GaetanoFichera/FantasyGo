@@ -9,4 +9,5 @@
 
     <string name="TestConnection_Api">TestConnection</string>
     <string name="TestDb_Api">TestDb</string>
+    <string name="UpdateLocation_Api">UpdateLocation</string>
 </resources>

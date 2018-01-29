@@ -8,6 +8,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,12 +29,17 @@ public class Volley {
     private final static String URL = "http://172.20.10.2:8080/ApiFantasyGo/ApiTest/TestDb";
 
     public static void sendJSON(Context context, String Url, Object o) throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put("Messaggio", String.valueOf(o));
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(ow.writeValueAsString(o));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
-        Log.i(TAG, json.toString());
+        Log.i(TAG, jsonObject.toString());
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Url, json,  new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Url, jsonObject,  new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -47,7 +55,6 @@ public class Volley {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("Error: ", error.getMessage());
-
                 Log.i("ErroreVolley", error.toString());
             }
         });
