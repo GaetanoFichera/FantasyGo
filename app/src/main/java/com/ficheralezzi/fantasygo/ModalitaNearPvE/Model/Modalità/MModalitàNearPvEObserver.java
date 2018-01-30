@@ -111,6 +111,7 @@ public class MModalitàNearPvEObserver extends IntentService implements IModalit
 
                     mState = MOD_STATE_RUNNING_BATTLE_IN_PROGRESS;
 
+                    //Aggiorno la Zona di Caccia prima di ogni incontro
                     MZonaDiCaccia.getSingletoneInstance().update(MGiocatore.getSingletoneInstance().getLatitude(), MGiocatore.getSingletoneInstance().getLongitude());
 
                     String idMostro = MZonaDiCaccia.getSingletoneInstance().getOneMostro().getId();
@@ -167,7 +168,6 @@ public class MModalitàNearPvEObserver extends IntentService implements IModalit
     public void update(Observable observable, Object o) {
 
         startService(new Intent(this, MModalitàNearPvEObserver.class));
-
     }
 
     private void updateRisultatoFinale(int oro, int puntiEsperienza, int puntiFerita){

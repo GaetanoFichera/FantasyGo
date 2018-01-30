@@ -70,9 +70,18 @@ public class MZonaDiCaccia {
     }
 
     private MArea getAreaFromDb(double latitudine, double longitudine){
-
         //da implementare con interazione col db
         Posizione posizione = new Posizione(latitudine, longitudine);
+        ArrayList<Posizione> confini = new ArrayList<Posizione>();
+        confini.add(posizione);
+        String id = "Area51";
+        MArea area = new MArea(confini, id);
+        return area;
+    }
+
+    private MArea getAreaFromDb(String idArea){
+        //da implementare con interazione col db
+        Posizione posizione = new Posizione(0, 0);
         ArrayList<Posizione> confini = new ArrayList<Posizione>();
         confini.add(posizione);
         String id = "Area51";
@@ -103,7 +112,29 @@ public class MZonaDiCaccia {
             }
         }
         Log.i("mostri", this.mostri.toString());
+    }
 
+    /**
+     * Provo ad Aggiornare la Zona di Caccia nel caso in cui l'ID ricevuto sia diverso oppure se la Zona di Caccia non sia già istanziata
+     * @param idNuovaArea
+     */
+    public void update(String idNuovaArea){
+        /* implementare
+        //controllo se non è stata già inizializzata
+        if(this.area == null && this.mostri == null) {
+            this.area = getAreaFromDb(idNuovaArea);
+            this.mostri = getMostriFromDb(idNuovaArea);
+            this.singletoneinstance = this;
+        } else{
+            //aggiorno se l'id ricevuto è diverso da quello memorizzato
+            if (this.area.getId() != idNuovaArea){
+                this.area = getAreaFromDb(idNuovaArea);
+                this.mostri = getMostriFromDb(idNuovaArea);
+                this.singletoneinstance = this;
+            }
+        }
+        */
+        Log.i(TAG, "ID Nuova Zona Di Caccia: " + idNuovaArea);
     }
 
     public int getRicompensa(String id){

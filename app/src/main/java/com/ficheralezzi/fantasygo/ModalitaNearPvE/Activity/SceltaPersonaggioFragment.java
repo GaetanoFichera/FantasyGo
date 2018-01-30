@@ -67,23 +67,6 @@ public class SceltaPersonaggioFragment extends CustomListFragment{
         goToNextFragment(regoleDiSoddisfazioneFragment, R.id.fragment_container_modnearpve);
     }
 
-    /* Rimpiazzato dal metodo qui sopra che utilizza la classe estesa CustomListFragment
-    private void goToNextFragment(){
-
-        RegoleDiSoddisfazioneFragment regoleDiSoddisfazioneFragment = new RegoleDiSoddisfazioneFragment();
-        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        Bundle args = new Bundle();
-        args.putString("idPersonaggioScelto", idPersonaggioScelto);
-        regoleDiSoddisfazioneFragment.setArguments(args);
-
-        fragmentTransaction.replace(R.id.fragment_container_modnearpve, regoleDiSoddisfazioneFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-    */
-
     private void setVisibilityButtons(){
         Button backButton = ((Button) getActivity().findViewById(R.id.back_button));
         Button startButton = ((Button) getActivity().findViewById(R.id.go_button));

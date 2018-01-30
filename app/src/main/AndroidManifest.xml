@@ -18,12 +18,25 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/FantasyGoAppTheme">
+        <activity
+            android:name=".Home.Activity.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Home.Activity.SwipeHomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <!--Add Other activities like this-->
         <activity android:name=".ModalitaNearPvE.Activity.ModalitaNearPvEActivity" >

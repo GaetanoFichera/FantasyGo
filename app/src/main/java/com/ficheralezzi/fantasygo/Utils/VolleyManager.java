@@ -8,9 +8,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,14 +23,14 @@ import java.util.ArrayList;
  * Created by ASUS on 26/10/2017.
  */
 
-public class Volley {
+public class VolleyManager {
 
-    private final static String TAG = "Volley";
+    private final static String TAG = "VolleyManager";
 
     //final String URL = "http://192.168.1.71:8080/ApiFantasyGo/ApiTest/TestConnection";
     private final static String URL = "http://172.20.10.2:8080/ApiFantasyGo/ApiTest/TestDb";
 
-    public static void sendJSON(Context context, String Url, Object o) throws JSONException {
+    public static void sendJSON(final VolleyResponseListener volleyResponseListener, Context context, String Url, Object o) throws JSONException {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         JSONObject jsonObject = null;
         try {
@@ -46,6 +48,10 @@ public class Volley {
                     VolleyLog.v("Response:", response.toString(4));
                     Log.i("Response", response.toString());
 
+                    Gson gson = new Gson();
+                    Messaggio messaggio = gson.fromJson(response.toString(), Messaggio.class);
+
+                    volleyResponseListener.requestCompleted(messaggio);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.i("Errore", e.getMessage());
@@ -59,7 +65,7 @@ public class Volley {
             }
         });
 
-        com.android.volley.toolbox.Volley.newRequestQueue(context).getCache().clear();
-        com.android.volley.toolbox.Volley.newRequestQueue(context).add(jsonObjectRequest);
+        //Volley.newRequestQueue(context).getCache().clear();
+        Volley.newRequestQueue(context).add(jsonObjectRequest);
     }
 }

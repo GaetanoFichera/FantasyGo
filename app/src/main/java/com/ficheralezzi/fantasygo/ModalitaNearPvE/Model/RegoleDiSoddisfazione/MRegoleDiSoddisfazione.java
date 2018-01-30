@@ -33,17 +33,6 @@ public class MRegoleDiSoddisfazione implements IRegoleDiSoddisfazione{
         }
     }
 
-    /*
-    public void init(int oroMinimo, int puntiEsperienzaMinimi, int numeroDiBattaglie, int puntiFeritaMinimi){
-        if(this.oroMinimo == 0 & this.puntiEsperienzaMinimi == 0 & this.numeroDiBattaglie == 0 & this.puntiFeritaMinimi == 0){
-            this.oroMinimo = oroMinimo;
-            this.puntiEsperienzaMinimi = puntiEsperienzaMinimi;
-            this.numeroDiBattaglie = numeroDiBattaglie;
-            this.puntiFeritaMinimi = puntiFeritaMinimi;
-        }
-    }
-    */
-
     public static MRegoleDiSoddisfazione getSingletoneInstance() {
 
         if(singletoneinstance == null){
@@ -163,23 +152,6 @@ public class MRegoleDiSoddisfazione implements IRegoleDiSoddisfazione{
 
         return controllo;
     }
-
-    /*
-
-    //controllo se almeno una delle regole di soddisfazione sono soddisfatte
-    public boolean regoleSoddisfatte(int oro, int puntiEsperienza, int numeroDiBattaglie, int puntiFerita) {
-
-        boolean controllo = false;
-        if(this.oroMinimo <= oro || this.puntiEsperienzaMinimi <= puntiEsperienza || this.puntiFeritaMinimi >= puntiFerita ||
-                this.numeroDiBattaglie <= numeroDiBattaglie){
-            controllo = true;
-            Log.i("sonoinregolesoddisfatte", "true");
-
-        }
-
-        return controllo;
-    }
-    */
 
     public void destroy(){
         if(singletoneinstance != null) singletoneinstance = null;

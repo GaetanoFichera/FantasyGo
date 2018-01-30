@@ -13,22 +13,13 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MEquipaggiamento;
 import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
-import com.ficheralezzi.fantasygo.Utils.Messaggio;
-import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 import com.ficheralezzi.fantasygo.Utils.PlayAudio;
 import com.ficheralezzi.fantasygo.Utils.SwipeHomeCollectionAdapter;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Activity.ModalitaNearPvEActivity;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.PermissionManager;
-import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
-import com.ficheralezzi.fantasygo.Utils.Volley;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,20 +36,11 @@ public class SwipeHomeActivity extends FragmentActivity {
     ViewPager mViewPager;
     TabLayout mTabLayout;
 
-    private boolean updateEffettuato = false;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         startLocation();
-
-        //da fare in una splashScreen
-        if (!updateEffettuato){
-            updateMineDb();
-            updateInfoGiocatore();
-            updateEffettuato = true;
-        }
 
         ArrayList<String> swipeOptions = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.swipe_options)));
         ArrayList<String> tabClassNameFragments = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.tab_class_name_fragments)));
@@ -127,34 +109,6 @@ public class SwipeHomeActivity extends FragmentActivity {
 
         Toast toast = Toast.makeText(context, msg, duration);
         toast.show();
-    }
-
-    private void updateMineDb(){
-        MCaratteristiche caratteristicheA = new MCaratteristiche(2, 10000, 10000, 50, 21, 10, 20, 17, "AttaccoPoderoso", 0, 13, "Fis");
-        ArrayList<String> inv = new ArrayList<>();
-        MEquipaggiamento equipaggiamento = new MEquipaggiamento("W001", "A01");
-        MPersonaggio Gaetano = new MPersonaggio("P0001", "Gaetano", caratteristicheA, equipaggiamento, 0, "M", "Umano", "Tizio", 0, inv, 0);
-
-        MCaratteristiche caratteristicheB = new MCaratteristiche(5, 10000, 10000, 50, 21, 10, 20, 17, "DardoIncantato", 0, 13, "Fis");
-        ArrayList<String> inv2 = new ArrayList<>();
-        MPersonaggio Giovanni = new MPersonaggio("P0002", "Giovanni", caratteristicheB, equipaggiamento, 0, "M", "Umano", "Tizios", 0, inv2, 0);
-
-        UserPreferencesManager up = new UserPreferencesManager(this);
-
-        if(up.save(Gaetano, Gaetano.getId() + "_Personaggio"));
-        if(up.save(Giovanni, Giovanni.getId() + "_Personaggio")) makeShortToast("Update dal Server Riuscito con Successo!");
-
-    }
-
-    private void updateInfoGiocatore(){
-        UserPreferencesManager userPreferencesManager = new UserPreferencesManager(this);
-        ArrayList<MPersonaggio> PersonaggiFromDb = new ArrayList<>();
-        ArrayList<String> idsPersonaggiDb = userPreferencesManager.getIdsOneType("_Personaggio");
-        for(int i=0; i < idsPersonaggiDb.size(); i++){
-            MPersonaggio onePersonaggio = (MPersonaggio) userPreferencesManager.load(MPersonaggio.class, idsPersonaggiDb.get(i));
-            PersonaggiFromDb.add(onePersonaggio);
-        }
-        MGiocatore.getSingletoneInstance().init("G00001", PersonaggiFromDb, "Demo");
     }
 
     @Override

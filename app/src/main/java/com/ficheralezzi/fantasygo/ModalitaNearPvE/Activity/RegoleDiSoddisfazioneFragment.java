@@ -57,22 +57,6 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
             setOneProgressBarListener(viewFragment, nomiParametri.get(i));
         }
 
-        /*
-        viewTablev2.addView(createOneRow(inflater, container, R.string.oro_minimo, getContext().getResources().getInteger(R.integer.oro_minimo_max)));
-        viewTablev2.addView(createOneRow(inflater, container, R.string.punti_esperienza_minimi, getContext().getResources().getInteger(R.integer.punti_esperienza_minimi_max)));
-        viewTablev2.addView(createOneRow(inflater, container, R.string.numero_di_battaglie, getContext().getResources().getInteger(R.integer.numero_di_battaglie_max)));
-        String idPersonaggioSceltov2 = MModalitàNearPvEObserver.getSingletoneInstance().getIdPersonaggioScelto();
-        //String idPersonaggioSceltov2 = getOneArg("idPersonaggioScelto");
-        viewTablev2.addView(createOneRow(inflater, container, R.string.punti_ferita_minimi, MGiocatore.getSingletoneInstance().getOnePersonaggioById(idPersonaggioSceltov2).getCaratteristiche().getPuntiFeritaMax()));
-
-        setOneProgressBarListener(viewFragment, R.string.oro_minimo);
-        setOneProgressBarListener(viewFragment, R.string.punti_esperienza_minimi);
-        setOneProgressBarListener(viewFragment, R.string.numero_di_battaglie);
-        setOneProgressBarListener(viewFragment, R.string.punti_ferita_minimi);
-        */
-
-        //si potrebbe modificare il codice qui sopra e popolare la tabella e inserire gli ascoltatori sulle seekbar in modo dinamico a partire da un array di valori che indicano le row che servono
-
         return viewFragment;
     }
 
@@ -146,15 +130,6 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
         for (int i = 0; i < nomiParametri.size(); i++){
             valori.put(nomiParametri.get(i), ((SeekBar) getView().findViewWithTag(nomiParametri.get(i))).getProgress());
         }
-
-        /*
-        int oroMinimoScelto = ((SeekBar) getView().findViewWithTag(R.string.oro_minimo)).getProgress();
-        int puntiEsperienzaMinimiScelti = ((SeekBar) getView().findViewWithTag(R.string.punti_esperienza_minimi)).getProgress();
-        int numeroDiBattaglieScelte = ((SeekBar) getView().findViewWithTag(R.string.numero_di_battaglie)).getProgress();
-        int puntiFeritaMinimiScelti = ((SeekBar) getView().findViewWithTag(R.string.punti_ferita_minimi)).getProgress();
-
-        MModalitàNearPvEObserver.getSingletoneInstance().enterRegolediSoddisfazione(oroMinimoScelto, puntiEsperienzaMinimiScelti, numeroDiBattaglieScelte, puntiFeritaMinimiScelti);
-        */
 
         MModalitàNearPvEObserver.getSingletoneInstance().enterRegolediSoddisfazione(valori);
     }

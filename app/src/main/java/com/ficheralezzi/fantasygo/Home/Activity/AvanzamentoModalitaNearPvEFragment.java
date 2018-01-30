@@ -29,7 +29,6 @@ import java.util.TimerTask;
  */
 
 public class AvanzamentoModalitaNearPvEFragment extends Fragment {
-
     private static final String TAG = "AvanzModNearPvEFragment";
     private static final int TIME_VIEW_REFRESH = 500;
     private Timer mTimer;
@@ -48,8 +47,6 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         ViewGroup avanzamentoModNearPvE =  (ViewGroup) inflater.inflate(R.layout.fragment_avanzamento_mod_near_pve, null);
         ((FrameLayout) view.findViewById(R.id.avanzamento_mod_near_pve_container)).addView(avanzamentoModNearPvE);
 
-        //set id nella variabile e nome nella view del personaggio corrente
-        //sarebbe da fare in modo che esista una classe che gira in background per i caso d'uso mod near pve
         mIdPersonaggioCorrente = MGiocatore.getSingletoneInstance().getPersonaggi().get(0).getId();
         System.out.println(MGiocatore.getSingletoneInstance().getPersonaggi().get(0).getId());
         ((TextView) view.findViewById(R.id.nomePersonaggio)).setText(MGiocatore.getSingletoneInstance().getOnePersonaggioById(mIdPersonaggioCorrente).getNome());
@@ -196,7 +193,6 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
      * visualizzare il tasto "OK" per uscire
      * @param resStringId Messaggio da visualizzare nell'AlertDialog
      */
-
     private void showDialogEndModNearPvE(final int resStringId, final Activity activity){
 
         ((SwipeHomeActivity) activity).moveToFirstPage();
@@ -241,6 +237,5 @@ public class AvanzamentoModalitaNearPvEFragment extends Fragment {
         });
 
         controlloTermineUltimaBattaglia.start();
-
     }
 }

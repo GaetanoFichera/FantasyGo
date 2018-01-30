@@ -2,7 +2,6 @@ package com.ficheralezzi.fantasygo.Utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -72,7 +71,7 @@ public class NetworkManager {
         Toast.makeText(context, "Connessione non Disponibile", Toast.LENGTH_SHORT).show();
     }
 
-    public static void updateLocationOnServer(Context context) throws JSONException {
+    public static void updateLocationOnServer(VolleyResponseListener volleyResponseListener, Context context) throws JSONException {
         Messaggio messaggio = new Messaggio();
 
         ArrayList<String> datiGiocatore = new ArrayList<>();
@@ -87,13 +86,13 @@ public class NetworkManager {
 
         String Url = getUrl(context, UPDATE_LOCATION);
 
-        Volley.sendJSON(context, Url, messaggio);
+        VolleyManager.sendJSON(volleyResponseListener, context, Url, messaggio);
     }
 
-    public static void testConnection(Context context) throws JSONException {
+    public static void testConnection(VolleyResponseListener volleyResponseListener, Context context) throws JSONException {
         String Url = getUrl(context, TEST_CONNECTION);
 
-        Volley.sendJSON(context, Url, new Messaggio());
+        VolleyManager.sendJSON(volleyResponseListener, context, Url, new Messaggio());
     }
 
     //in base al valore di intention viene creato l'url desiderato

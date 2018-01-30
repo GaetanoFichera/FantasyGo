@@ -42,37 +42,6 @@ import java.util.Observer;
  */
 
 public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallback, Observer {
-
-    /*
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_avvia_modalita, container, false);
-        setButtonListener(view);
-        return view;
-    }
-
-    private void setButtonListener(View v){
-        Button button = ((Button) v.findViewById(R.id.button_avvia_modNearPvE));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(NetworkManager.isOnline(getActivity())){
-
-                    MModalitàNearPvEObserver.getSingletoneInstance().destroy();
-                    MModalitàNearPvEObserver.getSingletoneInstance().init();
-                    MModalitàNearPvEObserver.getSingletoneInstance().createModalità();
-
-                    ((com.ficheralezzi.fantasygo.Home.Activity.SwipeHomeActivity) getActivity()).goToModNearPve();
-                }else{
-                    NetworkManager.showToastOffline(getContext());
-                }
-
-            }
-        });
-    }
-    */
-
     private static final String TAG = "AvviaModalitaFragment";
     private static final LatLng LAQUILA = new LatLng(42.354008,13.391992);
     private GoogleMap mMap;
@@ -158,7 +127,6 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
         mMap.setBuildingsEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        //commentato perchè troppo pesante per il tablet
         KmlLayer layer = new KmlLayer(mMap, R.raw.kml_laquila, context);
         layer.addLayerToMap();
 

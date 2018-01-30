@@ -5,8 +5,12 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
+import com.ficheralezzi.fantasygo.Utils.Messaggio;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
+import com.ficheralezzi.fantasygo.Utils.VolleyResponseListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,12 +48,6 @@ public class MGpsObservableObserver extends Observable implements Observer {
         this.longitude = longitude;
     }
 
-    public void randomPosition (){
-
-        this.setLatitude(42.368089);
-        this.setLongitude(13.352198);
-    }
-
     public void updateLocation(Context context, Location location) throws JSONException {
         try{
             this.setLatitude(location.getLatitude());
@@ -57,8 +55,27 @@ public class MGpsObservableObserver extends Observable implements Observer {
 
             Log.i(TAG, "Lat: " + String.valueOf(latitude) + " Long: " + String.valueOf(longitude));
 
-            //NetworkManager.updateLocationOnServer(context, location);
-            NetworkManager.updateLocationOnServer(context);
+            VolleyResponseListener volleyResponseListener = new VolleyResponseListener() {
+                @Override
+                public void requestStarted() {
+
+                }
+
+                @Override
+                public void requestCompleted(Messaggio messaggioResponse) {
+                    Log.i(TAG, "Richiesta Volley Completata in update Location");
+                    String idNuovaZonaDiCaccia = ((String) messaggioResponse.getObject());
+
+                    MZonaDiCaccia.getSingletoneInstance().update(idNuovaZonaDiCaccia);
+                }
+
+                @Override
+                public void requestEndedWithError(VolleyError error) {
+
+                }
+            };
+
+            NetworkManager.updateLocationOnServer(volleyResponseListener, context);
             notifyObservers();
         }catch (Exception e){
             Log.i(TAG, "Errore: " + e);
