@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MZonaDiCaccia;
 import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
 import com.ficheralezzi.fantasygo.Utils.PlayAudio;
 import com.ficheralezzi.fantasygo.Utils.SwipeHomeCollectionAdapter;
@@ -197,7 +198,10 @@ public class SwipeHomeActivity extends FragmentActivity {
     public void startLocation(){
         Log.i(TAG, "sono in start location");
         LocationListeningServiceObservable locationListeningServiceObservable = new LocationListeningServiceObservable(this);
+        //aggiungo MGiocatore agli Osservatori di Location Listening
         locationListeningServiceObservable.addObserver(MGiocatore.getSingletoneInstance());
+        //aggiungo MZonaDiCaccia agli Osservatori di MGiocatore
+        MGiocatore.getSingletoneInstance().addObserver(MZonaDiCaccia.getSingletoneInstance());
         if (!locationListeningServiceObservable.startLocation(this)) {
             Log.i(TAG, "Non ho i permessi di Location, dammeli per favore!");
             checkLocationPermission();

@@ -1,18 +1,21 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 
+import android.location.Location;
 import android.util.Log;
 
 import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
 import com.ficheralezzi.fantasygo.Utils.Posizione;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 /**
  * Created by ASUS on 09/03/2017.
  */
 
-public class MZonaDiCaccia {
+public class MZonaDiCaccia implements Observer {
 
     private static final String TAG = "MZonaDiCaccia";
     private ArrayList<MMostro> mostri = null;
@@ -102,6 +105,8 @@ public class MZonaDiCaccia {
     }
 
     public void update(double latitudine, double longitudine){
+        Log.i(TAG, "A MZonaDiCaccia è stata mandata la nuova Posizione: " + latitudine + " - " + longitudine);
+
         if(this.area == null || this.mostri == null) {
             this.area = getAreaFromDb(latitudine, longitudine);
             this.mostri = getMostriFromDb(this.area.getId());
@@ -112,29 +117,6 @@ public class MZonaDiCaccia {
             }
         }
         Log.i("mostri", this.mostri.toString());
-    }
-
-    /**
-     * Provo ad Aggiornare la Zona di Caccia nel caso in cui l'ID ricevuto sia diverso oppure se la Zona di Caccia non sia già istanziata
-     * @param idNuovaArea
-     */
-    public void update(String idNuovaArea){
-        /* implementare
-        //controllo se non è stata già inizializzata
-        if(this.area == null && this.mostri == null) {
-            this.area = getAreaFromDb(idNuovaArea);
-            this.mostri = getMostriFromDb(idNuovaArea);
-            this.singletoneinstance = this;
-        } else{
-            //aggiorno se l'id ricevuto è diverso da quello memorizzato
-            if (this.area.getId() != idNuovaArea){
-                this.area = getAreaFromDb(idNuovaArea);
-                this.mostri = getMostriFromDb(idNuovaArea);
-                this.singletoneinstance = this;
-            }
-        }
-        */
-        Log.i(TAG, "ID Nuova Zona Di Caccia: " + idNuovaArea);
     }
 
     public int getRicompensa(String id){
@@ -162,7 +144,12 @@ public class MZonaDiCaccia {
     }
 
     public boolean IsInZonaDiCaccia(double latitude, double longitude) {
-        //da implementare
-        return true;
+        return this.area.checkPuntiInterni(latitude, longitude);
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        Location location = ((Location) o);
+        update(location.getLatitude(), location.getLongitude());
     }
 }

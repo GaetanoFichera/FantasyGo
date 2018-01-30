@@ -34,7 +34,7 @@ public class MArea {
     }
 
     public boolean checkPuntiInterni(double latitudine, double longitudine){
-        //da implementare
+        //da implementare prendendo l'algoritmo presente sul Server
         return true;
     }
 }
