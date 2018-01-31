@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.R;
 
@@ -71,7 +72,7 @@ public class NetworkManager {
         Toast.makeText(context, "Connessione non Disponibile", Toast.LENGTH_SHORT).show();
     }
 
-    public static void updateLocationOnServer(VolleyResponseListener volleyResponseListener, Context context) throws JSONException {
+    public static void updateLocationOnServer(Context context) throws JSONException {
         Messaggio messaggio = new Messaggio();
 
         ArrayList<String> datiGiocatore = new ArrayList<>();
@@ -86,13 +87,30 @@ public class NetworkManager {
 
         String Url = getUrl(context, UPDATE_LOCATION);
 
-        VolleyManager.sendJSON(volleyResponseListener, context, Url, messaggio);
+        VolleyManager.sendJSON(context, Url, messaggio);
     }
 
-    public static void testConnection(VolleyResponseListener volleyResponseListener, Context context) throws JSONException {
+    public static void testConnection(Context context) throws JSONException {
         String Url = getUrl(context, TEST_CONNECTION);
 
-        VolleyManager.sendJSON(volleyResponseListener, context, Url, new Messaggio());
+        VolleyResponseListener volleyResponseListener = new VolleyResponseListener() {
+            @Override
+            public void requestStarted() {
+
+            }
+
+            @Override
+            public void requestCompleted(Messaggio messaggioResponse) {
+                Log.i(TAG, "Id nuova Zona di caccia: " + ((String) messaggioResponse.getObject()));
+            }
+
+            @Override
+            public void requestEndedWithError(VolleyError error) {
+
+            }
+        };
+
+        VolleyManager.sendJSONwithResponse(volleyResponseListener, context, Url, new Messaggio());
     }
 
     //in base al valore di intention viene creato l'url desiderato

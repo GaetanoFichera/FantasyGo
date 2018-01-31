@@ -55,27 +55,7 @@ public class MGpsObservableObserver extends Observable implements Observer {
 
             Log.i(TAG, "Lat: " + String.valueOf(latitude) + " Long: " + String.valueOf(longitude));
 
-            VolleyResponseListener volleyResponseListener = new VolleyResponseListener() {
-                @Override
-                public void requestStarted() {
-
-                }
-
-                @Override
-                public void requestCompleted(Messaggio messaggioResponse) {
-                    Log.i(TAG, "Richiesta Volley Completata in update Location");
-                    String idNuovaZonaDiCaccia = ((String) messaggioResponse.getObject());
-
-                    MZonaDiCaccia.getSingletoneInstance().update(idNuovaZonaDiCaccia);
-                }
-
-                @Override
-                public void requestEndedWithError(VolleyError error) {
-
-                }
-            };
-
-            NetworkManager.updateLocationOnServer(volleyResponseListener, context);
+            NetworkManager.updateLocationOnServer(context);
             notifyObservers();
         }catch (Exception e){
             Log.i(TAG, "Errore: " + e);
