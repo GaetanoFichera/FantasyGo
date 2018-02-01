@@ -149,7 +149,7 @@ public class MZonaDiCaccia implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        Location location = ((Location) o);
-        update(location.getLatitude(), location.getLongitude());
+        MGiocatore mGiocatore = ((MGiocatore) observable);
+        update(mGiocatore.getLatitude(), mGiocatore.getLongitude());
     }
 }

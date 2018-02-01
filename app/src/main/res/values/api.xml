@@ -6,6 +6,7 @@
     <string name="Server_Api">ApiFantasyGo</string>
 
     <string name="Test_Api">ApiTest</string>
+    <string name="Giocatore_Api">ApiGiocatore</string>
 
     <string name="TestConnection_Api">TestConnection</string>
     <string name="TestDb_Api">TestDb</string>

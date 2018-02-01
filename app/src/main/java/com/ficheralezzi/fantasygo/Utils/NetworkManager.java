@@ -119,7 +119,7 @@ public class NetworkManager {
 
         if (intention == TEST_DB) Url += (urlSeparator + context.getString(R.string.Test_Api) + urlSeparator + context.getString(R.string.TestDb_Api));
         else if (intention == TEST_CONNECTION) Url += (urlSeparator + context.getString(R.string.Test_Api) + urlSeparator + context.getString(R.string.TestConnection_Api));
-        else if (intention == UPDATE_LOCATION) Url += (urlSeparator + context.getString(R.string.Test_Api) + urlSeparator + context.getString(R.string.UpdateLocation_Api));
+        else if (intention == UPDATE_LOCATION) Url += (urlSeparator + context.getString(R.string.Giocatore_Api) + urlSeparator + context.getString(R.string.UpdateLocation_Api));
 
         Log.i(TAG, "Url: " + Url);
 
