@@ -14,6 +14,7 @@ import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MEquipaggiamento;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.R;
+import com.ficheralezzi.fantasygo.Utils.DbManager;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DbManager.getSingletoneInstance().init(this);
 
         updateMineDb();
         updateInfoGiocatore();

@@ -37,6 +37,14 @@ public class MArea {
         //da implementare prendendo l'algoritmo presente sul Server
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "MArea{" +
+                "confini=" + confini +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }
 
 

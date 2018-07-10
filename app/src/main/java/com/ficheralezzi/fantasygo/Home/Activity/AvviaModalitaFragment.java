@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGpsObservableObserver;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -72,9 +72,9 @@ public class AvviaModalitaFragment extends Fragment implements OnMapReadyCallbac
             public void onClick(View view) {
                 if (NetworkManager.isOnline(getActivity())) {
 
-                    MModalitàNearPvEObserver.getSingletoneInstance().destroy();
-                    MModalitàNearPvEObserver.getSingletoneInstance().init();
-                    MModalitàNearPvEObserver.getSingletoneInstance().createModalità();
+                    MModalitàNearPvE.getSingletoneInstance().destroy();
+                    MModalitàNearPvE.getSingletoneInstance().init();
+                    MModalitàNearPvE.getSingletoneInstance().createModalità();
 
                     ((com.ficheralezzi.fantasygo.Home.Activity.SwipeHomeActivity) getActivity()).goToModNearPve();
                 } else {

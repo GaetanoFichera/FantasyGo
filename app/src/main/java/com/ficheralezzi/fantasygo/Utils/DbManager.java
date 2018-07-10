@@ -3,13 +3,20 @@ package com.ficheralezzi.fantasygo.Utils;
 import android.content.Context;
 import android.util.Log;
 
+import com.ficheralezzi.fantasygo.ElaboraBattaglia.Model.MCaratteristiche;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MArea;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MEquipaggiamento;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MMostro;
+
+import java.util.ArrayList;
 
 /**
  * Created by gaetano on 11/07/17.
  */
 
 public class DbManager {
+    private static final String TAG = "DbManager";
     private UserPreferencesManager myUserPrefsManager;
     private static DbManager singletoneinstance = null;
 
@@ -32,20 +39,39 @@ public class DbManager {
 
     /**i dati sono memorizzati in 3 punti diversi:
      * 1- nelle variabili al momento esistenti in memoria
-     * 2- nel db intento dell'app (all'interno di UserPreferences
+     * 2- nel db interno all'app (all'interno di UserPreferences)
      * 3- nel db remoto
      *
      * questa fuonzione dovrebbe essere capace di capire chi tra le tre è la più aggiornata e chi
      * deve essere aggiornata
      *
-     * sarebbe ancora meglio se si riesce a riconoscere quali parti sono da aggiornare per ogni singolo
-     * punto e fare così degli update mirati
+     * sarebbe ancora meglio se si riuscisse a riconoscere quali parti sarebbero da aggiornare per ogni singolo
+     * punto così da aggiungere aggiornamenti mirati
      */
 
     public void updateDb(){}
 
-    /**mi stavo chiedendo anche se questa classe DbManager sia responsabile della conoscenza dei model
-     * presenti nel gioco e quindi va ad aggiornare i vari db sapendo che sta aggiornando ad esempio i
-     * personaggi e il giocatore OPPURE aggiorna senza sapere cosa sta aggiornando
-     */
+    public MArea getAreaByLocation(double latitudine, double longitudine){
+        //da implementare con interazione col db
+        Posizione posizione = new Posizione(latitudine, longitudine);
+        ArrayList<Posizione> confini = new ArrayList<Posizione>();
+        confini.add(posizione);
+        String id = "Area51";
+        MArea area = new MArea(confini, id);
+
+
+
+        return area;
+    }
+
+    public ArrayList<MMostro> getMostriByIdArea(String idArea){
+        //da implementare con interazione col db
+        MCaratteristiche caratteristichemostro = new MCaratteristiche(1, 500, 500, 10, 8, 5, 4, 6, "DardoInfuocato", 0, 10, "Mag");
+        MEquipaggiamento equipaggiamentoMostro = new MEquipaggiamento("W001", "A01");
+        ArrayList<MMostro> mostri= new ArrayList<>();
+        MMostro mostro = new MMostro("M0001", caratteristichemostro, equipaggiamentoMostro,19);
+        mostri.add(mostro);
+        //aggiungere mostri manualmente nell'array
+        return mostri;
+    }
 }

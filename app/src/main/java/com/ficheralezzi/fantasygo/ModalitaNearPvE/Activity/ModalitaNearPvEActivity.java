@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.RegoleDiSoddisfazione.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.UserPreferencesManager;
@@ -48,10 +48,10 @@ public class ModalitaNearPvEActivity extends AppCompatActivity {
 
     public void avviaModalità() {
 
-        Log.i(TAG, "Modalità Avviata con il personaggio: " + MGiocatore.getSingletoneInstance().getOnePersonaggioById(MModalitàNearPvEObserver.getSingletoneInstance().getIdPersonaggioScelto()).getNome());
+        Log.i(TAG, "Modalità Avviata con il personaggio: " + MGiocatore.getSingletoneInstance().getOnePersonaggioById(MModalitàNearPvE.getSingletoneInstance().getIdPersonaggioScelto()).getNome());
         Log.i(TAG, "Le Regole di Soddisfazione sono " + MRegoleDiSoddisfazione.getSingletoneInstance().toString());
 
-        MModalitàNearPvEObserver.getSingletoneInstance().avviaModalità();
+        MModalitàNearPvE.getSingletoneInstance().avviaModalità();
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("avviare mod near pve", "avvia");

@@ -72,13 +72,13 @@ public class NetworkManager {
         Toast.makeText(context, "Connessione non Disponibile", Toast.LENGTH_SHORT).show();
     }
 
-    public static void updateLocationOnServer(Context context) throws JSONException {
+    public static void updateLocationOnServer(Context context, String idGiocatore, double latitudine, double longitudine) throws JSONException {
         Messaggio messaggio = new Messaggio();
 
         ArrayList<String> datiGiocatore = new ArrayList<>();
-        datiGiocatore.add(MGiocatore.getSingletoneInstance().getId());
-        datiGiocatore.add(String.valueOf(MGiocatore.getSingletoneInstance().getLatitude()));
-        datiGiocatore.add(String.valueOf(MGiocatore.getSingletoneInstance().getLongitude()));
+        datiGiocatore.add(idGiocatore);
+        datiGiocatore.add(String.valueOf(latitudine));
+        datiGiocatore.add(String.valueOf(longitudine));
 
         messaggio.setMessaggio(UPDATE_LOCATION);
         messaggio.setObject(datiGiocatore);
@@ -101,7 +101,7 @@ public class NetworkManager {
 
             @Override
             public void requestCompleted(Messaggio messaggioResponse) {
-                Log.i(TAG, "Id nuova Zona di caccia: " + ((String) messaggioResponse.getObject()));
+                Log.i(TAG, "Id nuova Zona di Caccia: " + ((String) messaggioResponse.getObject()));
             }
 
             @Override

@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomListFragment;
 
@@ -58,9 +58,9 @@ public class SceltaPersonaggioFragment extends CustomListFragment{
     }
 
     private void goToRegoleDiSoddisfazioneFragment(){
-        MModalitàNearPvEObserver.getSingletoneInstance().destroy(); //vedere se si può resettare un singleton
-        MModalitàNearPvEObserver.getSingletoneInstance().init();
-        MModalitàNearPvEObserver.getSingletoneInstance().selezionaPersonaggio(idPersonaggioScelto);
+        MModalitàNearPvE.getSingletoneInstance().destroy(); //vedere se si può resettare un singleton
+        MModalitàNearPvE.getSingletoneInstance().init();
+        MModalitàNearPvE.getSingletoneInstance().selezionaPersonaggio(idPersonaggioScelto);
 
         RegoleDiSoddisfazioneFragment regoleDiSoddisfazioneFragment = new RegoleDiSoddisfazioneFragment();
         //setOneArgToNextFragment(regoleDiSoddisfazioneFragment, "idPersonaggioScelto", idPersonaggioScelto);

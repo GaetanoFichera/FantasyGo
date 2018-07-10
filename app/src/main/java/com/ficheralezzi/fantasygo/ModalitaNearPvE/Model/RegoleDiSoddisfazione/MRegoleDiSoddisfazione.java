@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.IRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -93,7 +93,7 @@ public class MRegoleDiSoddisfazione implements IRegoleDiSoddisfazione{
         parametri.put("Oro Minimo", 9999);
         parametri.put("Punti Esperienza Minimi", 9999);
         parametri.put("Numero di Battaglie", 999);
-        parametri.put("Punti Ferita Minimi", MGiocatore.getSingletoneInstance().getOnePersonaggioById(MModalitàNearPvEObserver.getSingletoneInstance().getIdPersonaggioScelto()).getCaratteristiche().getPuntiFeritaMax());
+        parametri.put("Punti Ferita Minimi", MGiocatore.getSingletoneInstance().getOnePersonaggioById(MModalitàNearPvE.getSingletoneInstance().getIdPersonaggioScelto()).getCaratteristiche().getPuntiFeritaMax());
 
         return parametri;
     }
@@ -138,10 +138,10 @@ public class MRegoleDiSoddisfazione implements IRegoleDiSoddisfazione{
     public boolean regoleSoddisfatte(){
         boolean controllo = false;
 
-        int oro = MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale().getOro();
-        int puntiEsperienza = MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale().getPuntiEsperienza();
-        int puntiFerita = MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale().getPuntiFerita();
-        int numeroDiBattaglie = MModalitàNearPvEObserver.getSingletoneInstance().getRisultatoFinale().getNumeroDiBattaglie();
+        int oro = MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getOro();
+        int puntiEsperienza = MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getPuntiEsperienza();
+        int puntiFerita = MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getPuntiFerita();
+        int numeroDiBattaglie = MModalitàNearPvE.getSingletoneInstance().getRisultatoFinale().getNumeroDiBattaglie();
 
         if(this.oroMinimo <= oro || this.puntiEsperienzaMinimi <= puntiEsperienza || this.puntiFeritaMinimi >= puntiFerita ||
                 this.numeroDiBattaglie <= numeroDiBattaglie){

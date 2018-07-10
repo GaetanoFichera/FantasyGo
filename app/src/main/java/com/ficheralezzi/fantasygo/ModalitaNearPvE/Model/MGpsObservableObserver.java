@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.ficheralezzi.fantasygo.Repository.GiocatoreRepo;
 import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
 import com.ficheralezzi.fantasygo.Utils.Messaggio;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
@@ -48,26 +49,12 @@ public class MGpsObservableObserver extends Observable implements Observer {
         this.longitude = longitude;
     }
 
-    public void updateLocation(Context context, Location location) throws JSONException {
-        try{
-            this.setLatitude(location.getLatitude());
-            this.setLongitude(location.getLongitude());
-
-            Log.i(TAG, "Lat: " + String.valueOf(latitude) + " Long: " + String.valueOf(longitude));
-
-            NetworkManager.updateLocationOnServer(context);
-            notifyObservers();
-        }catch (Exception e){
-            Log.i(TAG, "Errore: " + e);
-        }
-
-    }
+    public void updateLocation(Context context, Location location){}
 
     @Override
     public synchronized void deleteObserver(Observer o) {
         super.deleteObserver(o);
         this.observers.remove(o);
-
     }
 
     @Override
@@ -91,12 +78,8 @@ public class MGpsObservableObserver extends Observable implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Observable o, Object arg){
         Location location = ((LocationListeningServiceObservable) o).getLocation();
-        try {
-            updateLocation(((LocationListeningServiceObservable) o).context, location);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        updateLocation(((LocationListeningServiceObservable) o).context, location);
     }
 }

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MGiocatore;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MPersonaggio;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.RegoleDiSoddisfazione.MRegoleDiSoddisfazione;
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomFragment;
 import com.ficheralezzi.fantasygo.Utils.NetworkManager;
@@ -51,7 +51,7 @@ public class RiepilogoFragment extends CustomFragment{
 
     public void riempiTableCaratteristiche(View view){
 
-        MPersonaggio mPersonaggio = MGiocatore.getSingletoneInstance().getOnePersonaggioById(MModalitàNearPvEObserver.getSingletoneInstance().getIdPersonaggioScelto());
+        MPersonaggio mPersonaggio = MGiocatore.getSingletoneInstance().getOnePersonaggioById(MModalitàNearPvE.getSingletoneInstance().getIdPersonaggioScelto());
 
         TableRow tableRowNome = ((TableRow) view.findViewById(R.id.tableNome));
         TextView textViewNome = ((TextView) tableRowNome.findViewById(R.id.nome));

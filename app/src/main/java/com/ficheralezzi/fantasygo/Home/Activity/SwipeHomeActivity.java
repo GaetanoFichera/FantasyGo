@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MZonaDiCaccia;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.MZonaDiCacciaObserver;
 import com.ficheralezzi.fantasygo.Utils.LocationListeningServiceObservable;
 import com.ficheralezzi.fantasygo.Utils.PlayAudio;
 import com.ficheralezzi.fantasygo.Utils.SwipeHomeCollectionAdapter;
@@ -58,7 +58,7 @@ public class SwipeHomeActivity extends FragmentActivity {
         initTabsLayout(tabLayout);
         mTabLayout = tabLayout;
 
-        //playAudio();
+        playAudio();
     }
 
     //funzione per settare icone alle tab... sarebbe da migliorare
@@ -177,19 +177,19 @@ public class SwipeHomeActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //stopAudio();
+        stopAudio();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //playAudio();
+        playAudio();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //stopAudio();
+        stopAudio();
     }
 
     //start location prova ad avviare la raccolta dei dati gps, nel caso non sia possibile
@@ -200,8 +200,8 @@ public class SwipeHomeActivity extends FragmentActivity {
         LocationListeningServiceObservable locationListeningServiceObservable = new LocationListeningServiceObservable(this);
         //aggiungo MGiocatore agli Osservatori di Location Listening
         locationListeningServiceObservable.addObserver(MGiocatore.getSingletoneInstance());
-        //aggiungo MZonaDiCaccia agli Osservatori di MGiocatore
-        MGiocatore.getSingletoneInstance().addObserver(MZonaDiCaccia.getSingletoneInstance());
+        //aggiungo MZonaDiCacciaObserver agli Osservatori di MGiocatore
+        MGiocatore.getSingletoneInstance().addObserver(MZonaDiCacciaObserver.getSingletoneInstance());
         if (!locationListeningServiceObservable.startLocation(this)) {
             Log.i(TAG, "Non ho i permessi di Location, dammeli per favore!");
             checkLocationPermission();

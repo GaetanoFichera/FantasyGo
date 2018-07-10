@@ -1,6 +1,10 @@
 package com.ficheralezzi.fantasygo.ModalitaNearPvE.Model;
 
+import android.content.Context;
+import android.location.Location;
 import android.util.Log;
+
+import com.ficheralezzi.fantasygo.Repository.GiocatoreRepo;
 
 import java.util.ArrayList;
 
@@ -10,6 +14,7 @@ import java.util.ArrayList;
 
 public class MGiocatore extends MGpsObservableObserver {
 
+    private static final String TAG = "MGiocatore";
     private String id;
     private ArrayList<MPersonaggio> personaggi;
     private String nome;
@@ -80,11 +85,11 @@ public class MGiocatore extends MGpsObservableObserver {
         for(int i=0; i <= this.personaggi.size()-1 && personaggio == null; i++){
             if(this.personaggi.get(i).getNome() == nome){
                 personaggio = this.personaggi.get(i);
-                Log.i("MGiocatore", "Personaggio con Nome Trovato");
+                Log.i(TAG, "Personaggio con Nome Trovato");
             }
         }
         if(personaggio == null){
-            Log.i("MGiocatore", "Personaggio con Nome non Trovato");
+            Log.i(TAG, "Personaggio con Nome non Trovato");
         }
         return personaggio;
     }
@@ -95,5 +100,21 @@ public class MGiocatore extends MGpsObservableObserver {
             idsPersonaggi.add(this.personaggi.get(i).getNome());
         }
         return idsPersonaggi;
+    }
+
+    @Override
+    public void updateLocation(Context context, Location location) {
+        super.updateLocation(context, location);
+        try{
+            this.setLatitude(location.getLatitude());
+            this.setLongitude(location.getLongitude());
+
+            Log.i(TAG, "Nuova Posizione - Lat: " + String.valueOf(this.getLatitude()) + " Long: " + String.valueOf(this.getLongitude()));
+
+            GiocatoreRepo.saveLocation(this.getId(), this.getLatitude(), this.getLongitude(), context);
+            notifyObservers();
+        }catch (Exception e){
+            Log.i(TAG, "Errore: " + e);
+        }
     }
 }

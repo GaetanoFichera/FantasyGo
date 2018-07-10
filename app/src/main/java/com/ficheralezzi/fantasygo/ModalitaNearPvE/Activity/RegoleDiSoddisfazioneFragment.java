@@ -11,7 +11,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvEObserver;
+import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.Modalità.MModalitàNearPvE;
 import com.ficheralezzi.fantasygo.ModalitaNearPvE.Model.RegoleDiSoddisfazione.MRegoleDiSoddisfazione;
 import com.ficheralezzi.fantasygo.R;
 import com.ficheralezzi.fantasygo.Utils.CustomFragment;
@@ -131,7 +131,7 @@ public class RegoleDiSoddisfazioneFragment extends CustomFragment{
             valori.put(nomiParametri.get(i), ((SeekBar) getView().findViewWithTag(nomiParametri.get(i))).getProgress());
         }
 
-        MModalitàNearPvEObserver.getSingletoneInstance().enterRegolediSoddisfazione(valori);
+        MModalitàNearPvE.getSingletoneInstance().enterRegolediSoddisfazione(valori);
     }
 
     private void goToRiepilogoFragment(){
