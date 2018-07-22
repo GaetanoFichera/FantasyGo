@@ -75,7 +75,7 @@ public class VolleyManager {
             e.printStackTrace();
         }
 
-        Log.i(TAG, jsonObject.toString());
+        Log.i(TAG, "JSON da inviare: " + jsonObject.toString());
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Url, jsonObject,  new Response.Listener<JSONObject>() {
             @Override
